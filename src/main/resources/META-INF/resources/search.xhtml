@@ -1,0 +1,24 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      template="template.xhtml">
+
+
+    <ui:define name="content">
+        <h:form id="formManageBookingsSearch">
+            <div class="ui-g ui-fluid card">
+                    <div class="ui-g-12">
+                        <h:outputText  value="Reservas por recurso" class="title" />
+                    </div>
+
+                    <div class="ui-g-12">
+                        <h:outputText value="Selecciona una fecha y ubicación para visualizar los recursos disponibles y gestionar sus reservas."/>
+                    </div>
+            </div>
+            
+            <h:outputStylesheet name="search.css"/>
+        </h:form>
+    </ui:define>
+</ui:composition>

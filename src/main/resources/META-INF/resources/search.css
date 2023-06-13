@@ -1,0 +1,16 @@
+
+/* 
+    Created on : 13 jun. 2023, 20:49:02
+    Author     : aitor
+*/
+
+.title {
+    font-size: 32px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    color: #000;
+}
+
