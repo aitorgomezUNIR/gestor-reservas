@@ -11,16 +11,31 @@
         <h:body>
 
             <div class="topbar">
-                <p:graphicImage value="/images/logo.png" style="position: relative; left: 50%; right: 50%; top: 15%; bottom: 50%" width="40" height="40"/>
+                <ui:remove>
+                    <div style="padding-top: 5px; padding-bottom: 10px; left: 50%; right: 50%; text-align: center;">
+                        <p:graphicImage value="/images/logo-2x.png" />
+                    </div>
+                </ui:remove>
             </div>
 
             <ui:include src="./menu.xhtml"></ui:include>
+
             <div class="layout-main">
+
+                <div class="route-bar">
+                    <div class="route-bar-breadcrumb">
+                        <i class="pi pi-home"></i>
+                        <span>/ </span>
+                        <ui:insert name="viewname" />
+                    </div>
+                </div>
+
                 <div class="layout-content">
                     <ui:insert name="content"/>
                 </div>
             </div>
             <h:outputStylesheet name="global.css"/>
+            <h:outputStylesheet name="overrides.css"/>
         </h:body>
     </f:view>
 </html>

@@ -143,62 +143,91 @@ body {
     font-family: "Helvetica Now Display", sans-serif;
     font-size: 14px;
     background-color: white;
+    margin: 0;
 }
 
 html {
     font-size: 14px;
 }
 
-.card {
-    background: #ffffff;
-    padding: 16px;
-    margin-bottom: 16px;
-    border: 1px solid #EEEEEE;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    display: flex;
-    position: relative;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, 50%);
-}
 
 .nopad {
     padding: 0;
 }
 
 .topbar {
-    width: 85%;
     height: 70px;
     background-color: white;
     position: fixed;
+    left: 250px;
     top:0;
-    right: 0px;
-    box-shadow: 0 2px 12px rgba(0,0,0,.12);
+    right: 0;
+    border-bottom: 1px solid rgba(92, 92, 92, 0.3);
+    z-index: 997;
 }
 
 .layout-menu-container {
     position: fixed;
-    width: 15%;
+    width: 250px;
     height:100%;
     z-index: 999;
-    background-color: rgba(33, 150, 243, 0.15);
+    background-color: rgba(47, 46, 92, 0.05);
+    border: solid 1px rgba(92, 92, 92, 0.3);
     top: 0;
     left: 0;
 }
 
 .layout-main {
-    padding-top: 60px;
+    padding-top: 70px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     min-height: 100vh;
+    margin-left:250px;
+
 }
 
 .layout-content {
     padding: 16px;
     flex: 1 1 0;
-    margin-left: 15%;
     margin-right: 0px;
+}
+
+.route-bar {
+
+    background-color: #ffffff;
+    border-bottom: 1px solid rgba(92, 92, 92, 0.3);
+    min-height: 32px;
+    left: 0;
+    right: 0;
+}
+
+.layout-logo {
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+.menu-title {
+    padding-top: 15px;
+    padding-left: 15px;
+    font-weight: bold;
+    font-size: 1.3em;
+    color: #2f2e5c;
+}
+
+.route-bar .route-bar-breadcrumb {
+  padding: 6px 25px;
+  display: inline-block;
+}
+.route-bar .route-bar-breadcrumb li {
+  margin-right: 0.25em;
+  list-style-type: none;
+  display: inline-block;
+  color: #000;
+}
+.route-bar .route-bar-breadcrumb li a {
+  color: #000;
+}
+.route-bar .route-bar-breadcrumb i, .layout-wrapper .route-bar .route-bar-breadcrumb span {
+  color: #000;
 }

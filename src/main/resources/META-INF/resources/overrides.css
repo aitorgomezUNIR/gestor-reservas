@@ -1,0 +1,40 @@
+
+/* 
+    Created on : 21 jun. 2023, 18:59:15
+    Author     : aitor
+*/
+body .ui-menu {
+    background-color: transparent;
+    border: 0;
+    width: 100%;
+    padding-left: 5px;
+}
+
+body .ui-menu .ui-menu-list .ui-widget-header {
+    background-color: transparent;
+}
+
+body .ui-menu .ui-menu-list .ui-widget-header h3 {
+    padding: 0;
+    font-weight: bold;
+    font-size: 1.3em;
+    color: #2f2e5c;
+    float: none;
+}
+
+body .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link .ui-menuitem-text {
+    float: none;
+    vertical-align: middle;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: normal;
+    color: #000;
+}
+body .ui-widget {
+    font-family: "Helvetica Now Display", sans-serif;
+    
+}
+
+

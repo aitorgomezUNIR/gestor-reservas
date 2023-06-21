@@ -5,11 +5,25 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="template.xhtml">
 
+    <ui:define name="viewname">
+        <li>
+            <h:outputText value="Organization"/>
+        </li>
+        <li>/</li>
+        <li>
+            <h:outputText value="Reservas" />
+        </li>
+        <li>/</li>
+        <li>
+            <h:outputText value="Buscar" />
+        </li>
+    </ui:define>
+
 
     <ui:define name="content">
         <h:form id="formManageBookingsSearch">
             <div class="ui-g">
-                <div class="ui-g-12 ui-fluid">
+                <div class="ui-g-12 ">
                     <div class="ui-g-12">
                         <h:outputText  value="Reservas" class="title" />
                     </div>
@@ -18,50 +32,53 @@
                         <h:outputText value="Selecciona una fecha y ubicación para visualizar los recursos disponibles y gestionar sus reservas."/>
                     </div>
 
-                    <div class="ui-g-12 nopad">
-                        <div class="ui-g-12">
-                            <p:outputLabel value="Edificios"/>
-                            <p:selectOneMenu id="selectMenuBuildings"
-                                             value="#{searchBean.selectedBuilding}"
-                                             converter="omnifaces.SelectItemsConverter"
-                                             placeholder="Selecciona un edificio"
-                                             filter="true"
-                                             filterMatchMode="contains">
-                                <f:selectItem itemValue="#{null}"/>
-                                <f:selectItems value="#{searchBean.buildings}"  var="building" itemValue="#{building}" itemLabel="#{building.name}"/>
-                                <p:ajax event="change" update="formManageBookingsSearch"/>
-                            </p:selectOneMenu>
+                    <div class="ui-g-8 nopad">
+                        <div class="ui-fluid">
+                            <div class="ui-g-3">
+                                <p:outputLabel value="Edificios"/>
+                                <p:selectOneMenu id="selectMenuBuildings"
+                                                 value="#{searchBean.selectedBuilding}"
+                                                 converter="omnifaces.SelectItemsConverter"
+                                                 placeholder="Selecciona un edificio"
+                                                 filter="true"
+                                                 filterMatchMode="contains">
+                                    <f:selectItem itemValue="#{null}"/>
+                                    <f:selectItems value="#{searchBean.buildings}"  var="building" itemValue="#{building}" itemLabel="#{building.name}"/>
+                                    <p:ajax listener="#{searchBean.onSelectedBuilding()}" event="change" update="formManageBookingsSearch"/>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="ui-g-3">
+                                <p:outputLabel value="Plantas"/>
+                                <p:selectOneMenu id="selectMenuFloors"
+                                                 value="#{searchBean.selectedFloor}"
+                                                 converter="omnifaces.SelectItemsConverter"
+                                                 placeholder="Selecciona una planta"
+                                                 filter="true"
+                                                 filterMatchMode="contains"
+                                                 disabled="#{searchBean.selectedBuilding == null}">
+                                    <f:selectItem itemValue="#{null}"/>
+                                    <f:selectItems value="#{searchBean.floors}" var="floor" itemValue="#{floor}" itemLabel="#{floor.name}"/>
+                                    <p:ajax listener="#{searchBean.onSelectedFloor()}" event="change" update="formManageBookingsSearch"/>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="ui-g-3">
+                                <p:outputLabel value="Fecha"/>
+                                <p:datePicker id="datePickerBookingSearch" value="#{searchBean.date}"
+                                              placeholder="Selecciona una fecha" readonlyInput="true"
+                                              showTime="false"
+                                              mindate="#{searchBean.minDate}"
+                                              disabled="#{searchBean.selectedFloor == null}"/>
+                            </div>
                         </div>
-                        <div class="ui-g-12">
-                            <p:outputLabel value="Plantas"/>
-                            <p:selectOneMenu id="selectMenuFloors"
-                                             value="#{searchBean.selectedBuilding}"
-                                             converter="omnifaces.SelectItemsConverter"
-                                             placeholder="Selecciona un edificio"
-                                             filter="true"
-                                             filterMatchMode="contains">
-                                <f:selectItem itemValue="#{null}"/>
-                                <f:selectItems value="#{searchBean.buildings}" var="floor" itemValue="#{floor}" itemLabel="#{floor.name}"/>
-                                <p:ajax event="change" update="formManageBookingsSearch"/>
-                            </p:selectOneMenu>
-                        </div>
-                        <div class="ui-g-12">
-                            <p:outputLabel value="Fecha"/>
-                            <p:datePicker id="datePickerBookingSearch" value="#{searchBean.date}"
-                                          placeholder="Selecciona una fecha" readonlyInput="true"
-                                          showTime="false"
-                                          >
-                                <p:ajax event="change" update="formManageBookingsSearch"/>
-                            </p:datePicker>
-                        </div>
-                    </div>
-                    <div class="ui-g-12 nopad">
-                        <div class="ui-g-3" style="margin-top: 20px;  float: right;">
+                        <div class="ui-g-3" style="margin-top: 17px;  float: right;">
                             <p:outputLabel />
                             <p:commandButton id="btnSearch" value="Buscar" actionListener="#{searchBean.search()}"
                                              />
 
                         </div>
+                    </div>
+                    <div class="ui-g-12 nopad">
+
                     </div>
                 </div>
             </div>
