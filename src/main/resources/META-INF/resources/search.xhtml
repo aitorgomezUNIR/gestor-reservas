@@ -1,23 +1,71 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      template="template.xhtml">
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="template.xhtml">
 
 
     <ui:define name="content">
         <h:form id="formManageBookingsSearch">
-            <div class="ui-g ui-fluid card">
+            <div class="ui-g">
+                <div class="ui-g-12 ui-fluid">
                     <div class="ui-g-12">
-                        <h:outputText  value="Reservas por recurso" class="title" />
+                        <h:outputText  value="Reservas" class="title" />
                     </div>
 
                     <div class="ui-g-12">
                         <h:outputText value="Selecciona una fecha y ubicación para visualizar los recursos disponibles y gestionar sus reservas."/>
                     </div>
+
+                    <div class="ui-g-12 nopad">
+                        <div class="ui-g-12">
+                            <p:outputLabel value="Edificios"/>
+                            <p:selectOneMenu id="selectMenuBuildings"
+                                             value="#{searchBean.selectedBuilding}"
+                                             converter="omnifaces.SelectItemsConverter"
+                                             placeholder="Selecciona un edificio"
+                                             filter="true"
+                                             filterMatchMode="contains">
+                                <f:selectItem itemValue="#{null}"/>
+                                <f:selectItems value="#{searchBean.buildings}"  var="building" itemValue="#{building}" itemLabel="#{building.name}"/>
+                                <p:ajax event="change" update="formManageBookingsSearch"/>
+                            </p:selectOneMenu>
+                        </div>
+                        <div class="ui-g-12">
+                            <p:outputLabel value="Plantas"/>
+                            <p:selectOneMenu id="selectMenuFloors"
+                                             value="#{searchBean.selectedBuilding}"
+                                             converter="omnifaces.SelectItemsConverter"
+                                             placeholder="Selecciona un edificio"
+                                             filter="true"
+                                             filterMatchMode="contains">
+                                <f:selectItem itemValue="#{null}"/>
+                                <f:selectItems value="#{searchBean.buildings}" var="floor" itemValue="#{floor}" itemLabel="#{floor.name}"/>
+                                <p:ajax event="change" update="formManageBookingsSearch"/>
+                            </p:selectOneMenu>
+                        </div>
+                        <div class="ui-g-12">
+                            <p:outputLabel value="Fecha"/>
+                            <p:datePicker id="datePickerBookingSearch" value="#{searchBean.date}"
+                                          placeholder="Selecciona una fecha" readonlyInput="true"
+                                          showTime="false"
+                                          >
+                                <p:ajax event="change" update="formManageBookingsSearch"/>
+                            </p:datePicker>
+                        </div>
+                    </div>
+                    <div class="ui-g-12 nopad">
+                        <div class="ui-g-3" style="margin-top: 20px;  float: right;">
+                            <p:outputLabel />
+                            <p:commandButton id="btnSearch" value="Buscar" actionListener="#{searchBean.search()}"
+                                             />
+
+                        </div>
+                    </div>
+                </div>
             </div>
-            
+
             <h:outputStylesheet name="search.css"/>
         </h:form>
     </ui:define>

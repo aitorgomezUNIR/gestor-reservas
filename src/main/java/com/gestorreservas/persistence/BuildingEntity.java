@@ -3,7 +3,6 @@ package com.gestorreservas.persistence;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -19,9 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "c_building",
-        uniqueConstraints = {
-            @UniqueConstraint(columnNames = {"name", "organization_id"})})
+@Table(name = "t_building")
 public class BuildingEntity extends BaseEntity {
     @Size(max = 255)
     @NotNull

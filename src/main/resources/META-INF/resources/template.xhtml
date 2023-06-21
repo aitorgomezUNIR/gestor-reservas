@@ -9,8 +9,17 @@
         </h:head>
 
         <h:body>
-            
-            <ui:insert name="content"/>
+
+            <div class="topbar">
+                <p:graphicImage value="/images/logo.png" style="position: relative; left: 50%; right: 50%; top: 15%; bottom: 50%" width="40" height="40"/>
+            </div>
+
+            <ui:include src="./menu.xhtml"></ui:include>
+            <div class="layout-main">
+                <div class="layout-content">
+                    <ui:insert name="content"/>
+                </div>
+            </div>
             <h:outputStylesheet name="global.css"/>
         </h:body>
     </f:view>

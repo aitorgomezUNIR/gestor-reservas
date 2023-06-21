@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "c_organization")
+@Table(name = "t_organization")
 public class OrganizationEntity extends BaseEntity {
     @Column(nullable = false, length = 255)
     @NotEmpty(message = "* Name can't be empty")
