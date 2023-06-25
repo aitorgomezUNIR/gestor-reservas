@@ -18,10 +18,11 @@ public class SpaceEntity extends ResourceEntity {
     public SpaceEntity() {
     }
 
-    public SpaceEntity(String name, String floorId, String organizationId, Integer capacity) {
-        super(name, floorId, organizationId);
+    public SpaceEntity(Integer capacity, String name, String floorId, String organizationId, CategoryTypes category) {
+        super(name, floorId, organizationId, category);
         this.capacity = capacity;
     }
+
 
     public Integer getCapacity() {
         return capacity;

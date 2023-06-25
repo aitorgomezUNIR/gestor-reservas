@@ -1,0 +1,95 @@
+
+/* 
+    Created on : 24 jun. 2023, 13:09:15
+    Author     : aitor
+*/
+
+.occupationLegendContainer {
+    width: 586px;
+    height: 92px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.12);
+    background-color: #fff;
+    display: flex;
+    margin-left: 7px;
+    position: relative;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.occupationLegendSubcontainer {
+    padding-bottom: 10px;
+    padding-top: 15px;
+    padding-right: 20px;
+}
+
+.occupationLegendCircle {
+    width: 10px;
+    height: 10px;
+    position: relative;
+    display: inline-block;
+    left: 20px;
+    top: 10%;
+    border-radius: 2.6px;
+}
+
+.occupationLegendImage {
+    position: relative;
+    display: inline-block;
+    left: 20px;
+    top: 10%;
+}
+
+.occupationLegendText {
+    top: 10%;
+    left: 10%;
+    position: relative;
+    left: 25px;
+}
+
+.occupationLegendPercentage {
+    top: 10%;
+    left: 30px;
+    position: relative;
+    font-weight: bold;
+}
+
+.occupationSidebarTitle {
+    font-size: 18px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.17;
+    letter-spacing: normal;
+    color: #000;
+}
+
+.filtersSidebarTitle {
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.75;
+    letter-spacing: normal;
+    color: #000;
+}
+
+.filtersSidebarSubTitle {
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.25;
+    letter-spacing: normal;
+    color: #000;
+}
+
+.buttonFilters{
+    background:none !important;
+    color: #5c5c5c !important;
+    padding: 0 0 !important;
+    height: 36.500px !important;
+    font-weight: normal !important;
+    position: absolute;
+    right: 45px;
+}

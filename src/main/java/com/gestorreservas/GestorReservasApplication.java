@@ -8,6 +8,6 @@ public class GestorReservasApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(GestorReservasApplication.class, args);
-	}
+    }
 
 }

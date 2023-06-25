@@ -1,0 +1,75 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:bk= "http://java.sun.com/jsf/composite/components">
+
+    <h:form id="formResourceSidebar">
+        <p:sidebar id="sidebarResource" widgetVar="widget_SidebarResource" position="right"
+                   style="width: 600px; overflow-y: scroll; overflow-x: hidden;" >
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <h:outputText value="#{resourceBean.selectedResource.name}" class="occupationSidebarTitle"/>
+                    </div>                
+                </div>
+
+                <p:divider />
+
+                <div class="ui-g-3">
+                    <ui:remove>
+                        <p:graphicImage style="border-radius: 50%;" width="120" height="120" stream="false" rendered="#{resourceBean.selectedResource.image != null}" value="#{utilBean.getFileById(resourceBean.selectedResource.image)}"/>
+                        <p:graphicImage style="border-radius: 50%;" width="120" height="120" stream="false" rendered="#{resourceBean.selectedResource.image == null}" value="#{resourceBean.getDefaultResourceImageURL()}"/>
+                    </ui:remove>
+
+                    <p:outputPanel style="background-color: black; border-radius: 50%; width: 120px; height: 120px; margin-top: 7px; margin-right: 0px;"/>
+                </div>
+                
+                <div class="ui-g-8" style="margin-top: 15px; margin-left: 20px;">
+                    <div>
+                        <h:outputText value="#{resourceBean.selectedResource.name}"/>
+                    </div>
+
+                    <div style="margin-top: 8px;">
+                        <h:outputText value="#{''.concat(resourceBean.selectedBuilding.name).concat(' - ').concat(resourceBean.selectedFloor.name)}" />
+                    </div>
+                </div>
+                
+                <p:outputPanel id="panelBookings" class="ui-g-12" style="margin-top: 35px;" >
+                    <h:outputText value="Reservas" class="occupationSidebarTitle"/>
+                    <p:dataTable id="dataTableResourceBookings"
+                                 value="#{resourceBean.selectedResource.bookings}"
+                                 var="booking"
+                                 rowKey="#{booking.id}"
+                                 selectionMode="single"
+                                 emptyMessage="No se han encontrado reservas"
+                                 reflow="true"
+                                 rows="15"  paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+                                 style="margin-top: 10px;">
+                        
+                        <p:column headerText="Organizador">
+                            <h:outputText value="#{booking.organizer}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:outputPanel>
+                
+                <p:divider/>
+                
+                <div class="ui-g-12">
+                    <div class="ui-g-6">
+                        <p:commandButton id="buttonExit" value="Atras" 
+                                         style="background: rgba(47, 46, 92, 0.08); border-color: transparent; color: #6F6EDB; float: right;"
+                                         onclick="PF('widget_SidebarResource').hide();"/>
+                    </div>
+
+                    <div class="ui-g-6">
+                        <p:commandButton id="buttonNewBooking" value="Nueva reserva" actionListener="#{resourceBean.onNewBooking()}" style="float: right;"
+                                         />
+                    </div>
+                </div>
+            </div>
+        </p:sidebar>
+    </h:form>
+</ui:composition>

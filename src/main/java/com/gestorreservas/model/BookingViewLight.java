@@ -8,20 +8,13 @@ import lombok.NonNull;
  * @author Aitor Gómez Afonso
  */
 @Data
-public class UserView {
-
+public class BookingViewLight {
     @NonNull
     private String id;
 
     @NonNull
-    private String name;
+    private String resourceId;
 
     @NonNull
-    private String surname;
-
-    @NonNull
-    private String email;
-
-    @NonNull
-    private String organizationId;
+    private String duration;
 }

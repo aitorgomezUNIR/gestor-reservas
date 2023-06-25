@@ -5,6 +5,7 @@ import com.gestorreservas.model.FloorView;
 import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 import javax.annotation.PostConstruct;
@@ -55,7 +56,9 @@ public class SearchBean implements Serializable {
 
     public void search() {
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("resources.xhtml");
+            String formattedDate = date.format(DateTimeFormatter.BASIC_ISO_DATE);
+            String relativeUrl = String.format("resources.xhtml?date=%s&buildingId=%s&floorId=%s", formattedDate, selectedBuilding.getId(), selectedFloor.getId());
+            FacesContext.getCurrentInstance().getExternalContext().redirect(relativeUrl);
         } catch (IOException e) {
             log.error("Error redirecting to {}", "resources.xhtml");
         }
@@ -63,6 +66,10 @@ public class SearchBean implements Serializable {
 
     public LocalDate getMinDate() {
         return LocalDate.now();
+    }
+
+    public boolean disableSearchButton() {
+        return Objects.isNull(date) || Objects.isNull(selectedBuilding) || Objects.isNull(selectedFloor);
     }
 
     public void onSelectedBuilding() {

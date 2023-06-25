@@ -1,5 +1,6 @@
 package com.gestorreservas.model;
 
+import java.util.List;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -8,7 +9,7 @@ import lombok.NonNull;
  * @author Aitor Gómez Afonso
  */
 @Data
-public class UserView {
+public class ResourceView {
 
     @NonNull
     private String id;
@@ -16,12 +17,17 @@ public class UserView {
     @NonNull
     private String name;
 
-    @NonNull
-    private String surname;
 
     @NonNull
-    private String email;
+    private String floorId;
 
     @NonNull
-    private String organizationId;
+    private CategoryView category;
+
+    @NonNull
+    private AvailabilityStatus availabilityStatus;
+
+    private int capacity;
+
+    private List<BookingView> bookings;
 }

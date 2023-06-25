@@ -4,6 +4,8 @@ import com.gestorreservas.persistence.BaseEntity;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -13,6 +15,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "t_booking")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class BookingEntity extends BaseEntity {
 
     @NotNull

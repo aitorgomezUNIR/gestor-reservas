@@ -1,0 +1,148 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template.xhtml">
+    <ui:define name="title">Reservas</ui:define>
+
+    <ui:define name="viewname">
+        <li>
+            <h:outputText value="Organization"/>
+        </li>
+        <li>/</li>
+        <li>
+            <h:outputText value="Reservas"/>
+        </li>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="formManageBookingsResources">
+            <div class="ui-g ">
+                <div class="ui-g-12" style="padding-bottom: 0px;" >
+                    <h1><h:outputText  value="Reservas por recurso" /></h1>
+                </div>
+                <div class="ui-g-12">
+                    <h:outputText value="Selecciona una fecha y ubicación para visualizar los recursos disponibles y gestionar sus reservas."/>
+                </div>
+
+                <div class="ui-xl-8 nopad ui-fluid">
+                    <div class="ui-g-3">
+                        <p:outputLabel value="Edificio"/>
+                        <p:selectOneMenu id="selectMenuBuildings"
+                                         value="#{resourceBean.selectedBuilding}"
+                                         converter="omnifaces.SelectItemsConverter"
+                                         filter="true"
+                                         filterMatchMode="contains">
+                            <f:selectItems value="#{resourceBean.buildings}"  var="building" itemValue="#{building}" itemLabel="#{building.name}"/>
+                            <p:ajax event="change" listener="#{resourceBean.onSelectedBuilding()}" update="selectMenuFloors"/>
+                        </p:selectOneMenu>
+                    </div>
+                    <div class="ui-g-3">
+                        <p:outputLabel value="Planta"/>
+                        <p:selectOneMenu id="selectMenuFloors"
+                                         value="#{resourceBean.selectedFloor}"
+                                         converter="omnifaces.SelectItemsConverter"
+                                         filter="true"
+                                         filterMatchMode="contains">
+                            <f:selectItems value="#{resourceBean.floors}" var="floor" itemValue="#{floor}" itemLabel="#{floor.name}"/>
+                            <p:ajax event="change" listener="#{resourceBean.onSelectedFloor()}" update="panelDataTableResources"/>
+                        </p:selectOneMenu>
+                    </div>
+                    <div class="ui-g-3">
+                        <p:outputLabel value="Fecha"/>
+                        <p:datePicker id="datePickerResources" value="#{resourceBean.selectedDate}"
+                                      readonlyInput="true"
+                                      locale="es"                                
+                                      pattern="dd-MM-yyyy"
+                                      mindate="#{resourceBean.minDate}"
+                                      showTime="false">
+                            <p:ajax event="change" update="panelDateTimeMessage"/>
+                        </p:datePicker>
+
+                    </div>
+                </div>
+
+
+                <div class="ui-g-8 nopad" style="margin-top: 15px;">
+                    <div class="ui-inputgroup ui-g-3 ui-fluid">
+                        <p:inputText placeholder="Buscar recurso" value="#{resourceBean.filters.keyword}"/>
+                        <p:commandButton icon="pi pi-search" styleClass="ui-button" actionListener="#{resourceBean.applyFilters()}" update="panelDataTableResources"/>
+                    </div>
+                    <div class="ui-g-3 nopad">
+                        <p:commandButton value="Mostrar filtros" class="buttonFilters" icon="fa fa-sliders" oncomplete="PF('widget_SidebarFilters').show();"/>
+
+                    </div>
+
+                </div>
+
+                <p:divider/>
+
+                <div class="ui-g-12" style="margin-top: 15px;">
+                    <p:outputPanel id="panelDateTimeMessage" class="ui-g-9 nopad" >
+                        <h:outputText value="#{resourceBean.dateTimeMessage}" escape="false"/>
+                    </p:outputPanel>
+                </div>
+
+                <div class="occupationLegendContainer">
+                    <div class="occupationLegendSubcontainer">
+                        <div class="occupationLegendCircle" style="background-color: #3ece8e"/>
+                        <h:outputText class="occupationLegendText" value="Libre"/>
+                        <h:outputText class="occupationLegendPercentage" value="#{resourceBean.occupationLegendView.getFormattedPercentage(resourceBean.occupationLegendView.free)}"/>
+                    </div>
+
+                    <div class="occupationLegendSubcontainer">
+                        <div class="occupationLegendCircle" style="background-color: #ffbc00"/>
+                        <h:outputText class="occupationLegendText" value="Parcialmente ocupado"/>
+                        <h:outputText class="occupationLegendPercentage" value="#{resourceBean.occupationLegendView.getFormattedPercentage(resourceBean.occupationLegendView.partiallyOccupied)}"/>
+                    </div>
+
+                    <div class="occupationLegendSubcontainer">
+                        <div class="occupationLegendCircle" style="background-color: #f04343;"/>
+                        <h:outputText class="occupationLegendText" value="Totalmente ocupado"/>
+                        <h:outputText class="occupationLegendPercentage" value="#{resourceBean.occupationLegendView.getFormattedPercentage(resourceBean.occupationLegendView.occupied)}"/>
+                    </div>
+
+                </div>
+
+                <p:outputPanel id="panelDataTableResources" class="ui-g-12" style="margin-top: 20px;">
+                    <p:dataTable id="dataTableResources"
+                                 value="#{resourceBean.floorResources}"
+                                 var="recurso"
+                                 rowKey="#{recurso.id}"
+                                 sortBy="#{recurso.name}"
+                                 selection="#{resourceBean.selectedResource}"
+                                 selectionMode="single"
+                                 emptyMessage="No se han encontrado recursos"
+                                 reflow="true"
+                                 rows="15"  paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom" >
+                        <p:ajax event="rowSelect" listener="#{resourceBean.onRowSelect}" process="@this, formResourceSidebar" update="@this, formResourceSidebar"
+                                oncomplete="PF('widget_SidebarResource').show();"/>
+                        <p:column style="text-align: center; width: 20px;">
+                            <div style="width: 10px; height: 10px; border-radius: 2.6px; background-color: #{recurso.availabilityStatus.color};"/>
+                        </p:column>
+                        <p:column headerText="Nombre" sortBy="#{recurso.name}">
+                            <h:outputText value="#{recurso.name}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Edificio">
+                            <h:outputText value="#{resourceBean.selectedBuilding.name}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Planta">
+                            <h:outputText value="#{resourceBean.selectedFloor.name}"/>
+                        </p:column>
+                        <p:column headerText="Categoría">
+                            <h:outputText value="#{recurso.category.displayName}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:outputPanel>
+
+            </div>
+            <ui:include src="_resourcesFilters.xhtml"/>
+
+        </h:form>
+        <ui:include src="_resourceSidebar.xhtml"/>
+        <h:outputStylesheet name="resources.css"/>
+    </ui:define>
+</ui:composition>

@@ -73,12 +73,9 @@
                         <div class="ui-g-3" style="margin-top: 17px;  float: right;">
                             <p:outputLabel />
                             <p:commandButton id="btnSearch" value="Buscar" actionListener="#{searchBean.search()}"
-                                             />
+                                             disabled="#{searchBean.disableSearchButton()}"/>
 
                         </div>
-                    </div>
-                    <div class="ui-g-12 nopad">
-
                     </div>
                 </div>
             </div>

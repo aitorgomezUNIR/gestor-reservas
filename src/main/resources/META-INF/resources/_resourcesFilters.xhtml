@@ -1,0 +1,84 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <p:sidebar id="sidebarFilters" widgetVar="widget_SidebarFilters" position="right"
+               style="width: 500px; overflow-y: scroll; overflow-x: hidden;" >
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12">
+                <h:outputText value="Filtros" class="filtersSidebarTitle"/>
+                
+            </div>
+            
+            <p:divider/>
+            
+            <div class="ui-g-12">
+                <h:outputText value="Desde / Hasta" class="filtersSidebarSubTitle"/>
+            </div>
+            <div class="ui-g-6">
+                <p:datePicker id="pickerStartTime" value="#{resourceBean.filters.startTime}" readonlyInput="true"
+                              pattern="HH:mm"
+                              hourFormat="24"
+                              locale="es"
+                              stepMinute="15">
+                    <p:ajax event="change" update="panelDateTimeMessage"/>
+                </p:datePicker>
+            </div>
+            <div class="ui-g-6">
+                <p:datePicker id="pickerEndTime" value="#{resourceBean.filters.endTime}" readonlyInput="true"
+                              pattern="HH:mm"
+                              hourFormat="24"
+                              locale="es"
+                              stepMinute="15">
+                    <p:ajax event="change" update="panelDateTimeMessage"/>
+                </p:datePicker>
+            </div>
+            
+            <p:divider/>
+            
+             <div class="ui-g-12">
+                <h:outputText value="Categoria" class="filtersSidebarSubTitle"/>
+            </div>
+            <div class="ui-g-12">
+                <p:selectOneMenu id="selectMenuCategories" 
+                                 value="#{resourceBean.filters.selectedCategory}">
+                    <f:selectItem value="#{null}"/>
+                    <f:selectItems value="#{resourceBean.filters.categories}" var="category" itemLabel="#{category.displayName}" itemValue="#{category}" />
+                </p:selectOneMenu>
+            </div>
+            
+            <div class="ui-g-12">
+                <h:outputText value="Capacidad" class="filtersSidebarSubTitle"/>
+            </div>
+            <div class="ui-g-12">
+                <p:selectOneMenu id="selectCheckboxCapacity" 
+                                 value="#{resourceBean.filters.selectedCapacity}"
+                                 >
+                    <f:selectItem value="#{null}"/>
+                    <f:selectItems value="#{resourceBean.filters.capacityValues}"
+                                   var="capacity" itemLabel="#{''.concat(capacity).concat('+')}" itemValue="#{capacity}"/>
+                </p:selectOneMenu>
+            </div>
+            
+            <p:divider/>
+            
+            <div class="ui-g-12">
+                <div class="ui-g-6">
+                    <p:commandButton id="buttonResetFilters" value="Quitar filtros" actionListener="#{resourceBean.resetFilters()}" 
+                                     style="background: rgba(47, 46, 92, 0.08); border-color: transparent; color: #6F6EDB; float: right;"
+                                     update="panelDataTableResources"/>
+                </div>
+
+                <div class="ui-g-6">
+                    <p:commandButton id="buttonApplyFilters" value="Mostrar resultados" actionListener="#{resourceBean.applyFilters()}" update="panelDataTableResources" style="float: right;"/>
+                </div>
+            </div>
+        </div>
+
+    </p:sidebar>
+
+</ui:composition>

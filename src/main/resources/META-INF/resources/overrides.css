@@ -37,4 +37,11 @@ body .ui-widget {
     
 }
 
+body .ui-datatable thead th {
+    font-size: 14px;
+}
+
+body .ui-datatable .ui-datatable-data > tr {
+    font-size: 14px;
+}
 

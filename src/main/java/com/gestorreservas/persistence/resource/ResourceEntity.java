@@ -2,6 +2,10 @@ package com.gestorreservas.persistence.resource;
 
 import com.gestorreservas.persistence.BaseEntity;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -11,6 +15,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "t_resource")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class ResourceEntity extends BaseEntity {
 
     @NotNull
@@ -22,14 +27,20 @@ public abstract class ResourceEntity extends BaseEntity {
     @NotNull
     private String organizationId;
 
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private CategoryTypes category;
+
     protected ResourceEntity() {
     }
 
-    protected ResourceEntity(String name, String floorId, String organizationId) {
+    public ResourceEntity(String name, String floorId, String organizationId, CategoryTypes category) {
         this.name = name;
         this.floorId = floorId;
         this.organizationId = organizationId;
+        this.category = category;
     }
+
 
     public String getName() {
         return name;
@@ -43,6 +54,9 @@ public abstract class ResourceEntity extends BaseEntity {
         return organizationId;
     }
 
+    public CategoryTypes getCategory() {
+        return category;
+    }
     public void setName(String name) {
         this.name = name;
     }

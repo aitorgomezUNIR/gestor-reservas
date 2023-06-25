@@ -1,6 +1,7 @@
 package com.gestorreservas.persistence.booking;
 
 import java.time.LocalDateTime;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -9,11 +10,13 @@ import javax.persistence.Table;
  * @author Aitor Gómez Afonso
  */
 @Entity
-@Table(name = "t_space")
+@Table(name = "t_space_booking")
 public class SpaceBooking extends BookingEntity {
 
+    @Column(length = 255)
     private String subject;
 
+    @Column(length = 255)
     private String description;
 
     public SpaceBooking() {

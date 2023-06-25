@@ -14,9 +14,8 @@ public class WorkstationEntity extends ResourceEntity {
     public WorkstationEntity() {
     }
 
-    public WorkstationEntity(String name, String floorId, String organizationId) {
-        super(name, floorId, organizationId);
+    public WorkstationEntity(String name, String floorId, String organizationId, CategoryTypes category) {
+        super(name, floorId, organizationId, category);
     }
-
 
 }
