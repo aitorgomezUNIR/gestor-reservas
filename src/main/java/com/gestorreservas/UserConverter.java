@@ -1,5 +1,6 @@
 package com.gestorreservas;
 
+import com.gestorreservas.session.LoginUserService;
 import com.gestorreservas.model.UserView;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -19,7 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class UserConverter implements Converter {
 
     @Autowired
-    private UserService userService;
+    private LoginUserService userService;
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {

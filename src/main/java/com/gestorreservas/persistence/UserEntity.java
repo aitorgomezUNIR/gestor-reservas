@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
  * @author Aitor Gómez Afonso
  */
 @Entity
-@Table(name = "t_user_data")
+@Table(name = "t_user")
 public class UserEntity extends BaseEntity {
 
     @NotNull
@@ -24,15 +24,20 @@ public class UserEntity extends BaseEntity {
     @NotNull
     private String organizationId;
 
+    @NotNull
+    private String password;
+
     public UserEntity() {
     }
 
-    public UserEntity(String name, String surname, String email, String organizationId) {
+    public UserEntity(String name, String surname, String email, String organizationId, String password) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.organizationId = organizationId;
+        this.password = password;
     }
+
 
     public String getName() {
         return name;
@@ -49,6 +54,11 @@ public class UserEntity extends BaseEntity {
     public String getOrganizationId() {
         return organizationId;
     }
+
+    public String getPassword() {
+        return password;
+    }
+
 
     public void setName(String name) {
         this.name = name;

@@ -1,4 +1,4 @@
-package com.gestorreservas;
+package com.gestorreservas.session;
 
 import com.gestorreservas.model.UserView;
 import com.gestorreservas.persistence.UserEntity;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class LoginUserService {
     private final UserRepository userRepository;
 
     public UserView getUser(String id) {

@@ -107,6 +107,13 @@
             <artifactId>weld-spring-boot-starter</artifactId>
         </dependency>
         
+        <!-- BEGIN: Security-->
+        <dependency>
+            <groupId>org.joinfaces</groupId>
+            <artifactId>security-spring-boot-starter</artifactId>
+        </dependency>
+        <!-- END: Security-->
+        
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
