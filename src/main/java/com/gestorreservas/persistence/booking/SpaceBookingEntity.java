@@ -11,7 +11,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "t_space_booking")
-public class SpaceBooking extends BookingEntity {
+public class SpaceBookingEntity extends BookingEntity {
 
     @Column(length = 255)
     private String subject;
@@ -19,10 +19,10 @@ public class SpaceBooking extends BookingEntity {
     @Column(length = 255)
     private String description;
 
-    public SpaceBooking() {
+    public SpaceBookingEntity() {
     }
 
-    public SpaceBooking(String organizerId, String resourceId, String floorId, LocalDateTime startDate, LocalDateTime endDate) {
+    public SpaceBookingEntity(String organizerId, String resourceId, String floorId, LocalDateTime startDate, LocalDateTime endDate) {
         super(organizerId, resourceId, floorId, startDate, endDate);
     }
 

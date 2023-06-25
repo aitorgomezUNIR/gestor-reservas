@@ -128,12 +128,12 @@ public class ResourceBean implements Serializable {
     }
 
     public String getDateTimeMessage() {
-        LocalDateTime zdtStart = constructDate(this.filters.getStartTime());
-        LocalDateTime zdtEnd = constructDate(this.filters.getStartTime());
+        LocalDateTime start = constructDate(this.filters.getStartTime());
+        LocalDateTime end = constructDate(this.filters.getEndTime());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         String message = "Ocupación desde <b>{0}</b> hasta <b>{1}</b>";
-        String formattedStart = zdtStart.format(formatter).replace(" ", " - ");
-        String formattedEnd = zdtEnd.format(formatter).replace(" ", " - ");
+        String formattedStart = start.format(formatter).replace(" ", " - ");
+        String formattedEnd = end.format(formatter).replace(" ", " - ");
         return MessageFormat.format(message, formattedStart, formattedEnd);
     }
 

@@ -216,18 +216,34 @@ html {
 }
 
 .route-bar .route-bar-breadcrumb {
-  padding: 6px 25px;
-  display: inline-block;
+    padding: 6px 25px;
+    display: inline-block;
 }
 .route-bar .route-bar-breadcrumb li {
-  margin-right: 0.25em;
-  list-style-type: none;
-  display: inline-block;
-  color: #000;
+    margin-right: 0.25em;
+    list-style-type: none;
+    display: inline-block;
+    color: #000;
 }
 .route-bar .route-bar-breadcrumb li a {
-  color: #000;
+    color: #000;
 }
 .route-bar .route-bar-breadcrumb i, .layout-wrapper .route-bar .route-bar-breadcrumb span {
-  color: #000;
+    color: #000;
+}
+
+.secondary-button {
+    background: rgba(47, 46, 92, 0.08);
+    border-color: transparent;
+    color: #6F6EDB;
+}
+
+.dialogTitle {
+    font-size: 18px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    color: #2f2e5c;
 }

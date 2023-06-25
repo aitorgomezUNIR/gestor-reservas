@@ -1,6 +1,8 @@
 package com.gestorreservas.model;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -28,4 +30,13 @@ public class BookingView {
     private LocalDateTime checkInDate;
 
     private LocalDateTime checkOutDate;
+
+    public String getFormattedTime() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime startTime = start.toLocalTime();
+        LocalTime endTime = end.toLocalTime();
+        String formattedStartTime = dtf.format(startTime);
+        String formattedEndTime = dtf.format(endTime);
+        return String.format("%s - %s", formattedStartTime, formattedEndTime);
+    }
 }

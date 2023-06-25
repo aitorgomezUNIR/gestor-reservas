@@ -39,9 +39,78 @@ body .ui-widget {
 
 body .ui-datatable thead th {
     font-size: 14px;
+    background: #2f2e5c;
+    color: #fff;
+}
+body .ui-datatable thead th.ui-state-hover {
+    font-size: 14px;
+    background: #2f2e5c;
+    color: #fff;
+}
+body .ui-datatable thead th.ui-state-active {
+    background: #2f2e5c;
+    color: #fff;
+}
+
+body .ui-datatable thead th.ui-state-active.ui-state-hover {
+    background: #2f2e5c;
+    color: #fff;
+}
+
+body .ui-datatable thead th.ui-sortable-column.ui-state-focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 0.2em #c5c5f1;
 }
 
 body .ui-datatable .ui-datatable-data > tr {
     font-size: 14px;
+}
+
+body .ui-datatable .ui-datatable-data > tr.ui-state-highlight {
+    background-color: #E5E5E5;
+    color: #5C5C5C;
+}
+
+body .ui-button {
+    background: #6f6edb;
+    border: 1px solid #6f6edb;
+}
+
+body .ui-button.ui-state-hover {
+    background: #5554d4;
+    border: 1px solid #5554d4;
+}
+
+body .ui-button.ui-state-focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 0.2em #c5c5f1;
+}
+
+body .ui-inputfield.ui-state-hover {
+    border-color: #6f6edb;
+}
+
+body .ui-inputfield.ui-state-focus {
+    border-color: #6f6edb;
+    outline: 0 none;
+    box-shadow: 0 0 0 0.2em #c5c5f1;
+}
+
+body .ui-selectonemenu.ui-state-hover:not(.ui-state-error) {
+    border-color: #6f6edb;
+}
+
+body .ui-selectonemenu.ui-state-focus:not(.ui-state-error) {
+    border-color: #6f6edb;
+    outline: 0 none;
+    box-shadow: 0 0 0 0.2em #c5c5f1;
+}
+
+
+body .ui-selectonemenu-panel .ui-selectonemenu-items .ui-selectonemenu-item.ui-state-highlight {
+    background: #6f6edb;
+    color: white;
 }
 

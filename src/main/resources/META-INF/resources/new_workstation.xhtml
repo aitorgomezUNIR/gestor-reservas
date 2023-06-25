@@ -1,12 +1,120 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+    <ui:define name="title">Reserva de puesto</ui:define>
 
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+    <ui:define name="content">
+        <h:form id="formNewWorkstationBooking">
+            <div class="ui-g ui-fluid">
+                <div class="ui-xl-6 ui-lg-12 ui-md-12 ui-sm-12">
+                    <div class="ui-g-12">
+                        <h1><h:outputText value="Reserva de #{newWorkstationBean.workstationBooking.resource.name}"/></h1>
+                    </div>
+                    <div class="ui-g-12" style="vertical-align: middle;">
+                        <span class="pi pi-map-marker" style="margin-right: 5px;"/>
+                        <h:outputText value="#{newWorkstationBean.building.name}, #{newWorkstationBean.workstationBooking.floor.name}, #{newWorkstationBean.workstationBooking.resource.name}"/>
+                    </div>
+                    <div class="ui-g-12" style="vertical-align: middle;">
+                        <span class="pi pi-user" style="margin-right: 5px;"/>
+                        <h:outputText value="Creada por: usuario logueado"/>
+                    </div>
+                    <div class="ui-g-12">
+                        <p:outputLabel value="Organizador"/>
+                        <p:inputText id="autocompleteOrganizer"/>
+                    </div>
+
+                    <div class="ui-g-12">
+                        <p:outputLabel value="Fecha"/>
+                        <p:datePicker id="datePickerNewWorkstation" readonlyInput="true"
+                                      value="#{newWorkstationBean.workstationBooking.date}"
+                                      showTime="false"/>
+
+                    </div>
+
+                    <div class="ui-g-6 bk-form-field">
+                        <p:outputLabel value="Hora de inicio"/>
+                        <p:datePicker id="pickerStartTime" readonlyInput="true"
+                                      value="#{newWorkstationBean.workstationBooking.startTime}"
+                                      pattern="HH:mm"
+                                      hourFormat="24"
+                                      locale="#{localeBean.language}"
+                                      stepMinute="15">
+                        </p:datePicker>
+                    </div>
+
+                    <div class="ui-g-6 bk-form-field">
+                        <p:outputLabel value="Hora de fin"/>
+                        <p:datePicker id="pickerEndTime" readonlyInput="true"
+                                      value="#{newWorkstationBean.workstationBooking.endTime}"
+                                      pattern="HH:mm"
+                                      hourFormat="24"
+                                      locale="#{localeBean.language}"
+                                      stepMinute="15">
+                        </p:datePicker>
+                    </div>
+
+
+
+                    <div class="ui-g-3">
+                        <p:commandButton id="btnCreateBooking" value="Reservar" actionListener="#{newWorkstationBean.validateNewBooking()}"/>
+
+                    </div>
+
+                    <div class="ui-g-3">
+                        <p:commandButton id="btnCancel" style="background: rgba(47, 46, 92, 0.08); border-color: transparent; color: #6F6EDB;" value="Cancelar"/>
+
+                    </div>
+                </div>
+            </div>
+        </h:form>
+
+        <h:form id="formConflictiveBookingsDialog">
+            <p:dialog id="dialogConflictiveBookings" widgetVar="widget_dialogConflictiveBookings"
+                      modal="true"
+                      dynamic="true"
+                      responsive="true"
+                      position="center"
+                      width="600"
+                      showEffect="fade" hideEffect="fade"
+                      header="Reservas conflictivas">
+                <f:facet name="header">
+                    <h:outputText value="Reservas conflictivas" class="dialogTitle"/>
+                </f:facet>
+                <div>
+                    <h:outputText value="Una o más reservas coinciden total o parcialmente con la que estás creando. ¿Deseas continuar con tu reserva anulando las coincidentes?"/>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <p:dataTable id="tableConflictiveBookings"
+                                 value="#{newWorkstationBean.conflictiveBookings}"
+                                 var="booking"
+                                 rowKey="#{booking.id}"
+                                 reflow="true"
+                                 rows="15"  paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+                        <p:column headerText="Hora">
+                            <h:outputText value="#{booking.formattedTime}"/>
+                        </p:column>
+                        <p:column headerText="Usuario">
+                            <h:outputText value="#{booking.organizer.fullName}"/>
+                        </p:column>
+                    </p:dataTable>
+                </div>
+
+                <f:facet name="footer">
+
+                    <p:commandButton id="btnCancel" style="background: rgba(47, 46, 92, 0.08); border-color: transparent; color: #6F6EDB;" value="Atras"/>
+                    <p:commandButton id="btnCreateBooking" value="Continuar" actionListener="#{newWorkstationBean.validateNewBooking()}"/>
+
+
+
+
+                </f:facet>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -10,12 +10,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "t_workstation_booking")
-public class WorkstationBooking extends BookingEntity {
+public class WorkstationBookingEntity extends BookingEntity {
 
-    public WorkstationBooking() {
+    public WorkstationBookingEntity() {
     }
 
-    public WorkstationBooking(String organizerId, String resourceId, String floorId, LocalDateTime startDate, LocalDateTime endDate) {
+    public WorkstationBookingEntity(String organizerId, String resourceId, String floorId, LocalDateTime startDate, LocalDateTime endDate) {
         super(organizerId, resourceId, floorId, startDate, endDate);
     }
 

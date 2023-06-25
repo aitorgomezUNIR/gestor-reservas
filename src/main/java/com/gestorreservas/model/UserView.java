@@ -2,6 +2,7 @@ package com.gestorreservas.model;
 
 import lombok.Data;
 import lombok.NonNull;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -24,4 +25,13 @@ public class UserView {
 
     @NonNull
     private String organizationId;
+
+    public String getFullName() {
+        String fullName = this.name;
+        if (StringUtils.isNotEmpty(this.surname)) {
+            fullName = fullName + " " + this.surname;
+        }
+
+        return fullName;
+    }
 }
