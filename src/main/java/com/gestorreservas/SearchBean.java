@@ -2,6 +2,7 @@ package com.gestorreservas;
 
 import com.gestorreservas.model.BuildingView;
 import com.gestorreservas.model.FloorView;
+import com.gestorreservas.session.SessionBean;
 import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -27,8 +28,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class SearchBean implements Serializable {
 
-    private static final String organizationId = "25f71ffc-93f5-4a37-be19-e27044190559";
-
+    private final SessionBean sessionBean;
     private final SearchService searchService;
 
     @Getter
@@ -51,7 +51,7 @@ public class SearchBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        buildings = searchService.getOrgBuildings(organizationId);
+        buildings = searchService.getOrgBuildings(sessionBean.getOrganizationId());
     }
 
     public void search() {

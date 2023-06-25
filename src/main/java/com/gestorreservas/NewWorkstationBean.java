@@ -7,6 +7,7 @@ import com.gestorreservas.model.NewWorkstationBookingView;
 import com.gestorreservas.model.ResourceView;
 import com.gestorreservas.model.UserView;
 import com.gestorreservas.requestparam.RequestParam;
+import com.gestorreservas.session.SessionBean;
 import java.io.IOException;
 import java.io.Serializable;
 import java.time.Instant;
@@ -31,6 +32,8 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class NewWorkstationBean implements Serializable {
 
+    private final SessionBean sessionBean;
+
     private final NewWorkstationService newWorkstationService;
 
     @Getter
@@ -43,10 +46,9 @@ public class NewWorkstationBean implements Serializable {
     @Getter
     private List<BookingView> conflictiveBookings;
 
-
-
-    public NewWorkstationBean(NewWorkstationService newWorkstationService, @RequestParam String start, @RequestParam String end,
+    public NewWorkstationBean(SessionBean sessionBean, NewWorkstationService newWorkstationService, @RequestParam String start, @RequestParam String end,
             @RequestParam String resourceId) {
+        this.sessionBean = sessionBean;
         this.newWorkstationService = newWorkstationService;
         this.processParams(start, end, resourceId);
     }
@@ -71,7 +73,7 @@ public class NewWorkstationBean implements Serializable {
     }
 
     public List<UserView> findUsers(String query) {
-        return newWorkstationService.findUsers(query, "25f71ffc-93f5-4a37-be19-e27044190559");
+        return newWorkstationService.findUsers(query, sessionBean.getOrganizationId());
     }
 
     public void validateNewBooking() {

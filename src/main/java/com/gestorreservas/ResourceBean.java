@@ -6,6 +6,7 @@ import com.gestorreservas.model.BuildingView;
 import com.gestorreservas.model.FloorView;
 import com.gestorreservas.model.OccupationLegendView;
 import com.gestorreservas.model.ResourceView;
+import com.gestorreservas.session.SessionBean;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.MessageFormat;
@@ -33,6 +34,8 @@ import org.springframework.stereotype.Component;
 @ViewScoped
 @Slf4j
 public class ResourceBean implements Serializable {
+
+    private final SessionBean sessionBean;
 
     private final ResourceService resourceService;
 
@@ -70,7 +73,8 @@ public class ResourceBean implements Serializable {
     @Getter
     private ResourceFilters filters;
 
-    public ResourceBean(ResourceService resourceService, @RequestParam String date, @RequestParam String buildingId, @RequestParam String floorId) {
+    public ResourceBean(SessionBean sessionBean, ResourceService resourceService, @RequestParam String date, @RequestParam String buildingId, @RequestParam String floorId) {
+        this.sessionBean = sessionBean;
         this.resourceService = resourceService;
         processParams(date, buildingId, floorId);
         init();
@@ -98,7 +102,7 @@ public class ResourceBean implements Serializable {
     }
 
     private void init() {
-        buildings = resourceService.getOrgBuildings(selectedBuilding.getOrganizationId());
+        buildings = resourceService.getOrgBuildings(sessionBean.getOrganizationId());
         floors = resourceService.getBuildingFloors(selectedBuilding.getId());
         LocalTime startTime = resourceService.roundMinutes(LocalTime.now());
         LocalTime endTime = startTime.withHour(23).withMinute(45);

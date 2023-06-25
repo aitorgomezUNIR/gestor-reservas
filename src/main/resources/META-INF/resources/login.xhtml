@@ -8,147 +8,6 @@
         <h:head>
             <style type="text/css">
 
-                @font-face {
-                    font-family: "Helvetica Now Display";
-                    src: url("#{resource['font/HelveticaNowDisplay-ThinIta.eot']}");
-                    src: local("Helvetica Now Display Thin Ita"), local("HelveticaNowDisplay-ThinIta"), url("#{resource['font/HelveticaNowDisplay-ThinIta.eot']}#iefix") format("embedded-opentype"), url("#{resource['font/HelveticaNowDisplay-ThinIta.woff2']}") format("woff2"), url("#{resource['font/HelveticaNowDisplay-ThinIta.woff']}") format("woff"), url("#{resource['font/HelveticaNowDisplay-ThinIta.ttf']}") format("truetype");
-                    font-weight: 100;
-                    font-style: italic;
-                }
-                @font-face {
-                    font-family: "Helvetica Now Display";
-                    src: url("#{resource['font/HelveticaNowDisplay-Light.eot']}");
-                    src: local("Helvetica Now Display Light"), local("HelveticaNowDisplay-Light"), url("#{resource['font/HelveticaNowDisplay-Light.eot']}#iefix") format("embedded-opentype"), url("#{resource['font/HelveticaNowDisplay-Light.woff2']}") format("woff2"), url("#{resource['font/HelveticaNowDisplay-Light.woff']}") format("woff"), url("#{resource['font/HelveticaNowDisplay-Light.ttf']}") format("truetype");
-                    font-weight: 300;
-                    font-style: normal;
-                }
-                @font-face {
-                    font-family: "Helvetica Now Display";
-                    src: url("#{resource['font/HelveticaNowDisplay-BoldIta.eot']}");
-                    src: local("Helvetica Now Display Bold Ita"), local("HelveticaNowDisplay-BoldIta"), url("#{resource['font/HelveticaNowDisplay-BoldIta.eot']}#iefix") format("embedded-opentype"), url("#{resource['font/HelveticaNowDisplay-BoldIta.woff2']}") format("woff2"), url("#{resource['font/HelveticaNowDisplay-BoldIta.woff']}") format("woff"), url("#{resource['font/HelveticaNowDisplay-BoldIta.ttf']}") format("truetype");
-                    font-weight: bold;
-                    font-style: italic;
-                }
-                @font-face {
-                    font-family: "Helvetica Now Display";
-                    src: url("#{resource['font/HelveticaNowDisplay-RegIta.eot']}");
-                    src: local("Helvetica Now Display Reg Ita"), local("HelveticaNowDisplay-RegIta"), url("#{resource['font/HelveticaNowDisplay-RegIta.eot']}#iefix") format("embedded-opentype"), url("#{resource['font/HelveticaNowDisplay-RegIta.woff2']}") format("woff2"), url("#{resource['font/HelveticaNowDisplay-RegIta.woff']}") format("woff"), url("#{resource['font/HelveticaNowDisplay-RegIta.ttf']}") format("truetype");
-                    font-weight: normal;
-                    font-style: italic;
-                }
-                @font-face {
-                    font-family: "Helvetica Now Display";
-                    src: url("#{resource['font/HelveticaNowDisplay-ExtLtIta.eot']}");
-                    src: local("Helvetica Now Display ExtLt Ita"), local("HelveticaNowDisplay-ExtLtIta"), url("#{resource['font/HelveticaNowDisplay-ExtLtIta.eot']}#iefix") format("embedded-opentype"), url("#{resource['font/HelveticaNowDisplay-ExtLtIta.woff2']}") format("woff2"), url("#{resource['font/HelveticaNowDisplay-ExtLtIta.woff']}") format("woff"), url("#{resource['font/HelveticaNowDisplay-ExtLtIta.ttf']}") format("truetype");
-                    font-weight: 300;
-                    font-style: italic;
-                }
-                @font-face {
-                    font-family: "Helvetica Now Display";
-                    src: url("#{resource['font/HelveticaNowDisplay-MedIta.eot']}");
-                    src: local("Helvetica Now Display Med Ita"), local("HelveticaNowDisplay-MedIta"), url("#{resource['font/HelveticaNowDisplay-MedIta.eot']}#iefix") format("embedded-opentype"), url("#{resource['font/HelveticaNowDisplay-MedIta.woff2']}") format("woff2"), url("#{resource['font/HelveticaNowDisplay-MedIta.woff']}") format("woff"), url("#{resource['font/HelveticaNowDisplay-MedIta.ttf']}") format("truetype");
-                    font-weight: 500;
-                    font-style: italic;
-                }
-                @font-face {
-                    font-family: "Helvetica Now Display";
-                    src: url("#{resource['font/HelveticaNowDisplay-ExtLt.eot']}");
-                    src: local("Helvetica Now Display ExtLt"), local("HelveticaNowDisplay-ExtLt"), url("#{resource['font/HelveticaNowDisplay-ExtLt.eot']}#iefix") format("embedded-opentype"), url("#{resource['font/HelveticaNowDisplay-ExtLt.woff2']}") format("woff2"), url("#{resource['font/HelveticaNowDisplay-ExtLt.woff']}") format("woff"), url("#{resource['font/HelveticaNowDisplay-ExtLt.ttf']}") format("truetype");
-                    font-weight: 300;
-                    font-style: normal;
-                }
-                @font-face {
-                    font-family: "Helvetica Now Display";
-                    src: url("#{resource['font/HelveticaNowDisplay-ExtBlk.eot']}");
-                    src: local("Helvetica Now Display ExtBlk"), local("HelveticaNowDisplay-ExtBlk"), url("#{resource['font/HelveticaNowDisplay-ExtBlk.eot']}#iefix") format("embedded-opentype"), url("#{resource['font/HelveticaNowDisplay-ExtBlk.woff2']}") format("woff2"), url("#{resource['font/HelveticaNowDisplay-ExtBlk.woff']}") format("woff"), url("#{resource['font/HelveticaNowDisplay-ExtBlk.ttf']}") format("truetype");
-                    font-weight: normal;
-                    font-style: normal;
-                }
-                @font-face {
-                    font-family: "Helvetica Now Display";
-                    src: url("#{resource['font/HelveticaNowDisplay-Bold.eot']}");
-                    src: local("Helvetica Now Display Bold"), local("HelveticaNowDisplay-Bold"), url("#{resource['font/HelveticaNowDisplay-Bold.eot']}#iefix") format("embedded-opentype"), url("#{resource['font/HelveticaNowDisplay-Bold.woff2']}") format("woff2"), url("#{resource['font/HelveticaNowDisplay-Bold.woff']}") format("woff"), url("#{resource['font/HelveticaNowDisplay-Bold.ttf']}") format("truetype");
-                    font-weight: bold;
-                    font-style: normal;
-                }
-                @font-face {
-                    font-family: "Helvetica Now Display";
-                    src: url("#{resource['font/HelveticaNowDisplay-ExtBdIta.eot']}");
-                    src: local("Helvetica Now Display ExtBd Ita"), local("HelveticaNowDisplay-ExtBdIta"), url("#{resource['font/HelveticaNowDisplay-ExtBdIta.eot']}#iefix") format("embedded-opentype"), url("#{resource['font/HelveticaNowDisplay-ExtBdIta.woff2']}") format("woff2"), url("#{resource['font/HelveticaNowDisplay-ExtBdIta.woff']}") format("woff"), url("#{resource['font/HelveticaNowDisplay-ExtBdIta.ttf']}") format("truetype");
-                    font-weight: 800;
-                    font-style: italic;
-                }
-                @font-face {
-                    font-family: "Helvetica Now Display";
-                    src: url("#{resource['font/HelveticaNowDisplay-Regular.eot']}");
-                    src: local("Helvetica Now Display Regular"), local("HelveticaNowDisplay-Regular"), url("#{resource['font/HelveticaNowDisplay-Regular.eot']}#iefix") format("embedded-opentype"), url("#{resource['font/HelveticaNowDisplay-Regular.woff2']}") format("woff2"), url("#{resource['font/HelveticaNowDisplay-Regular.woff']}") format("woff"), url("#{resource['font/HelveticaNowDisplay-Regular.ttf']}") format("truetype");
-                    font-weight: normal;
-                    font-style: normal;
-                }
-                @font-face {
-                    font-family: "Helvetica Now Display";
-                    src: url("#{resource['font/HelveticaNowDisplay-ExtBlkIta.eot']}");
-                    src: local("Helvetica Now Display ExBlk It"), local("HelveticaNowDisplay-ExtBlkIta"), url("#{resource['font/HelveticaNowDisplay-ExtBlkIta.eot']}#iefix") format("embedded-opentype"), url("#{resource['font/HelveticaNowDisplay-ExtBlkIta.woff2']}") format("woff2"), url("#{resource['font/HelveticaNowDisplay-ExtBlkIta.woff']}") format("woff"), url("#{resource['font/HelveticaNowDisplay-ExtBlkIta.ttf']}") format("truetype");
-                    font-weight: normal;
-                    font-style: italic;
-                }
-                @font-face {
-                    font-family: "Helvetica Now Display";
-                    src: url("#{resource['font/HelveticaNowDisplay-Thin.eot']}");
-                    src: local("Helvetica Now Display Thin"), local("HelveticaNowDisplay-Thin"), url("#{resource['font/HelveticaNowDisplay-Thin.eot']}#iefix") format("embedded-opentype"), url("#{resource['font/HelveticaNowDisplay-Thin.woff2']}") format("woff2"), url("#{resource['font/HelveticaNowDisplay-Thin.woff']}") format("woff"), url("#{resource['font/HelveticaNowDisplay-Thin.ttf']}") format("truetype");
-                    font-weight: 100;
-                    font-style: normal;
-                }
-                @font-face {
-                    font-family: "Helvetica Now Display";
-                    src: url("#{resource['font/HelveticaNowDisplay-LightIta.eot']}");
-                    src: local("Helvetica Now Display Light Ita"), local("HelveticaNowDisplay-LightIta"), url("#{resource['font/HelveticaNowDisplay-LightIta.eot']}#iefix") format("embedded-opentype"), url("#{resource['font/HelveticaNowDisplay-LightIta.woff2']}") format("woff2"), url("#{resource['font/HelveticaNowDisplay-LightIta.woff']}") format("woff"), url("#{resource['font/HelveticaNowDisplay-LightIta.ttf']}") format("truetype");
-                    font-weight: 300;
-                    font-style: italic;
-                }
-                @font-face {
-                    font-family: "Helvetica Now Display";
-                    src: url("#{resource['font/HelveticaNowDisplay-ExtraBold.eot']}");
-                    src: local("Helvetica Now Display ExtBd"), local("HelveticaNowDisplay-ExtraBold"), url("#{resource['font/HelveticaNowDisplay-ExtraBold.eot']}#iefix") format("embedded-opentype"), url("#{resource['font/HelveticaNowDisplay-ExtraBold.woff2']}") format("woff2"), url("#{resource['font/HelveticaNowDisplay-ExtraBold.woff']}") format("woff"), url("#{resource['font/HelveticaNowDisplay-ExtraBold.ttf']}") format("truetype");
-                    font-weight: 800;
-                    font-style: normal;
-                }
-                @font-face {
-                    font-family: "Helvetica Now Display";
-                    src: url("#{resource['font/HelveticaNowDisplay-Medium.eot']}");
-                    src: local("Helvetica Now Display Medium"), local("HelveticaNowDisplay-Medium"), url("#{resource['font/HelveticaNowDisplay-Medium.eot']}#iefix") format("embedded-opentype"), url("#{resource['font/HelveticaNowDisplay-Medium.woff2']}") format("woff2"), url("#{resource['font/HelveticaNowDisplay-Medium.woff']}") format("woff"), url("#{resource['font/HelveticaNowDisplay-Medium.ttf']}") format("truetype");
-                    font-weight: 500;
-                    font-style: normal;
-                }
-                @font-face {
-                    font-family: "Helvetica Now Display";
-                    src: url("#{resource['font/HelveticaNowDisplay-HairlineI.eot']}");
-                    src: local("Helvetica Now Display Hairline"), local("HelveticaNowDisplay-HairlineI"), url("#{resource['font/HelveticaNowDisplay-HairlineI.eot']}#iefix") format("embedded-opentype"), url("#{resource['font/HelveticaNowDisplay-HairlineI.woff2']}") format("woff2"), url("#{resource['font/HelveticaNowDisplay-HairlineI.woff']}") format("woff"), url("#{resource['font/HelveticaNowDisplay-HairlineI.ttf']}") format("truetype");
-                    font-weight: 100;
-                    font-style: italic;
-                }
-                @font-face {
-                    font-family: "Helvetica Now Display";
-                    src: url("#{resource['font/HelveticaNowDisplay-BlackIta.eot']}");
-                    src: local("Helvetica Now Display Black Ita"), local("HelveticaNowDisplay-BlackIta"), url("#{resource['font/HelveticaNowDisplay-BlackIta.eot']}#iefix") format("embedded-opentype"), url("#{resource['font/HelveticaNowDisplay-BlackIta.woff2']}") format("woff2"), url("#{resource['font/HelveticaNowDisplay-BlackIta.woff']}") format("woff"), url("#{resource['font/HelveticaNowDisplay-BlackIta.ttf']}") format("truetype");
-                    font-weight: 900;
-                    font-style: italic;
-                }
-                @font-face {
-                    font-family: "Helvetica Now Display";
-                    src: url("#{resource['font/HelveticaNowDisplay-Black.eot']}");
-                    src: local("Helvetica Now Display Black"), local("HelveticaNowDisplay-Black"), url("#{resource['font/HelveticaNowDisplay-Black.eot']}#iefix") format("embedded-opentype"), url("#{resource['font/HelveticaNowDisplay-Black.woff2']}") format("woff2"), url("#{resource['font/HelveticaNowDisplay-Black.woff']}") format("woff"), url("#{resource['font/HelveticaNowDisplay-Black.ttf']}") format("truetype");
-                    font-weight: 900;
-                    font-style: normal;
-                }
-                @font-face {
-                    font-family: "Helvetica Now Display";
-                    src: url("#{resource['font/HelveticaNowDisplay-Hairline.eot']}");
-                    src: local("Helvetica Now Display Hairline"), local("HelveticaNowDisplay-Hairline"), url("#{resource['font/HelveticaNowDisplay-Hairline.eot']}#iefix") format("embedded-opentype"), url("#{resource['font/HelveticaNowDisplay-Hairline.woff2']}") format("woff2"), url("#{resource['font/HelveticaNowDisplay-Hairline.woff']}") format("woff"), url("#{resource['font/HelveticaNowDisplay-Hairline.ttf']}") format("truetype");
-                    font-weight: 100;
-                    font-style: normal;
-                }
-
 
                 body {
                     font-family: "Helvetica Now Display", sans-serif;
@@ -159,64 +18,19 @@
                 html {
                     font-size: 14px;
                 }
-                .login-topbar {
-                    height: 70px;
-                    width: 100%;
-                    background-color: white;
-                    position: fixed;
-                    top:0;
-                    right: 0;
-                    z-index: 997;
-                    box-shadow: 0 2px 12px rgba(0,0,0,.12);
-                }
 
-                .login-content {
-                    padding-top: 120px;
-                }
-
-                .login-card {
-                    border-radius: 4px;
-                    background-color: white;
-                    width: 510px;
-                    box-shadow: 0 2px 8px rgba(0,0,0,.12);
-                    padding: 48px;
-                    margin-top:120px;
-                    margin: 0 auto;
-                }
-
-                .nopad {
+                .nopadLogin {
                     padding-left: 0;
                     padding-right: 0;
                 }
                 .title {
                     text-align: center;
-                    font-size: 32px;
+                    font-size: 34px;
                     font-weight: bold;
-                }
-                body .ui-button {
-                    background: #6f6edb;
-                    border: 1px solid #6f6edb;
-                }
-
-                body .ui-button.ui-state-hover {
-                    background: #5554d4;
-                    border: 1px solid #5554d4;
-                }
-
-                body .ui-button.ui-state-focus {
-                    outline: 0 none;
-                    outline-offset: 0;
-                    box-shadow: 0 0 0 0.2em #c5c5f1;
-                }
-
-                body .ui-inputfield.ui-state-hover {
-                    border-color: #6f6edb;
-                }
-
-                body .ui-inputfield.ui-state-focus {
-                    border-color: #6f6edb;
-                    outline: 0 none;
-                    box-shadow: 0 0 0 0.2em #c5c5f1;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: 1.5;
+                    letter-spacing: normal;
                 }
 
                 body .ui-message.ui-message-info {
@@ -226,7 +40,8 @@
                     border-width: 0 0 0 3px;
                 }
             </style>
-            <link type="text/css" rel="stylesheet" href="global.css"/>
+            <link rel="stylesheet" href="/css/global.css"/>
+            <link rel="stylesheet" href="/css/overrides.css"/>
             <f:facet name="first">
                 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
                 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -240,7 +55,9 @@
         </h:head>
         <h:body style="background-color: #fafbff">
             <div class="login-topbar" >
-                <p:graphicImage value="images/logo.png" library="resources"/>
+                <div style="text-align:center; margin-top: 20px;">
+                    <p:graphicImage value="/images/logo.png"/>
+                </div>
             </div>
             <div class="login-content">
                 <div class="login-card">
@@ -253,12 +70,12 @@
                         <form action="#{request.contextPath}/prelogin" method="post"   id="loginForm" >
                             <p:outputPanel id="panelLogin">
                                 <div class="ui-fluid ui-g">
-                                    <div class="ui-g-12 nopad">
+                                    <div class="ui-g-12 nopadLogin">
                                         <p:outputLabel value="Email"/>
                                         <p:inputText id="username" required="true" style="margin-top: 5px;"/>
                                     </div>
 
-                                    <div class="ui-g-12 nopad">
+                                    <div class="ui-g-12 nopadLogin">
                                         <h:outputText value="Contraseña"/>
                                         <p:password id="password" autocomplete="off" required="true" feedback="false" style="margin-top: 5px;"/>
                                     </div>
