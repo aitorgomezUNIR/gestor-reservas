@@ -203,8 +203,8 @@ html {
 }
 
 .layout-logo {
-    margin-top: 15px;
-    margin-left: 15px;
+    margin-top: -10px;
+    margin-bottom: -20px;
 }
 
 .menu-title {
@@ -271,5 +271,25 @@ html {
     padding: 48px;
     margin-top:120px;
     margin: 0 auto;
+}
+
+.logoutLink, .logoutLink:visited {
+    color: #2f2e5c;
+}
+
+body .form-field > label{
+    display: block;
+    width: 100%;
+    height: 14px;
+    white-space: nowrap;
+    padding: 5px 0;
+    border: none;
+    box-sizing: content-box;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: normal;
+    color: #5c5c5c;
 }
 

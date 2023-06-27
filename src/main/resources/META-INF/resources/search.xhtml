@@ -34,7 +34,7 @@
 
                     <div class="ui-g-8 nopad">
                         <div class="ui-fluid">
-                            <div class="ui-g-3">
+                            <div class="ui-g-3 form-field">
                                 <p:outputLabel value="Edificios"/>
                                 <p:selectOneMenu id="selectMenuBuildings"
                                                  value="#{searchBean.selectedBuilding}"
@@ -47,7 +47,7 @@
                                     <p:ajax listener="#{searchBean.onSelectedBuilding()}" event="change" update="formManageBookingsSearch"/>
                                 </p:selectOneMenu>
                             </div>
-                            <div class="ui-g-3">
+                            <div class="ui-g-3 form-field">
                                 <p:outputLabel value="Plantas"/>
                                 <p:selectOneMenu id="selectMenuFloors"
                                                  value="#{searchBean.selectedFloor}"
@@ -61,7 +61,7 @@
                                     <p:ajax listener="#{searchBean.onSelectedFloor()}" event="change" update="formManageBookingsSearch"/>
                                 </p:selectOneMenu>
                             </div>
-                            <div class="ui-g-3">
+                            <div class="ui-g-3 form-field">
                                 <p:outputLabel value="Fecha"/>
                                 <p:datePicker id="datePickerBookingSearch" value="#{searchBean.date}"
                                               placeholder="Selecciona una fecha" readonlyInput="true"
@@ -70,7 +70,7 @@
                                               disabled="#{searchBean.selectedFloor == null}"/>
                             </div>
                         </div>
-                        <div class="ui-g-3" style="margin-top: 17px;  float: right;">
+                        <div class="ui-g-3 form-field" style="float: right;">
                             <p:outputLabel />
                             <p:commandButton id="btnSearch" value="Buscar" actionListener="#{searchBean.search()}"
                                              disabled="#{searchBean.disableSearchButton()}"/>

@@ -1,5 +1,6 @@
 package com.gestorreservas.session;
 
+import java.io.Serializable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -11,7 +12,7 @@ import org.springframework.web.context.annotation.SessionScope;
  */
 @Component
 @SessionScope
-public class SessionBean {
+public class SessionBean implements Serializable {
     private MyUserPrincipal activeUser;
 
     public SessionBean() {
@@ -36,5 +37,6 @@ public class SessionBean {
     public String getUrlLogout() {
         return "/user/log/out";
     }
+
 
 }

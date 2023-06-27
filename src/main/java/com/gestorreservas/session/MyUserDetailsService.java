@@ -49,6 +49,6 @@ public class MyUserDetailsService implements UserDetailsService {
         OrganizationEntity org = organizationRepository.findById(user.getOrganizationId()).orElseThrow(() -> new IllegalArgumentException("Unable to retrieve org id"));
 
         UserData userData = new UserData(user.getId(), user.getName(), user.getSurname(), user.getEmail(), user.getOrganizationId(), user.getPassword());
-        return new MyUserPrincipal(userData, new OrganizationView(org.getName(), org.getName()), Collections.emptyList());
+        return new MyUserPrincipal(userData, new OrganizationView(org.getId(), org.getName()), Collections.emptyList());
     }
 }

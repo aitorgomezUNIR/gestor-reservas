@@ -9,11 +9,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
-import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -25,7 +23,6 @@ import org.springframework.stereotype.Component;
 @Component
 @ViewScoped
 @Slf4j
-@RequiredArgsConstructor
 public class SearchBean implements Serializable {
 
     private final SessionBean sessionBean;
@@ -49,8 +46,13 @@ public class SearchBean implements Serializable {
     @Setter
     private LocalDate date;
 
-    @PostConstruct
-    public void init() {
+    public SearchBean(SessionBean sessionBean, SearchService searchService) {
+        this.sessionBean = sessionBean;
+        this.searchService = searchService;
+        this.init();
+    }
+
+    private void init() {
         buildings = searchService.getOrgBuildings(sessionBean.getOrganizationId());
     }
 

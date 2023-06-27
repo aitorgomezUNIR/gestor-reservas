@@ -32,6 +32,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -102,13 +103,16 @@ public class NewWorkstationService {
         return bookings;
     }
 
+    @Transactional
     public void cancelBookings(List<BookingView> bookings) {
         bookingRepository.deleteAllByIdIn(bookings.stream().map(BookingView::getId).collect(Collectors.toList()));
     }
 
-    public void createWorkstationBooking(NewWorkstationBookingView booking) {
+    @Transactional
+    public String createWorkstationBooking(NewWorkstationBookingView booking) {
         BookingEntity b = new WorkstationBookingEntity(booking.getOrganizer().getId(), booking.getResource().getId(), booking.getFloor().getId(),
                 booking.constructStartDate(), booking.constructEndDate());
-        bookingRepository.save(b);
+        b = bookingRepository.save(b);
+        return b.getId();
     }
 }

@@ -4,12 +4,12 @@
     <div class="layout-menu-container">
         <h:form id="menuForm">
             <div class="layout-logo">
-                <p:graphicImage value="/images/logo.png"/>
+                <p:graphicImage value="/images/logo_menu.svg" height="100"/>
             </div>
         
 
             <p:menu id="menu" style="padding-top: 20px;">
-                <p:submenu id="mainSubmenu" label="Organization">
+                <p:submenu id="mainSubmenu" label="#{sessionBean.activeUser.organization.name}">
                     <p:menuitem value="Reservas"  icon="pi pi-calendar" outcome="search.xhtml"/>
                 </p:submenu>
             </p:menu>

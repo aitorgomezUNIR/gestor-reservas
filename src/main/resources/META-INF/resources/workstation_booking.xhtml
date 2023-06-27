@@ -1,0 +1,77 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <ui:define name="viewname">
+        <li>
+            <h:outputText value="Organization"/>
+        </li>
+        <li>/</li>
+        <li>
+            <h:outputText value="Reservas" />
+        </li>
+        <li>/</li>
+        <li>
+            <h:outputText value="Ficha de reserva" />
+        </li>
+    </ui:define>
+
+    <ui:define name="title">Ficha de reserva</ui:define>
+
+    <ui:define name="content">
+        <h:form id="formWorkstationBookingData">
+            <div class="ui-g">
+                <div class="ui-xl-6 ui-lg-12 ui-md-12 ui-sm-12">
+                    <div class="ui-g-12">
+                        <h1><h:outputText value="Ficha de reserva"/></h1>
+                    </div>
+                    <div class="ui-fluid">
+                        <div class="ui-g-9 nopad">
+                            <div class="ui-fluid">
+                                <div class="ui-g-4 form-field">
+                                    <p:outputLabel value="Fecha"/>
+                                    <p:datePicker id="pickerDate" readonlyInput="true"
+                                                  value="#{workstationBookingBean.workstationBooking.date}"
+                                                  showTime="false"/>
+                                </div>
+                                <div class="ui-g-4 form-field">
+                                    <p:outputLabel value="Hora de inicio"/>
+                                    <p:datePicker id="pickerStartTime" readonlyInput="true"
+                                                  value="#{workstationBookingBean.workstationBooking.startTime}"
+                                                  pattern="HH:mm"
+                                                  hourFormat="24"
+                                                  locale="es"
+                                                  stepMinute="15">
+                                    </p:datePicker>
+                                </div>
+                                <div class="ui-g-4 form-field">
+                                    <p:outputLabel value="Hora de fin"/>
+                                    <p:datePicker id="pickerEndTime" readonlyInput="true"
+                                                  value="#{workstationBookingBean.workstationBooking.endTime}"
+                                                  pattern="HH:mm"
+                                                  hourFormat="24"
+                                                  locale="es"
+                                                  stepMinute="15">
+                                    </p:datePicker>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ui-g-9 form-field">
+                            <p:outputLabel value="Ubicación"/>
+                            <p:inputText 
+                                value="#{workstationBookingBean.building.name}, #{workstationBookingBean.floor.name}, #{workstationBookingBean.workstationBooking.resource.name}"/>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

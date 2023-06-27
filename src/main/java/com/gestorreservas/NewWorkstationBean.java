@@ -14,6 +14,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.Objects;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -77,6 +78,12 @@ public class NewWorkstationBean implements Serializable {
     }
 
     public void validateNewBooking() {
+        if (Objects.isNull(workstationBooking.getOrganizer())) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Debes añadir un usuario a la reserva.", null));
+            return;
+        }
+
         if (workstationBooking.constructStartDate().isBefore(LocalDateTime.now())) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "La fecha y hora de inicio es anterior a la actual.", null));
@@ -85,7 +92,7 @@ public class NewWorkstationBean implements Serializable {
 
         this.conflictiveBookings = newWorkstationService.getResourceBookings(workstationBooking.getResource().getId(), workstationBooking.constructStartDate(), workstationBooking.constructEndDate());
 
-        if (conflictiveBookings.isEmpty()) {
+        if (!conflictiveBookings.isEmpty()) {
             PrimeFaces.current().executeScript("PF('widget_dialogConflictiveBookings').show()");
         } else {
             createBooking();
@@ -93,7 +100,17 @@ public class NewWorkstationBean implements Serializable {
     }
 
     public void createBooking() {
-        this.newWorkstationService.createWorkstationBooking(workstationBooking);
+        if (!conflictiveBookings.isEmpty()) {
+            newWorkstationService.cancelBookings(conflictiveBookings);
+        }
+
+        String bookingId = this.newWorkstationService.createWorkstationBooking(workstationBooking);
+        String url = String.format("workstation_booking.xhtml?bookingId=%s", bookingId);
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect(url);
+        } catch (IOException ex) {
+            log.error("Error redirecting to {}", url);
+        }
     }
 
     private void redirectBack() {

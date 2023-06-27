@@ -50,7 +50,10 @@
                                  style="margin-top: 10px;">
                         
                         <p:column headerText="Organizador">
-                            <h:outputText value="#{booking.organizer}"/>
+                            <h:outputText value="#{booking.organizer.fullName}"/>
+                        </p:column>
+                        <p:column headerText="Horario">
+                            <h:outputText value="#{booking.formattedTime}"/>
                         </p:column>
                     </p:dataTable>
                 </p:outputPanel>

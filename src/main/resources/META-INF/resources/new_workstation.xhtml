@@ -6,6 +6,21 @@
                 template="/template.xhtml"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <ui:define name="viewname">
+        <li>
+            <h:outputText value="Organization"/>
+        </li>
+        <li>/</li>
+        <li>
+            <h:outputText value="Reservas" />
+        </li>
+        <li>/</li>
+        <li>
+            <h:outputText value="Reserva de puesto" />
+        </li>
+    </ui:define>
+
     <ui:define name="title">Reserva de puesto</ui:define>
 
     <ui:define name="content">
@@ -21,14 +36,31 @@
                     </div>
                     <div class="ui-g-12" style="vertical-align: middle;">
                         <span class="pi pi-user" style="margin-right: 5px;"/>
-                        <h:outputText value="Creada por: usuario logueado"/>
+                        <h:outputText value="Creada por: #{sessionBean.activeUser.fullName}"/>
                     </div>
-                    <div class="ui-g-12">
+                    <div class="ui-g-12 form-field">
                         <p:outputLabel value="Organizador"/>
-                        <p:inputText id="autocompleteOrganizer"/>
+                        <p:autoComplete id="autoCompleteOrganizer"
+                                        value="#{newWorkstationBean.workstationBooking.organizer}"
+                                        completeMethod="#{newWorkstationBean.findUsers}"
+                                        effect="fade"
+                                        minQueryLength="3"
+                                        placeholder="Buscar usuario"
+                                        var="user" itemLabel="#{user.fullName}" itemValue="#{user}"
+                                        converter="#{userConverter}" forceSelection="true">
+                            <p:ajax event="valueChange" update="btnCreateBooking"/>
+                            <p:column>
+                                <h:outputText value="#{user.fullName}"/>
+                            </p:column>
+
+                            <p:column>
+                                <h:outputText value="#{user.email}"/>
+                            </p:column>
+
+                        </p:autoComplete>
                     </div>
 
-                    <div class="ui-g-12">
+                    <div class="ui-g-12 form-field">
                         <p:outputLabel value="Fecha"/>
                         <p:datePicker id="datePickerNewWorkstation" readonlyInput="true"
                                       value="#{newWorkstationBean.workstationBooking.date}"
@@ -36,7 +68,7 @@
 
                     </div>
 
-                    <div class="ui-g-6 bk-form-field">
+                    <div class="ui-g-6 form-field">
                         <p:outputLabel value="Hora de inicio"/>
                         <p:datePicker id="pickerStartTime" readonlyInput="true"
                                       value="#{newWorkstationBean.workstationBooking.startTime}"
@@ -47,7 +79,7 @@
                         </p:datePicker>
                     </div>
 
-                    <div class="ui-g-6 bk-form-field">
+                    <div class="ui-g-6 form-field">
                         <p:outputLabel value="Hora de fin"/>
                         <p:datePicker id="pickerEndTime" readonlyInput="true"
                                       value="#{newWorkstationBean.workstationBooking.endTime}"
@@ -58,18 +90,21 @@
                         </p:datePicker>
                     </div>
 
+                    <div style="display: flex; gap: 15px; width:100%;  padding-left: 6px; padding-top: 20px;">
+                        <div>
+                            <p:commandButton id="btnCreateBooking" value="Reservar" actionListener="#{newWorkstationBean.validateNewBooking()}"
+                                             disabled="#{newWorkstationBean.workstationBooking.organizer == null}"/>
 
+                        </div>
 
-                    <div class="ui-g-3">
-                        <p:commandButton id="btnCreateBooking" value="Reservar" actionListener="#{newWorkstationBean.validateNewBooking()}"/>
+                        <div>
+                            <p:commandButton id="btnCancel" style="background: rgba(47, 46, 92, 0.08); border-color: transparent; color: #6F6EDB;" value="Cancelar"/>
 
-                    </div>
-
-                    <div class="ui-g-3">
-                        <p:commandButton id="btnCancel" style="background: rgba(47, 46, 92, 0.08); border-color: transparent; color: #6F6EDB;" value="Cancelar"/>
-
+                        </div>
                     </div>
                 </div>
+
+
             </div>
         </h:form>
 
@@ -107,8 +142,10 @@
 
                 <f:facet name="footer">
 
-                    <p:commandButton id="btnCancel" style="background: rgba(47, 46, 92, 0.08); border-color: transparent; color: #6F6EDB;" value="Atras"/>
-                    <p:commandButton id="btnCreateBooking" value="Continuar" actionListener="#{newWorkstationBean.validateNewBooking()}"/>
+                    <p:commandButton id="btnDialogCancel" style="background: rgba(47, 46, 92, 0.08); border-color: transparent; color: #6F6EDB;" value="Atras"
+                                     oncomplete="PF('widget_dialogConflictiveBookings').hide();"/>
+                    <p:commandButton id="btnDialogCreateBooking" value="Continuar" actionListener="#{newWorkstationBean.createBooking()}"
+                                     oncomplete="PF('widget_dialogConflictiveBookings').hide();"/>
 
 
 

@@ -14,6 +14,10 @@
         <li>
             <h:outputText value="Reservas"/>
         </li>
+        <li>/</li>
+        <li>
+            <h:outputText value="Listado"/>
+        </li>
     </ui:define>
 
     <ui:define name="content">
@@ -27,7 +31,7 @@
                 </div>
 
                 <div class="ui-xl-8 nopad ui-fluid">
-                    <div class="ui-g-3">
+                    <div class="ui-g-3 form-field">
                         <p:outputLabel value="Edificio"/>
                         <p:selectOneMenu id="selectMenuBuildings"
                                          value="#{resourceBean.selectedBuilding}"
@@ -38,7 +42,7 @@
                             <p:ajax event="change" listener="#{resourceBean.onSelectedBuilding()}" update="selectMenuFloors"/>
                         </p:selectOneMenu>
                     </div>
-                    <div class="ui-g-3">
+                    <div class="ui-g-3 form-field">
                         <p:outputLabel value="Planta"/>
                         <p:selectOneMenu id="selectMenuFloors"
                                          value="#{resourceBean.selectedFloor}"
@@ -49,7 +53,7 @@
                             <p:ajax event="change" listener="#{resourceBean.onSelectedFloor()}" update="panelDataTableResources"/>
                         </p:selectOneMenu>
                     </div>
-                    <div class="ui-g-3">
+                    <div class="ui-g-3 form-field">
                         <p:outputLabel value="Fecha"/>
                         <p:datePicker id="datePickerResources" value="#{resourceBean.selectedDate}"
                                       readonlyInput="true"
@@ -107,7 +111,7 @@
 
                 <p:outputPanel id="panelDataTableResources" class="ui-g-12" style="margin-top: 20px;">
                     <p:dataTable id="dataTableResources"
-                                 value="#{resourceBean.floorResources}"
+                                 value="#{resourceBean.filteredResources}"
                                  var="recurso"
                                  rowKey="#{recurso.id}"
                                  sortBy="#{recurso.name}"
