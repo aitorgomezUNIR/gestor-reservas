@@ -6,12 +6,15 @@
 
     <f:view locale="es">
         <h:head>
+             <script type="text/javascript" src="/js/calendar_es.js"></script>
+            <title><ui:insert name="title"/></title>
+            <ui:insert name="head"/>
         </h:head>
 
         <h:body>
 
             <div class="topbar">
-                <div style="position: relative; left: 98%; top: 20px; font-size: 25px;">
+                <div style="position: relative; right: 10px; top: 20px; font-size: 25px;">
                     <a class="logoutLink" href="#{request.contextPath}#{sessionBean.urlLogout}" >
                         <span class="pi pi-sign-out"/>
                     </a>

@@ -1,16 +1,16 @@
 package com.gestorreservas;
 
+import com.gestorreservas.view.util.BookingService;
+import com.gestorreservas.view.util.UserService;
 import com.gestorreservas.view.model.BookingView;
 import com.gestorreservas.view.model.BuildingView;
 import com.gestorreservas.view.model.FloorView;
-import com.gestorreservas.view.model.NewWorkstationBookingView;
+import com.gestorreservas.view.model.NewSpaceBookingView;
 import com.gestorreservas.view.model.ResourceView;
 import com.gestorreservas.view.model.UserView;
 import com.gestorreservas.view.requestparam.RequestParam;
 import com.gestorreservas.session.SessionBean;
-import com.gestorreservas.view.util.BookingService;
 import com.gestorreservas.view.util.ResourceService;
-import com.gestorreservas.view.util.UserService;
 import java.io.IOException;
 import java.io.Serializable;
 import java.time.Instant;
@@ -35,11 +35,9 @@ import org.springframework.stereotype.Component;
 @Component
 @ViewScoped
 @Slf4j
-public class NewWorkstationBean implements Serializable {
-
+public class NewSpaceBean implements Serializable {
     private final SessionBean sessionBean;
-
-    private final NewWorkstationService newWorkstationService;
+    private final NewSpaceService newSpaceService;
     private final UserService userService;
     private final BookingService bookingService;
     private final ResourceService resourceService;
@@ -49,18 +47,22 @@ public class NewWorkstationBean implements Serializable {
 
     @Getter
     @Setter
-    private NewWorkstationBookingView workstationBooking;
+    private NewSpaceBookingView spaceBooking;
 
     @Getter
     private List<BookingView> conflictiveBookings;
 
-    public NewWorkstationBean(SessionBean sessionBean, NewWorkstationService newWorkstationService,
+    @Getter
+    @Setter
+    private UserView selectedUser;
+
+    public NewSpaceBean(SessionBean sessionBean, NewSpaceService newSpaceService,
             UserService userService, BookingService bookingService, ResourceService resourceService,
             @RequestParam String start, @RequestParam String end,
             @RequestParam String resourceId) {
         this.sessionBean = sessionBean;
-        this.newWorkstationService = newWorkstationService;
         this.userService = userService;
+        this.newSpaceService = newSpaceService;
         this.bookingService = bookingService;
         this.resourceService = resourceService;
         this.processParams(start, end, resourceId);
@@ -74,15 +76,14 @@ public class NewWorkstationBean implements Serializable {
             LocalDateTime startDate = LocalDateTime.ofInstant(Instant.ofEpochMilli(startMs), ZoneId.of("UTC"));
             LocalDateTime endDate = LocalDateTime.ofInstant(Instant.ofEpochMilli(endMs), ZoneId.of("UTC"));
 
-            ResourceView resourceView = newWorkstationService.getWorkstation(resourceId);
+            ResourceView resourceView = resourceService.getResource(resourceId);
             FloorView floorView = resourceService.getFloor(resourceView.getFloorId());
             this.building = resourceService.getBuilding(floorView.getBuildingId());
-            this.workstationBooking = new NewWorkstationBookingView(resourceView, startDate.toLocalDate(), startDate.toLocalTime(), endDate.toLocalTime(), floorView);
+            this.spaceBooking = new NewSpaceBookingView(resourceView, startDate.toLocalDate(), startDate.toLocalTime(), endDate.toLocalTime(), floorView);
         } catch (IllegalArgumentException e) {
             log.error("Error retrieving resource, building or floor or parsing dates");
             redirectToMainView();
         }
-
     }
 
     public List<UserView> findUsers(String query) {
@@ -90,19 +91,19 @@ public class NewWorkstationBean implements Serializable {
     }
 
     public void validateNewBooking() {
-        if (Objects.isNull(workstationBooking.getOrganizer())) {
+        if (Objects.isNull(spaceBooking.getOrganizer())) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Debes añadir un usuario a la reserva.", null));
             return;
         }
 
-        if (workstationBooking.constructStartDate().isBefore(LocalDateTime.now())) {
+        if (spaceBooking.constructStartDate().isBefore(LocalDateTime.now())) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "La fecha y hora de inicio es anterior a la actual.", null));
             return;
         }
 
-        this.conflictiveBookings = bookingService.getResourceBookings(workstationBooking.getResource().getId(), workstationBooking.constructStartDate(), workstationBooking.constructEndDate());
+        this.conflictiveBookings = bookingService.getResourceBookings(spaceBooking.getResource().getId(), spaceBooking.constructStartDate(), spaceBooking.constructEndDate());
 
         if (!conflictiveBookings.isEmpty()) {
             PrimeFaces.current().executeScript("PF('widget_dialogConflictiveBookings').show()");
@@ -116,8 +117,8 @@ public class NewWorkstationBean implements Serializable {
             bookingService.cancelBookings(conflictiveBookings);
         }
 
-        String bookingId = this.newWorkstationService.createWorkstationBooking(workstationBooking);
-        String url = String.format("workstation_booking.xhtml?bookingId=%s", bookingId);
+        String bookingId = this.newSpaceService.createSpaceBooking(spaceBooking);
+        String url = String.format("space_booking.xhtml?bookingId=%s", bookingId);
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect(url);
         } catch (IOException ex) {
@@ -127,8 +128,8 @@ public class NewWorkstationBean implements Serializable {
 
     public void redirectToList() {
         try {
-            String formattedDate = workstationBooking.getDate().format(DateTimeFormatter.BASIC_ISO_DATE);
-            String relativeUrl = String.format("resources.xhtml?date=%s&buildingId=%s&floorId=%s", formattedDate, building.getId(), workstationBooking.getFloor().getId());
+            String formattedDate = spaceBooking.getDate().format(DateTimeFormatter.BASIC_ISO_DATE);
+            String relativeUrl = String.format("resources.xhtml?date=%s&buildingId=%s&floorId=%s", formattedDate, building.getId(), spaceBooking.getFloor().getId());
             FacesContext.getCurrentInstance().getExternalContext().redirect(relativeUrl);
         } catch (IOException ex) {
             log.error("Error redirecting to search.xhtml");
@@ -143,4 +144,8 @@ public class NewWorkstationBean implements Serializable {
         }
     }
 
+    public void onItemSelect() {
+        this.spaceBooking.addNewAttendee(new UserView(selectedUser.getId(), selectedUser.getName(), selectedUser.getSurname(), selectedUser.getEmail(), selectedUser.getOrganizationId()));
+        this.selectedUser = null;
+    }
 }

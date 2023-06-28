@@ -1,4 +1,4 @@
-package com.gestorreservas.model;
+package com.gestorreservas.view.model;
 
 import java.util.List;
 import lombok.Data;
@@ -30,4 +30,8 @@ public class ResourceView {
     private int capacity;
 
     private List<BookingView> bookings;
+
+    public boolean isWorkstation() {
+        return CategoryView.WORKSTATION.equals(this.category);
+    }
 }

@@ -1,4 +1,4 @@
-package com.gestorreservas.requestparam;
+package com.gestorreservas.view.requestparam;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

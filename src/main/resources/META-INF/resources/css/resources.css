@@ -87,3 +87,10 @@
     position: absolute;
     right: 45px;
 }
+
+.sidebarFooterContainer {
+    display:flex;
+    justify-content: flex-end;
+    width: 100%;
+    gap: 15px;
+}

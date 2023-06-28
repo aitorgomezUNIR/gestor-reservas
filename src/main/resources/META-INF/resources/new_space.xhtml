@@ -6,7 +6,7 @@
                 template="/template.xhtml"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:pe="http://primefaces.org/ui/extensions">
-    
+
     <ui:define name="title">Reservas</ui:define>
 
     <ui:define name="viewname">
@@ -23,18 +23,18 @@
         </li>
     </ui:define>
 
-    <ui:define name="title">Reserva de puesto</ui:define>
+    <ui:define name="title">Reserva de espacio</ui:define>
 
     <ui:define name="content">
-        <h:form id="formNewWorkstationBooking">
+        <h:form id="formNewSpaceBooking">
             <div class="ui-g ui-fluid">
                 <div class="ui-xl-6 ui-lg-12 ui-md-12 ui-sm-12">
                     <div class="ui-g-12">
-                        <h1><h:outputText value="Reserva de #{newWorkstationBean.workstationBooking.resource.name}"/></h1>
+                        <h1><h:outputText value="Reserva de #{newSpaceBean.spaceBooking.resource.name}"/></h1>
                     </div>
                     <div class="ui-g-12" style="vertical-align: middle;">
                         <span class="pi pi-map-marker" style="margin-right: 5px;"/>
-                        <h:outputText value="#{newWorkstationBean.building.name}, #{newWorkstationBean.workstationBooking.floor.name}, #{newWorkstationBean.workstationBooking.resource.name}"/>
+                        <h:outputText value="#{newSpaceBean.building.name}, #{newSpaceBean.spaceBooking.floor.name}, #{newSpaceBean.spaceBooking.resource.name}"/>
                     </div>
                     <div class="ui-g-12" style="vertical-align: middle;">
                         <span class="pi pi-user" style="margin-right: 5px;"/>
@@ -43,8 +43,8 @@
                     <div class="ui-g-12 form-field">
                         <p:outputLabel value="Organizador"/>
                         <p:autoComplete id="autoCompleteOrganizer"
-                                        value="#{newWorkstationBean.workstationBooking.organizer}"
-                                        completeMethod="#{newWorkstationBean.findUsers}"
+                                        value="#{newSpaceBean.spaceBooking.organizer}"
+                                        completeMethod="#{newSpaceBean.findUsers}"
                                         effect="fade"
                                         minQueryLength="3"
                                         placeholder="Buscar usuario"
@@ -63,9 +63,28 @@
                     </div>
 
                     <div class="ui-g-12 form-field">
+                        <p:outputLabel value="Titulo"/>
+                        <p:inputText value="#{newSpaceBean.spaceBooking.title}"/>
+                    </div>
+
+                    <div class="ui-g-12 form-field">
+                        <p:outputLabel value="Descripción"/>
+                        <p:textEditor id="editorDescription" widgetVar="widget_EditorDescription" value="#{newSpaceBean.spaceBooking.description}" height="300" required="true">
+                            <f:facet name="toolbar">
+                                <span class="ql-formats">
+                                    <button class="ql-bold"></button>
+                                    <button class="ql-italic"></button>
+                                    <button class="ql-underline"></button>
+                                    <button class="ql-strike"></button>
+                                </span>
+                            </f:facet>
+                        </p:textEditor>
+                    </div>
+
+                    <div class="ui-g-12 form-field">
                         <p:outputLabel value="Fecha"/>
-                        <p:datePicker id="datePickerNewWorkstation" readonlyInput="true"
-                                      value="#{newWorkstationBean.workstationBooking.date}"
+                        <p:datePicker id="datePickerNewSpace" readonlyInput="true"
+                                      value="#{newSpaceBean.spaceBooking.date}"
                                       showTime="false"/>
 
                     </div>
@@ -73,7 +92,7 @@
                     <div class="ui-g-6 form-field">
                         <p:outputLabel value="Hora de inicio"/>
                         <p:datePicker id="pickerStartTime" readonlyInput="true"
-                                      value="#{newWorkstationBean.workstationBooking.startTime}"
+                                      value="#{newSpaceBean.spaceBooking.startTime}"
                                       pattern="HH:mm"
                                       hourFormat="24"
                                       locale="#{localeBean.language}"
@@ -84,7 +103,7 @@
                     <div class="ui-g-6 form-field">
                         <p:outputLabel value="Hora de fin"/>
                         <p:datePicker id="pickerEndTime" readonlyInput="true"
-                                      value="#{newWorkstationBean.workstationBooking.endTime}"
+                                      value="#{newSpaceBean.spaceBooking.endTime}"
                                       pattern="HH:mm"
                                       hourFormat="24"
                                       locale="#{localeBean.language}"
@@ -92,16 +111,65 @@
                         </p:datePicker>
                     </div>
 
+                    <div class="ui-g-12" style="margin-top: 70px;">
+                        <h3><h:outputText value="Añadir invitados"/></h3>
+                    </div>
+
+                    <div class="ui-g-12 form-field">
+                        <p:outputLabel value="Invitados"/>
+                        <p:autoComplete id="autoCompleteAttendees"
+                                        value="#{newSpaceBean.selectedUser}"
+                                        completeMethod="#{newSpaceBean.findUsers}"
+                                        effect="fade"
+                                        minQueryLength="3"
+                                        placeholder="Buscar usuario"
+                                        var="user" itemLabel="#{user.fullName}" itemValue="#{user}"
+                                        converter="#{userConverter}" forceSelection="true">
+                            <p:ajax event="itemSelect" update="dataTableAttendees" listener="#{newSpaceBean.onItemSelect()}"/>
+                            <p:column>
+                                <h:outputText value="#{user.fullName}"/>
+                            </p:column>
+
+                            <p:column>
+                                <h:outputText value="#{user.email}"/>
+                            </p:column>
+
+                        </p:autoComplete>
+                    </div>
+
+                    <div class="ui-g-12">
+                        <p:dataTable id="dataTableAttendees" value="#{newSpaceBean.spaceBooking.attendees}"
+                                     var="attendee"
+                                     emptyMessage="No se han añadido invitados"
+                                     rowKey="#{attendee.user.id}">
+                            <p:column headerText="Opcional" style="width: 50px;">
+                                <p:selectBooleanCheckbox value="#{attendee.optional}"/>
+                            </p:column>
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{attendee.user.fullName}"/>
+                            </p:column>
+                            <p:column headerText="Email">
+                                <h:outputText value="#{attendee.user.email}"/>
+                            </p:column>
+                            <p:column style="width: 50px;">
+                                <p:commandButton id="btnRemoveAttendee" class="btnRemoveAttendee" 
+                                                 actionListener="#{newSpaceBean.spaceBooking.removeAttendee(attendee)}"
+                                                 icon="pi pi-trash" update="dataTableAttendees" process="dataTableAttendees"/>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+
+
                     <div style="display: flex; gap: 15px; width:100%;  padding-left: 6px; padding-top: 20px;">
                         <div>
-                            <p:commandButton id="btnCreateBooking" value="Reservar" actionListener="#{newWorkstationBean.validateNewBooking()}"
-                                             disabled="#{newWorkstationBean.workstationBooking.organizer == null}"/>
+                            <p:commandButton id="btnCreateBooking" value="Reservar" actionListener="#{newSpaceBean.validateNewBooking()}"
+                                             disabled="#{newSpaceBean.spaceBooking.organizer == null}"/>
 
                         </div>
 
                         <div>
                             <p:commandButton id="btnCancel" style="background: rgba(47, 46, 92, 0.08); border-color: transparent; color: #6F6EDB;" value="Cancelar"
-                                             actionListener="#{newWorkstationBean.redirectToList()}"/>
+                                             actionListener="#{newSpaceBean.redirectToList()}"/>
 
                         </div>
                     </div>
@@ -109,6 +177,7 @@
 
 
             </div>
+            <h:outputStylesheet name="/new_space.css" library="css"/>
         </h:form>
 
         <h:form id="formConflictiveBookingsDialog">
@@ -129,7 +198,7 @@
 
                 <div style="margin-top: 20px;">
                     <p:dataTable id="tableConflictiveBookings"
-                                 value="#{newWorkstationBean.conflictiveBookings}"
+                                 value="#{newSpaceBean.conflictiveBookings}"
                                  var="booking"
                                  rowKey="#{booking.id}"
                                  reflow="true"
@@ -147,7 +216,7 @@
 
                     <p:commandButton id="btnDialogCancel" style="background: rgba(47, 46, 92, 0.08); border-color: transparent; color: #6F6EDB;" value="Atras"
                                      oncomplete="PF('widget_dialogConflictiveBookings').hide();"/>
-                    <p:commandButton id="btnDialogCreateBooking" value="Continuar" actionListener="#{newWorkstationBean.createBooking()}"
+                    <p:commandButton id="btnDialogCreateBooking" value="Continuar" actionListener="#{newSpaceBean.createBooking()}"
                                      oncomplete="PF('widget_dialogConflictiveBookings').hide();"/>
 
 

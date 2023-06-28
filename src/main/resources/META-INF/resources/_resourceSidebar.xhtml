@@ -9,7 +9,7 @@
     <h:form id="formResourceSidebar">
         <p:sidebar id="sidebarResource" widgetVar="widget_SidebarResource" position="right"
                    style="width: 600px; overflow-y: scroll; overflow-x: hidden;" >
-            <div class="ui-g ui-fluid">
+            <div class="ui-g ">
                 <div class="ui-g-12">
                     <div class="ui-g-4">
                         <h:outputText value="#{resourceBean.selectedResource.name}" class="occupationSidebarTitle"/>
@@ -19,12 +19,14 @@
                 <p:divider />
 
                 <div class="ui-g-3">
-                    <ui:remove>
-                        <p:graphicImage style="border-radius: 50%;" width="120" height="120" stream="false" rendered="#{resourceBean.selectedResource.image != null}" value="#{utilBean.getFileById(resourceBean.selectedResource.image)}"/>
-                        <p:graphicImage style="border-radius: 50%;" width="120" height="120" stream="false" rendered="#{resourceBean.selectedResource.image == null}" value="#{resourceBean.getDefaultResourceImageURL()}"/>
-                    </ui:remove>
-
-                    <p:outputPanel style="background-color: black; border-radius: 50%; width: 120px; height: 120px; margin-top: 7px; margin-right: 0px;"/>
+                     <p:graphicImage style="border-radius: 50%;" width="120" height="120" stream="false" 
+                                     rendered="#{resourceBean.selectedResource.workstation}" 
+                                     value="/images/workstation_image.jpg"/>
+                     <p:graphicImage style="border-radius: 50%;" width="120" height="120" stream="false" 
+                                     rendered="#{not resourceBean.selectedResource.workstation}" 
+                                     value="/images/space_image.jpg"/>
+                     
+                      
                 </div>
                 
                 <div class="ui-g-8" style="margin-top: 15px; margin-left: 20px;">
@@ -34,6 +36,9 @@
 
                     <div style="margin-top: 8px;">
                         <h:outputText value="#{''.concat(resourceBean.selectedBuilding.name).concat(' - ').concat(resourceBean.selectedFloor.name)}" />
+                    </div>
+                    <div style="margin-top: 8px;">
+                        <h:outputText value="#{resourceBean.selectedResource.category.displayName}"/>
                     </div>
                 </div>
                 
@@ -60,14 +65,14 @@
                 
                 <p:divider/>
                 
-                <div class="ui-g-12">
-                    <div class="ui-g-6">
+                <div class="sidebarFooterContainer">
+                    <div >
                         <p:commandButton id="buttonExit" value="Atras" 
                                          style="background: rgba(47, 46, 92, 0.08); border-color: transparent; color: #6F6EDB; float: right;"
                                          onclick="PF('widget_SidebarResource').hide();"/>
                     </div>
 
-                    <div class="ui-g-6">
+                    <div >
                         <p:commandButton id="buttonNewBooking" value="Nueva reserva" actionListener="#{resourceBean.onNewBooking()}" style="float: right;"
                                          />
                     </div>

@@ -1,13 +1,13 @@
 package com.gestorreservas;
 
-import com.gestorreservas.model.AvailabilityStatus;
-import com.gestorreservas.model.BookingView;
-import com.gestorreservas.model.BuildingView;
-import com.gestorreservas.model.CategoryView;
-import com.gestorreservas.model.FloorView;
-import com.gestorreservas.model.OccupationLegendView;
-import com.gestorreservas.model.ResourceView;
-import com.gestorreservas.model.UserView;
+import com.gestorreservas.view.model.AvailabilityStatus;
+import com.gestorreservas.view.model.BookingView;
+import com.gestorreservas.view.model.BuildingView;
+import com.gestorreservas.view.model.CategoryView;
+import com.gestorreservas.view.model.FloorView;
+import com.gestorreservas.view.model.OccupationLegendView;
+import com.gestorreservas.view.model.ResourceView;
+import com.gestorreservas.view.model.UserView;
 import com.gestorreservas.persistence.BuildingEntity;
 import com.gestorreservas.persistence.BuildingRepository;
 import com.gestorreservas.persistence.FloorEntity;
@@ -38,7 +38,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class ResourceService {
+public class ResourceListService {
 
     private final BuildingRepository buildingRepository;
     private final FloorRepository floorRepository;

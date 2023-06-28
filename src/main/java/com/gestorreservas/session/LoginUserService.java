@@ -1,6 +1,6 @@
 package com.gestorreservas.session;
 
-import com.gestorreservas.model.UserView;
+import com.gestorreservas.view.model.UserView;
 import com.gestorreservas.persistence.UserEntity;
 import com.gestorreservas.persistence.UserRepository;
 import lombok.RequiredArgsConstructor;

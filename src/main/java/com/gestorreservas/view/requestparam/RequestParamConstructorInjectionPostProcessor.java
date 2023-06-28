@@ -1,4 +1,4 @@
-package com.gestorreservas.requestparam;
+package com.gestorreservas.view.requestparam;
 
 import com.google.common.base.MoreObjects;
 import java.lang.reflect.Constructor;

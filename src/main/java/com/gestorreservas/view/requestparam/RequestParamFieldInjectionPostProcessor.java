@@ -1,4 +1,4 @@
-package com.gestorreservas.requestparam;
+package com.gestorreservas.view.requestparam;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;

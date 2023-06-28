@@ -1,7 +1,7 @@
 package com.gestorreservas.session;
 
-import com.gestorreservas.model.OrganizationView;
-import com.gestorreservas.model.UserData;
+import com.gestorreservas.view.model.OrganizationView;
+import com.gestorreservas.view.model.UserData;
 import java.util.Collection;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.GrantedAuthority;

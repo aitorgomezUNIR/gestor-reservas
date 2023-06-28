@@ -1,7 +1,7 @@
 package com.gestorreservas;
 
 import com.gestorreservas.session.LoginUserService;
-import com.gestorreservas.model.UserView;
+import com.gestorreservas.view.model.UserView;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

@@ -1,10 +1,10 @@
 package com.gestorreservas;
 
-import com.gestorreservas.model.BuildingView;
-import com.gestorreservas.model.FloorView;
-import com.gestorreservas.model.ResourceViewLight;
-import com.gestorreservas.model.UserView;
-import com.gestorreservas.model.WorkstationBookingView;
+import com.gestorreservas.view.model.BuildingView;
+import com.gestorreservas.view.model.FloorView;
+import com.gestorreservas.view.model.ResourceViewLight;
+import com.gestorreservas.view.model.UserView;
+import com.gestorreservas.view.model.WorkstationBookingView;
 import com.gestorreservas.persistence.BuildingEntity;
 import com.gestorreservas.persistence.BuildingRepository;
 import com.gestorreservas.persistence.FloorEntity;

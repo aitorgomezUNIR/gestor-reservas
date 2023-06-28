@@ -1,4 +1,4 @@
-package com.gestorreservas.requestparam;
+package com.gestorreservas.view.requestparam;
 
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.context.ApplicationContext;

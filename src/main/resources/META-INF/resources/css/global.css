@@ -164,6 +164,8 @@ html {
     right: 0;
     border-bottom: 1px solid rgba(92, 92, 92, 0.3);
     z-index: 997;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .layout-menu-container {
@@ -291,5 +293,15 @@ body .form-field > label{
     line-height: 1.43;
     letter-spacing: normal;
     color: #5c5c5c;
+}
+
+h1 {
+    font-size: 32px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    color: #000;
 }
 

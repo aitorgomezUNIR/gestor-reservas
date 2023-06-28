@@ -1,9 +1,9 @@
 package com.gestorreservas;
 
-import com.gestorreservas.model.BuildingView;
-import com.gestorreservas.model.FloorView;
-import com.gestorreservas.model.WorkstationBookingView;
-import com.gestorreservas.requestparam.RequestParam;
+import com.gestorreservas.view.model.BuildingView;
+import com.gestorreservas.view.model.FloorView;
+import com.gestorreservas.view.model.WorkstationBookingView;
+import com.gestorreservas.view.requestparam.RequestParam;
 import com.gestorreservas.session.SessionBean;
 import java.io.IOException;
 import java.io.Serializable;

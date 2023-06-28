@@ -1,4 +1,4 @@
-package com.gestorreservas.model;
+package com.gestorreservas.view.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

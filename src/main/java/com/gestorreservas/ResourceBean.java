@@ -1,11 +1,11 @@
 package com.gestorreservas;
 
-import com.gestorreservas.requestparam.RequestParam;
-import com.gestorreservas.model.BookingView;
-import com.gestorreservas.model.BuildingView;
-import com.gestorreservas.model.FloorView;
-import com.gestorreservas.model.OccupationLegendView;
-import com.gestorreservas.model.ResourceView;
+import com.gestorreservas.view.requestparam.RequestParam;
+import com.gestorreservas.view.model.BookingView;
+import com.gestorreservas.view.model.BuildingView;
+import com.gestorreservas.view.model.FloorView;
+import com.gestorreservas.view.model.OccupationLegendView;
+import com.gestorreservas.view.model.ResourceView;
 import com.gestorreservas.session.SessionBean;
 import java.io.IOException;
 import java.io.Serializable;
@@ -37,7 +37,7 @@ public class ResourceBean implements Serializable {
 
     private final SessionBean sessionBean;
 
-    private final ResourceService resourceService;
+    private final ResourceListService resourceService;
 
     @Getter
     @Setter
@@ -73,7 +73,7 @@ public class ResourceBean implements Serializable {
     @Getter
     private ResourceFilters filters;
 
-    public ResourceBean(SessionBean sessionBean, ResourceService resourceService, @RequestParam String date, @RequestParam String buildingId, @RequestParam String floorId) {
+    public ResourceBean(SessionBean sessionBean, ResourceListService resourceService, @RequestParam String date, @RequestParam String buildingId, @RequestParam String floorId) {
         this.sessionBean = sessionBean;
         this.resourceService = resourceService;
         processParams(date, buildingId, floorId);

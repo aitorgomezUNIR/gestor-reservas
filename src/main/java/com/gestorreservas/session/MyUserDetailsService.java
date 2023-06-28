@@ -1,8 +1,8 @@
 package com.gestorreservas.session;
 
 import com.gestorreservas.session.MyUserPrincipal;
-import com.gestorreservas.model.OrganizationView;
-import com.gestorreservas.model.UserData;
+import com.gestorreservas.view.model.OrganizationView;
+import com.gestorreservas.view.model.UserData;
 import com.gestorreservas.persistence.OrganizationEntity;
 import com.gestorreservas.persistence.OrganizationRepository;
 import com.gestorreservas.persistence.UserEntity;

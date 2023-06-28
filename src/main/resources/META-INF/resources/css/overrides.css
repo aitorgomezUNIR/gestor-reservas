@@ -109,3 +109,23 @@ body .ui-selectonemenu-panel .ui-selectonemenu-items .ui-selectonemenu-item.ui-s
     color: white;
 }
 
+body .ui-chkbox .ui-chkbox-box.ui-state-active {
+    border-color: #6f6edb;
+    background: #6f6edb;
+    color: #ffffff;
+}
+
+body .ui-chkbox .ui-chkbox-box.ui-state-active.ui-state-hover {
+    background: #6f6edb;
+}
+
+body .ui-chkbox .ui-chkbox-box.ui-state-focus {
+    box-shadow: none;
+    outline: 0 none;
+}
+
+body .ui-chkbox .ui-chkbox-box.ui-state-hover {
+    border-color: #6f6edb;
+}
+
+

@@ -1,0 +1,8 @@
+button.btnRemoveAttendee {
+    width: 36px !important;
+    height: 36px;
+    padding: 5px;
+    border-radius: 50%;
+    background-color: #f04343 !important;
+    border: 1px solid #f04343 !important;
+}

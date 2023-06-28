@@ -1,7 +1,7 @@
 package com.gestorreservas;
 
-import com.gestorreservas.model.BuildingView;
-import com.gestorreservas.model.FloorView;
+import com.gestorreservas.view.model.BuildingView;
+import com.gestorreservas.view.model.FloorView;
 import com.gestorreservas.persistence.BuildingRepository;
 import com.gestorreservas.persistence.FloorRepository;
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.gestorreservas;
 
-import com.gestorreservas.model.CategoryView;
-import com.gestorreservas.model.ResourceView;
+import com.gestorreservas.view.model.CategoryView;
+import com.gestorreservas.view.model.ResourceView;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;

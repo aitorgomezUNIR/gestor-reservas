@@ -68,14 +68,14 @@
             
             <p:divider/>
             
-            <div class="ui-g-12">
-                <div class="ui-g-6">
+            <div class="sidebarFooterContainer">
+                <div>
                     <p:commandButton id="buttonResetFilters" value="Quitar filtros" actionListener="#{resourceBean.resetFilters()}" 
                                      style="background: rgba(47, 46, 92, 0.08); border-color: transparent; color: #6F6EDB; float: right;"
                                      update="panelDataTableResources"/>
                 </div>
 
-                <div class="ui-g-6">
+                <div>
                     <p:commandButton id="buttonApplyFilters" value="Mostrar resultados" actionListener="#{resourceBean.applyFilters()}" update="panelDataTableResources" style="float: right;"/>
                 </div>
             </div>

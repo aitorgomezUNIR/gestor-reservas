@@ -1,4 +1,4 @@
-package com.gestorreservas.requestparam;
+package com.gestorreservas.view.requestparam;
 
 import java.util.List;
 import java.util.Objects;

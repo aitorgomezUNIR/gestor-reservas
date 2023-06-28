@@ -1,4 +1,4 @@
-package com.gestorreservas.model;
+package com.gestorreservas.view.model;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;

@@ -1,4 +1,4 @@
-package com.gestorreservas.model;
+package com.gestorreservas.view.model;
 
 import lombok.Data;
 import lombok.NonNull;
@@ -8,15 +8,13 @@ import lombok.NonNull;
  * @author Aitor Gómez Afonso
  */
 @Data
-public class BuildingView {
-
+public class BookingViewLight {
     @NonNull
     private String id;
 
     @NonNull
-    private String name;
+    private String resourceId;
 
     @NonNull
-    private String organizationId;
-
+    private String duration;
 }

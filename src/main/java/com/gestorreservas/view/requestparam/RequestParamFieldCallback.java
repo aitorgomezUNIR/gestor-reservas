@@ -1,4 +1,4 @@
-package com.gestorreservas.requestparam;
+package com.gestorreservas.view.requestparam;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
