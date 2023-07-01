@@ -118,7 +118,7 @@ public class NewSpaceBean implements Serializable {
         }
 
         String bookingId = this.newSpaceService.createSpaceBooking(spaceBooking);
-        String url = String.format("space_booking.xhtml?spaceBookingId=%s", bookingId);
+        String url = String.format("space_booking.xhtml?bookingId=%s", bookingId);
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect(url);
         } catch (IOException ex) {

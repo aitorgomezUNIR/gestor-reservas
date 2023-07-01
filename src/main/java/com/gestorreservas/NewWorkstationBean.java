@@ -117,7 +117,7 @@ public class NewWorkstationBean implements Serializable {
         }
 
         String bookingId = this.newWorkstationService.createWorkstationBooking(workstationBooking);
-        String url = String.format("workstation_booking.xhtml?workstationBookingId=%s", bookingId);
+        String url = String.format("workstation_booking.xhtml?bookingId=%s", bookingId);
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect(url);
         } catch (IOException ex) {

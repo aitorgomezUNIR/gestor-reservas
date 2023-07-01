@@ -19,7 +19,7 @@
         </li>
         <li>/</li>
         <li>
-            <h:outputText value="Ficha de reserva" />
+            <h:outputText value="Ficha de reserva de espacio" />
         </li>
     </ui:define>
 
@@ -56,7 +56,7 @@
                                 <div class="booking-card-organizer">
                                     <h:outputText value="#{spaceBookingBean.spaceBooking.organizer.fullName}" style="font-weight:bold;"/>
                                 </div>
-                                
+
                                 <div>
                                     <h:outputText value="Sala de reuniones" />
                                 </div>
@@ -111,7 +111,7 @@
                             <p:inputText readonly="true"
                                          value="#{spaceBookingBean.building.name}, #{spaceBookingBean.floor.name}, #{spaceBookingBean.spaceBooking.resource.name}"/>
                         </div>
-                        
+
 
                         <div class="ui-g-12">
                             <h3><h:outputText value="#{spaceBookingBean.spaceBooking.attendees.size()} invitados"/></h3>
@@ -132,7 +132,14 @@
                             </p:dataTable>
                         </div>
 
+                        <div style="display: flex; padding-top: 30px; justify-content: flex-end" class="ui-g-12">
+                            <div>
+                                <p:commandButton value="Volver" actionListener="#{spaceBookingBean.redirectToList()}" class="secondary-button"/>
+                            </div>
+                        </div>
+
                     </div>
+
 
                 </div>
             </div>

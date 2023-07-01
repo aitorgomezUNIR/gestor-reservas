@@ -1,7 +1,9 @@
 package com.gestorreservas.view.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -9,6 +11,8 @@ import org.apache.commons.lang3.StringUtils;
  * @author Aitor Gómez Afonso
  */
 @Data
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class UserView {
 
     @NonNull

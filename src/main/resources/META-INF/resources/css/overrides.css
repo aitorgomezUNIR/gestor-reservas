@@ -77,6 +77,12 @@ body .ui-button.ui-state-hover {
     border: 1px solid #5554d4;
 }
 
+body .ui-button.ui-state-active {
+    background: #5554d4;
+    border: 1px solid #5554d4;
+}
+
+
 body .ui-button.ui-state-focus {
     outline: 0 none;
     outline-offset: 0;

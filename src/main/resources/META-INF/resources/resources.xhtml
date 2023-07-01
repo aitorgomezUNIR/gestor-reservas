@@ -22,7 +22,7 @@
 
     <ui:define name="content">
         <h:form id="formManageBookingsResources">
-            <div class="ui-g ">
+            <div class="ui-g">
                 <div class="ui-g-12" style="padding-bottom: 0px;" >
                     <h1><h:outputText  value="Reservas por recurso" /></h1>
                 </div>
@@ -30,7 +30,7 @@
                     <h:outputText value="Selecciona una fecha y ubicación para visualizar los recursos disponibles y gestionar sus reservas."/>
                 </div>
 
-                <div class="ui-xl-8 nopad ui-fluid">
+                <div class="ui-g-8 nopad ui-fluid">
                     <div class="ui-g-3 form-field">
                         <p:outputLabel value="Edificio"/>
                         <p:selectOneMenu id="selectMenuBuildings"
@@ -129,6 +129,11 @@
                             <h:outputText value="#{recurso.name}"/>
                         </p:column>
                         
+                        <p:column headerText="Capacidad" sortBy="#{recurso.capacity}">
+                            <h:outputText value="#{recurso.capacity} persona(s)" style="margin-left: 5px;"/>
+                        </p:column>
+                        
+                        
                         <p:column headerText="Edificio">
                             <h:outputText value="#{resourceBean.selectedBuilding.name}"/>
                         </p:column>
@@ -139,6 +144,7 @@
                         <p:column headerText="Categoría">
                             <h:outputText value="#{recurso.category.displayName}"/>
                         </p:column>
+                        
                     </p:dataTable>
                 </p:outputPanel>
 

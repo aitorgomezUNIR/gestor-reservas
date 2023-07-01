@@ -363,4 +363,10 @@ h1 {
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 }
 
+.secondary-button {
+    background: rgba(47, 46, 92, 0.08) !important;
+    border-color: transparent !important;
+    color: #6F6EDB !important;
+}
+
 

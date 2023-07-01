@@ -9,6 +9,7 @@ import com.gestorreservas.view.util.BookingService;
 import com.gestorreservas.view.util.ResourceService;
 import java.io.IOException;
 import java.io.Serializable;
+import java.time.format.DateTimeFormatter;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -39,11 +40,11 @@ public class SpaceBookingBean implements Serializable {
     @Getter
     private FloorView floor;
 
-    public SpaceBookingBean(SpaceBookingService spaceBookingService, ResourceService resourceService, BookingService bookingService, @RequestParam String spaceBookingId) {
+    public SpaceBookingBean(SpaceBookingService spaceBookingService, ResourceService resourceService, BookingService bookingService, @RequestParam String bookingId) {
         this.spaceBookingService = spaceBookingService;
         this.resourceService = resourceService;
         this.bookingService = bookingService;
-        this.processParams(spaceBookingId);
+        this.processParams(bookingId);
     }
 
     private void processParams(String bookingId) {
@@ -77,6 +78,17 @@ public class SpaceBookingBean implements Serializable {
     public void cancel() {
         bookingService.cancelBooking(spaceBooking);
         redirectBack();
+    }
+
+    public void redirectToList() {
+        String formattedDate = spaceBooking.getDate().format(DateTimeFormatter.BASIC_ISO_DATE);
+        String relativeUrl = String.format("resources.xhtml?date=%s&buildingId=%s&floorId=%s", formattedDate, building.getId(), this.floor.getId());
+
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect(relativeUrl);
+        } catch (IOException ex) {
+            log.error("Error redirecting to {}", relativeUrl);
+        }
     }
 
     private void redirectBack() {

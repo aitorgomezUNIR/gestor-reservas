@@ -19,7 +19,7 @@
         </li>
         <li>/</li>
         <li>
-            <h:outputText value="Ficha de reserva" />
+            <h:outputText value="Ficha de reserva de espacio" />
         </li>
     </ui:define>
 
@@ -107,6 +107,12 @@
                                 <p:inputText readonly="true"
                                              value="#{workstationBookingBean.building.name}, #{workstationBookingBean.floor.name}, #{workstationBookingBean.workstationBooking.resource.name}"/>
                             </div>
+                            
+                            <div style="display: flex; padding-top: 30px; justify-content: flex-end" class="ui-g-12">
+                            <div>
+                                <p:commandButton value="Volver" actionListener="#{workstationBookingBean.redirectToList()}"/>
+                            </div>
+                        </div>
                         </div>
                     </div>
 
