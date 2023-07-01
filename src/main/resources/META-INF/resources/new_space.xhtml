@@ -95,7 +95,7 @@
                                       value="#{newSpaceBean.spaceBooking.startTime}"
                                       pattern="HH:mm"
                                       hourFormat="24"
-                                      locale="#{localeBean.language}"
+                                      locale="es"
                                       stepMinute="15">
                         </p:datePicker>
                     </div>
@@ -106,7 +106,7 @@
                                       value="#{newSpaceBean.spaceBooking.endTime}"
                                       pattern="HH:mm"
                                       hourFormat="24"
-                                      locale="#{localeBean.language}"
+                                      locale="es"
                                       stepMinute="15">
                         </p:datePicker>
                     </div>
@@ -124,7 +124,8 @@
                                         minQueryLength="3"
                                         placeholder="Buscar usuario"
                                         var="user" itemLabel="#{user.fullName}" itemValue="#{user}"
-                                        converter="#{userConverter}" forceSelection="true">
+                                        converter="#{userConverter}" forceSelection="true"
+                                        >
                             <p:ajax event="itemSelect" update="dataTableAttendees" listener="#{newSpaceBean.onItemSelect()}"/>
                             <p:column>
                                 <h:outputText value="#{user.fullName}"/>
@@ -163,7 +164,7 @@
                     <div style="display: flex; gap: 15px; width:100%;  padding-left: 6px; padding-top: 20px;">
                         <div>
                             <p:commandButton id="btnCreateSpaceBooking" value="Reservar" actionListener="#{newSpaceBean.validateNewBooking()}"
-                                             disabled="#{newSpaceBean.spaceBooking.organizer == null}"/>
+                                             />
 
                         </div>
 

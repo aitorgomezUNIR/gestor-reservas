@@ -14,6 +14,8 @@
     <name>gestor-reservas</name>
     <description>TFG Aitor Gómez Afonso UNIR</description>
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
         <java.version>11</java.version>
         <joinfaces.version>4.4.3</joinfaces.version>
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
@@ -46,7 +48,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

@@ -50,7 +50,7 @@
                                         placeholder="Buscar usuario"
                                         var="user" itemLabel="#{user.fullName}" itemValue="#{user}"
                                         converter="#{userConverter}" forceSelection="true">
-                            <p:ajax event="valueChange" update="btnCreateBooking"/>
+                            
                             <p:column>
                                 <h:outputText value="#{user.fullName}"/>
                             </p:column>
@@ -76,7 +76,7 @@
                                       value="#{newWorkstationBean.workstationBooking.startTime}"
                                       pattern="HH:mm"
                                       hourFormat="24"
-                                      locale="#{localeBean.language}"
+                                      locale="es"
                                       stepMinute="15">
                         </p:datePicker>
                     </div>
@@ -87,7 +87,7 @@
                                       value="#{newWorkstationBean.workstationBooking.endTime}"
                                       pattern="HH:mm"
                                       hourFormat="24"
-                                      locale="#{localeBean.language}"
+                                      locale="es"
                                       stepMinute="15">
                         </p:datePicker>
                     </div>
@@ -95,7 +95,7 @@
                     <div style="display: flex; gap: 15px; width:100%;  padding-left: 6px; padding-top: 20px;">
                         <div>
                             <p:commandButton id="btnCreateBooking" value="Reservar" actionListener="#{newWorkstationBean.validateNewBooking()}"
-                                             disabled="#{newWorkstationBean.workstationBooking.organizer == null}"/>
+                                             />
 
                         </div>
 

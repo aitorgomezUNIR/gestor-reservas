@@ -61,7 +61,9 @@ public class SpaceBookingService {
                     .orElseThrow(() -> new IllegalArgumentException("Unable to retrieve user with id " + entity.getOrganizerId()));
 
             UserView user = new UserView(attendeeUser.getId(), attendeeUser.getName(), attendeeUser.getSurname(), attendeeUser.getEmail(), attendeeUser.getOrganizationId());
-            attendees.add(new AttendeeView(attendee.getId(), bookingId, user, AttendeeTypesView.valueOf(attendee.getType().name())));
+            AttendeeView attendeeView = new AttendeeView(attendee.getId(), bookingId, user, AttendeeTypesView.valueOf(attendee.getType().name()));
+            attendeeView.setOptional(AttendeeTypes.OPTIONAL.equals(attendee.getType()));
+            attendees.add(attendeeView);
 
         }
         spaceBooking.setAttendees(attendees);

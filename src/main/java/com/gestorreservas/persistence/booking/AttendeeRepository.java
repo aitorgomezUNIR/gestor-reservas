@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface AttendeeRepository extends JpaRepository<AttendeeEntity, String> {
     List<AttendeeEntity> findAllByBookingIdAndTypeNot(String bookingId, AttendeeTypes type);
+
+    void deleteAllByBookingIdAndTypeNot(String bookingId, AttendeeTypes type);
 }

@@ -1,5 +1,6 @@
 package com.gestorreservas;
 
+import com.gestorreservas.view.model.BookingView;
 import com.gestorreservas.view.model.BuildingView;
 import com.gestorreservas.view.model.FloorView;
 import com.gestorreservas.view.model.SpaceBookingView;
@@ -83,6 +84,15 @@ public class SpaceBookingBean implements Serializable {
             FacesContext.getCurrentInstance().getExternalContext().redirect("search.xhtml");
         } catch (IOException ex) {
             log.error("Error redirecting to search.xhtml");
+        }
+    }
+
+    public void onEditBooking(BookingView booking) {
+        String url = String.format("edit_space.xhtml?bookingId=%s", booking.getId());
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect(url);
+        } catch (IOException e) {
+            log.error("Error redirecting to new booking view");
         }
     }
 

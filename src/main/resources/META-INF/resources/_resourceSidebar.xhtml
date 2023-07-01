@@ -69,7 +69,7 @@
                                 <p:menuitem icon="pi pi-times" value="Check out"
                                             actionListener="#{resourceBean.checkOut(booking)}"
                                             disabled="#{booking.checkInDate == null or booking.checkOutDate != null}" update="dataTableResourceBookings"/>
-                                <p:menuitem icon="pi pi-pencil" value="Editar reserva"/>
+                                <p:menuitem icon="pi pi-pencil" value="Editar reserva" actionListener="#{resourceBean.onEditBooking(booking)}"/>
                                 <p:menuitem icon="pi pi-trash" value="Anular reserva"
                                             actionListener="#{resourceBean.cancel(booking)}" update="dataTableResourceBookings"/>
                             </p:menu>

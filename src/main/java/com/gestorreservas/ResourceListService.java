@@ -24,7 +24,6 @@ import com.gestorreservas.persistence.resource.WorkstationEntity;
 import com.gestorreservas.view.model.ResourceViewLight;
 import com.gestorreservas.view.model.SpaceBookingView;
 import com.gestorreservas.view.model.WorkstationBookingView;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
@@ -96,10 +95,8 @@ public class ResourceListService {
         return floorResources;
     }
 
-    public List<BookingView> getResourceBookings(ResourceView resourceView, LocalDate localDate) {
+    public List<BookingView> getResourceBookings(ResourceView resourceView, LocalDateTime rangeStart, LocalDateTime rangeEnd) {
         String resourceId = resourceView.getId();
-        LocalDateTime rangeStart = LocalDateTime.of(localDate, LocalTime.MIN);
-        LocalDateTime rangeEnd = LocalDateTime.of(localDate, LocalTime.MAX);
         List<BookingEntity> bookingEntities = bookingRepository.getResourceBookingsForRange(resourceId, rangeStart, rangeEnd);
         List<BookingView> bookings = new ArrayList<>();
         for (BookingEntity booking : bookingEntities) {

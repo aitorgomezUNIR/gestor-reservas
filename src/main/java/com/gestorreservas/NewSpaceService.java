@@ -43,6 +43,9 @@ public class NewSpaceService {
         b = spaceBookingRepository.save(b);
         List<AttendeeEntity> attendees = new ArrayList<>();
         for (NewAttendeeView a : newBooking.getAttendees()) {
+            if (a.getUser().getId().equals(newBooking.getOrganizer().getId())) {
+                continue;
+            }
             AttendeeTypes type = a.isOptional() ? AttendeeTypes.OPTIONAL : AttendeeTypes.REQUIRED;
             attendees.add(new AttendeeEntity(a.getUser().getId(), b.getId(), type));
         }

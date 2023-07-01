@@ -34,7 +34,7 @@
                     </div>
                     <div class="ui-g-12" style="vertical-align: middle;">
                         <span class="pi pi-map-marker" style="margin-right: 5px;"/>
-                        <h:outputText value="#{editWorkstationBean.building.name}, #{editWorkstationBean.workstationBooking.floor.name}, #{editWorkstationBean.workstationBooking.resource.name}"/>
+                        <h:outputText value="#{editWorkstationBean.building.name}, #{editWorkstationBean.floor.name}, #{editWorkstationBean.workstationBooking.resource.name}"/>
                     </div>
                     <div class="ui-g-12" style="vertical-align: middle;">
                         <span class="pi pi-user" style="margin-right: 5px;"/>
@@ -48,7 +48,7 @@
                     <div class="ui-g-12 form-field">
                         <p:outputLabel value="Fecha"/>
                         <p:datePicker id="datePickerNewWorkstation" readonlyInput="true"
-                                      value="#{editWorkstationBean.workstationBooking.date}"
+                                      value="#{editWorkstationBean.date}"
                                       showTime="false"/>
 
                     </div>
@@ -56,10 +56,10 @@
                     <div class="ui-g-6 form-field">
                         <p:outputLabel value="Hora de inicio"/>
                         <p:datePicker id="pickerStartTime" readonlyInput="true"
-                                      value="#{editWorkstationBean.workstationBooking.startTime}"
+                                      value="#{editWorkstationBean.startTime}"
                                       pattern="HH:mm"
                                       hourFormat="24"
-                                      locale="#{localeBean.language}"
+                                      locale="es"
                                       stepMinute="15">
                         </p:datePicker>
                     </div>
@@ -67,23 +67,23 @@
                     <div class="ui-g-6 form-field">
                         <p:outputLabel value="Hora de fin"/>
                         <p:datePicker id="pickerEndTime" readonlyInput="true"
-                                      value="#{editWorkstationBean.workstationBooking.endTime}"
+                                      value="#{editWorkstationBean.endTime}"
                                       pattern="HH:mm"
                                       hourFormat="24"
-                                      locale="#{localeBean.language}"
+                                      locale="es"
                                       stepMinute="15">
                         </p:datePicker>
                     </div>
 
                     <div style="display: flex; gap: 15px; width:100%;  padding-left: 6px; padding-top: 20px;">
                         <div>
-                            <p:commandButton id="btnCreateBooking" value="Reservar" actionListener="#{editWorkstationBean.validateNewBooking()}"
+                            <p:commandButton id="btnEditBooking" value="Editar reserva" actionListener="#{editWorkstationBean.validateBooking()}"
                                              disabled="#{editWorkstationBean.workstationBooking.organizer == null}"/>
 
                         </div>
 
                         <div>
-                            <p:commandButton id="btnCancel" style="background: rgba(47, 46, 92, 0.08); border-color: transparent; color: #6F6EDB;" value="Cancelar"
+                            <p:commandButton id="btnCancel" style="background: rgba(47, 46, 92, 0.08); border-color: transparent; color: #6F6EDB;" value="Volver"
                                              actionListener="#{editWorkstationBean.redirectToList()}"/>
 
                         </div>
@@ -107,7 +107,7 @@
                     <h:outputText value="Reservas conflictivas" class="dialogTitle"/>
                 </f:facet>
                 <div>
-                    <h:outputText value="Una o más reservas coinciden total o parcialmente con la que estás creando. ¿Deseas continuar con tu reserva anulando las coincidentes?"/>
+                    <h:outputText value="Una o más reservas coinciden total o parcialmente con la que estás editando. ¿Deseas continuar con tu reserva anulando las coincidentes?"/>
                 </div>
 
                 <div style="margin-top: 20px;">
@@ -130,7 +130,7 @@
 
                     <p:commandButton id="btnDialogCancel" style="background: rgba(47, 46, 92, 0.08); border-color: transparent; color: #6F6EDB;" value="Atras"
                                      oncomplete="PF('widget_dialogConflictiveBookings').hide();"/>
-                    <p:commandButton id="btnDialogCreateBooking" value="Continuar" actionListener="#{editWorkstationBean.createBooking()}"
+                    <p:commandButton id="btnDialogEditBooking" value="Continuar" actionListener="#{editWorkstationBean.editBooking()}"
                                      oncomplete="PF('widget_dialogConflictiveBookings').hide();"/>
 
 

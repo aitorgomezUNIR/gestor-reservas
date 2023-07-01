@@ -155,6 +155,7 @@ public class ResourceBean implements Serializable {
         }
     }
 
+
     public void checkIn(BookingView bookingView) {
         bookingService.checkIn(bookingView);
         FacesContext.getCurrentInstance().addMessage(null,
@@ -193,7 +194,7 @@ public class ResourceBean implements Serializable {
     }
 
     public void onRowSelect() {
-        List<BookingView> resourceBookings = this.resourceService.getResourceBookings(selectedResource, selectedDate);
+        List<BookingView> resourceBookings = this.resourceService.getResourceBookings(selectedResource, constructDate(this.filters.getStartTime()), constructDate(this.filters.getEndTime()));
         this.selectedResource.setBookings(resourceBookings);
     }
 
@@ -203,6 +204,15 @@ public class ResourceBean implements Serializable {
             long endMs = constructDate(filters.getEndTime()).toInstant(ZoneOffset.UTC).toEpochMilli();
             String params = String.format("start=%s&end=%s&resourceId=%s", startMs, endMs, selectedResource.getId());
             String url = String.format("new_%s.xhtml?%s", selectedResource.getCategory().name().toLowerCase(), params);
+            FacesContext.getCurrentInstance().getExternalContext().redirect(url);
+        } catch (IOException e) {
+            log.error("Error redirecting to new booking view");
+        }
+    }
+
+    public void onEditBooking(BookingView booking) {
+        String url = String.format("edit_%s.xhtml?bookingId=%s", selectedResource.getCategory().name().toLowerCase(), booking.getId());
+        try {
             FacesContext.getCurrentInstance().getExternalContext().redirect(url);
         } catch (IOException e) {
             log.error("Error redirecting to new booking view");

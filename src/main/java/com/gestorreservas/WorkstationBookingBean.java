@@ -1,5 +1,6 @@
 package com.gestorreservas;
 
+import com.gestorreservas.view.model.BookingView;
 import com.gestorreservas.view.model.BuildingView;
 import com.gestorreservas.view.model.FloorView;
 import com.gestorreservas.view.model.WorkstationBookingView;
@@ -55,9 +56,6 @@ public class WorkstationBookingBean implements Serializable {
             this.workstationBooking = workstationBookingService.getWorkstationBooking(bookingId);
             this.floor = resourceService.getFloor(this.workstationBooking.getResource().getFloorId());
             this.building = resourceService.getBuilding(this.floor.getBuildingId());
-            if (true) {
-                int math = 1 + 1;
-            }
         } catch (IllegalArgumentException e) {
             log.error("Error retrieving workstation booking, floor or building");
             redirectBack();
@@ -86,6 +84,15 @@ public class WorkstationBookingBean implements Serializable {
             FacesContext.getCurrentInstance().getExternalContext().redirect("search.xhtml");
         } catch (IOException ex) {
             log.error("Error redirecting to search.xhtml");
+        }
+    }
+
+    public void onEditBooking(BookingView booking) {
+        String url = String.format("edit_workstation.xhtml?bookingId=%s", booking.getId());
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect(url);
+        } catch (IOException e) {
+            log.error("Error redirecting to new booking view");
         }
     }
 

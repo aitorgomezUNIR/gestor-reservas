@@ -87,13 +87,13 @@ public class NewSpaceBean implements Serializable {
     }
 
     public List<UserView> findUsers(String query) {
-        return userService.findUsers(query, sessionBean.getOrganizationId());
+        return Objects.isNull(spaceBooking.getOrganizer()) ? userService.findUsers(query, sessionBean.getOrganizationId()) : userService.findUsersAttendees(query, sessionBean.getOrganizationId(), spaceBooking.getOrganizer().getId());
     }
 
     public void validateNewBooking() {
         if (Objects.isNull(spaceBooking.getOrganizer())) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Debes añadir un usuario a la reserva.", null));
+                    "Debes añadir un organizador a la reserva.", null));
             return;
         }
 

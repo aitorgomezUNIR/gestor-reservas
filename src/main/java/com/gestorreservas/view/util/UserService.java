@@ -41,6 +41,22 @@ public class UserService {
         return userRepository.findAll(booleanExpression, pageable).map(this::constructUserView).getContent();
     }
 
+    public List<UserView> findUsersAttendees(String keyword, String organizationId, String organizerId) {
+        if (StringUtils.isBlank(keyword)) {
+            return Collections.emptyList();
+        }
+
+        Pageable pageable = PageRequest.of(0, 10);
+
+        QUserEntity user = QUserEntity.userEntity;
+        keyword = keyword.trim().toLowerCase();
+
+        BooleanExpression booleanExpression = user.organizationId.eq(organizationId).and(user.id.notEqualsIgnoreCase(organizerId))
+                .and(user.name.append(" ").concat(user.surname)
+                        .containsIgnoreCase(keyword).or(user.email.contains(keyword)));
+        return userRepository.findAll(booleanExpression, pageable).map(this::constructUserView).getContent();
+    }
+
     private UserView constructUserView(UserEntity entity) {
         return new UserView(entity.getId(), entity.getName(), entity.getSurname(), entity.getEmail(), entity.getOrganizationId());
     }

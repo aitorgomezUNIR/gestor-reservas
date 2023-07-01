@@ -92,7 +92,7 @@ public class NewWorkstationBean implements Serializable {
     public void validateNewBooking() {
         if (Objects.isNull(workstationBooking.getOrganizer())) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Debes añadir un usuario a la reserva.", null));
+                    "Debes añadir un organizador a la reserva.", null));
             return;
         }
 
@@ -126,12 +126,13 @@ public class NewWorkstationBean implements Serializable {
     }
 
     public void redirectToList() {
+        String formattedDate = workstationBooking.getDate().format(DateTimeFormatter.BASIC_ISO_DATE);
+        String relativeUrl = String.format("resources.xhtml?date=%s&buildingId=%s&floorId=%s", formattedDate, building.getId(), workstationBooking.getFloor().getId());
+
         try {
-            String formattedDate = workstationBooking.getDate().format(DateTimeFormatter.BASIC_ISO_DATE);
-            String relativeUrl = String.format("resources.xhtml?date=%s&buildingId=%s&floorId=%s", formattedDate, building.getId(), workstationBooking.getFloor().getId());
             FacesContext.getCurrentInstance().getExternalContext().redirect(relativeUrl);
         } catch (IOException ex) {
-            log.error("Error redirecting to search.xhtml");
+            log.error("Error redirecting to {}", relativeUrl);
         }
     }
 

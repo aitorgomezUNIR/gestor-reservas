@@ -22,7 +22,10 @@ public class AttendeeView {
     @NonNull
     private AttendeeTypesView type;
 
-    public boolean isOptional() {
-        return AttendeeTypesView.OPTIONAL.equals(type);
+    private boolean optional;
+
+    public void onChangedOptional() {
+        this.type = optional ? AttendeeTypesView.OPTIONAL : AttendeeTypesView.REQUIRED;
     }
+
 }

@@ -1,5 +1,6 @@
 package com.gestorreservas.view.model;
 
+import java.io.Serializable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -12,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 @NoArgsConstructor
-public class UserData {
+public class UserData implements Serializable {
 
     @NonNull
     private String id;
