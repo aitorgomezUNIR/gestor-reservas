@@ -134,4 +134,14 @@ body .ui-chkbox .ui-chkbox-box.ui-state-hover {
     border-color: #6f6edb;
 }
 
+body .ui-growl .ui-growl-item-container.ui-growl-info {
+    background: #c5f1dd;
+    border: 1px solid #3ece8e;
+    color: #37594a;
+    border-width: 0 0 0 6px;
+}
+
+body .ui-growl .ui-growl-item-container.ui-growl-info .ui-growl-image {
+    color:#37594a;
+}
 
