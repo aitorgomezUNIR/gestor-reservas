@@ -64,7 +64,7 @@
 
                     <div class="ui-g-12 form-field">
                         <p:outputLabel value="Titulo"/>
-                        <p:inputText value="#{newSpaceBean.spaceBooking.title}"/>
+                        <p:inputText value="#{newSpaceBean.spaceBooking.subject}"/>
                     </div>
 
                     <div class="ui-g-12 form-field">
@@ -162,14 +162,14 @@
 
                     <div style="display: flex; gap: 15px; width:100%;  padding-left: 6px; padding-top: 20px;">
                         <div>
-                            <p:commandButton id="btnCreateBooking" value="Reservar" actionListener="#{newSpaceBean.validateNewBooking()}"
+                            <p:commandButton id="btnCreateSpaceBooking" value="Reservar" actionListener="#{newSpaceBean.validateNewBooking()}"
                                              disabled="#{newSpaceBean.spaceBooking.organizer == null}"/>
 
                         </div>
 
                         <div>
                             <p:commandButton id="btnCancel" style="background: rgba(47, 46, 92, 0.08); border-color: transparent; color: #6F6EDB;" value="Cancelar"
-                                             actionListener="#{newSpaceBean.redirectToList()}"/>
+                                             actionListener="#{newSpaceBean.redirectToList()}" process="@this"/>
 
                         </div>
                     </div>
@@ -180,8 +180,8 @@
             <h:outputStylesheet name="/new_space.css" library="css"/>
         </h:form>
 
-        <h:form id="formConflictiveBookingsDialog">
-            <p:dialog id="dialogConflictiveBookings" widgetVar="widget_dialogConflictiveBookings"
+        <h:form id="formConflictiveSpaceBookingsDialog">
+            <p:dialog id="dialogConflictiveSpaceBookings" widgetVar="widget_dialogConflictiveSpaceBookings"
                       modal="true"
                       dynamic="true"
                       responsive="true"

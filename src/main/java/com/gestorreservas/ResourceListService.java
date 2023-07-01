@@ -16,14 +16,18 @@ import com.gestorreservas.persistence.UserEntity;
 import com.gestorreservas.persistence.UserRepository;
 import com.gestorreservas.persistence.booking.BookingEntity;
 import com.gestorreservas.persistence.booking.BookingRepository;
+import com.gestorreservas.persistence.booking.WorkstationBookingEntity;
 import com.gestorreservas.persistence.resource.ResourceEntity;
 import com.gestorreservas.persistence.resource.ResourceRepository;
 import com.gestorreservas.persistence.resource.SpaceEntity;
 import com.gestorreservas.persistence.resource.WorkstationEntity;
+import com.gestorreservas.view.model.ResourceViewLight;
+import com.gestorreservas.view.model.SpaceBookingView;
+import com.gestorreservas.view.model.WorkstationBookingView;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -92,7 +96,8 @@ public class ResourceListService {
         return floorResources;
     }
 
-    public List<BookingView> getResourceBookings(String resourceId, LocalDate localDate) {
+    public List<BookingView> getResourceBookings(ResourceView resourceView, LocalDate localDate) {
+        String resourceId = resourceView.getId();
         LocalDateTime rangeStart = LocalDateTime.of(localDate, LocalTime.MIN);
         LocalDateTime rangeEnd = LocalDateTime.of(localDate, LocalTime.MAX);
         List<BookingEntity> bookingEntities = bookingRepository.getResourceBookingsForRange(resourceId, rangeStart, rangeEnd);
@@ -101,7 +106,13 @@ public class ResourceListService {
             UserEntity userEntity = userRepository.findById(booking.getOrganizerId())
                     .orElseThrow(() -> new IllegalArgumentException(String.format("User with id %s not found", booking.getOrganizerId())));
             UserView userView = new UserView(userEntity.getId(), userEntity.getName(), userEntity.getSurname(), userEntity.getEmail(), userEntity.getOrganizationId());
-            BookingView bookingView = new BookingView(booking.getId(), booking.getResourceId(), booking.getStartDate(), booking.getEndDate(), userView);
+            ResourceViewLight resource = new ResourceViewLight(resourceId, resourceView.getName(), resourceView.getFloorId(), resourceView.getCategory());
+            BookingView bookingView;
+            if (booking instanceof WorkstationBookingEntity) {
+                bookingView = new WorkstationBookingView(booking.getId(), resource, booking.getStartDate(), booking.getEndDate(), userView);
+            } else {
+                bookingView = new SpaceBookingView(booking.getId(), resource, booking.getStartDate(), booking.getEndDate(), userView);
+            }
             bookingView.setCheckInDate(booking.getCheckInDate());
             bookingView.setCheckOutDate(booking.getCheckOutDate());
             bookings.add(bookingView);
@@ -118,7 +129,9 @@ public class ResourceListService {
     }
 
     private AvailabilityStatus getAvailabilityStatus(List<BookingEntity> bookingEntities, LocalDateTime rangeStart, LocalDateTime rangeEnd) {
-        long rangeMs = ChronoUnit.NANOS.between(rangeStart, rangeEnd);
+        long startMs = rangeStart.toInstant(ZoneOffset.UTC).toEpochMilli();
+        long endMs = rangeEnd.toInstant(ZoneOffset.UTC).toEpochMilli();
+        long rangeMs = endMs - startMs;
 
         long totalBookingsDuration = 0;
 

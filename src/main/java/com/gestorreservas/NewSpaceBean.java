@@ -6,10 +6,10 @@ import com.gestorreservas.view.model.BookingView;
 import com.gestorreservas.view.model.BuildingView;
 import com.gestorreservas.view.model.FloorView;
 import com.gestorreservas.view.model.NewSpaceBookingView;
-import com.gestorreservas.view.model.ResourceView;
 import com.gestorreservas.view.model.UserView;
 import com.gestorreservas.view.requestparam.RequestParam;
 import com.gestorreservas.session.SessionBean;
+import com.gestorreservas.view.model.ResourceViewLight;
 import com.gestorreservas.view.util.ResourceService;
 import java.io.IOException;
 import java.io.Serializable;
@@ -76,7 +76,7 @@ public class NewSpaceBean implements Serializable {
             LocalDateTime startDate = LocalDateTime.ofInstant(Instant.ofEpochMilli(startMs), ZoneId.of("UTC"));
             LocalDateTime endDate = LocalDateTime.ofInstant(Instant.ofEpochMilli(endMs), ZoneId.of("UTC"));
 
-            ResourceView resourceView = resourceService.getResource(resourceId);
+            ResourceViewLight resourceView = newSpaceService.getSpace(resourceId);
             FloorView floorView = resourceService.getFloor(resourceView.getFloorId());
             this.building = resourceService.getBuilding(floorView.getBuildingId());
             this.spaceBooking = new NewSpaceBookingView(resourceView, startDate.toLocalDate(), startDate.toLocalTime(), endDate.toLocalTime(), floorView);
@@ -103,10 +103,10 @@ public class NewSpaceBean implements Serializable {
             return;
         }
 
-        this.conflictiveBookings = bookingService.getResourceBookings(spaceBooking.getResource().getId(), spaceBooking.constructStartDate(), spaceBooking.constructEndDate());
+        this.conflictiveBookings = bookingService.getResourceBookings(spaceBooking.getResource(), spaceBooking.constructStartDate(), spaceBooking.constructEndDate());
 
         if (!conflictiveBookings.isEmpty()) {
-            PrimeFaces.current().executeScript("PF('widget_dialogConflictiveBookings').show()");
+            PrimeFaces.current().executeScript("PF('widget_dialogConflictiveSpaceBookings').show()");
         } else {
             createBooking();
         }
@@ -118,7 +118,7 @@ public class NewSpaceBean implements Serializable {
         }
 
         String bookingId = this.newSpaceService.createSpaceBooking(spaceBooking);
-        String url = String.format("space_booking.xhtml?bookingId=%s", bookingId);
+        String url = String.format("space_booking.xhtml?spaceBookingId=%s", bookingId);
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect(url);
         } catch (IOException ex) {
@@ -127,12 +127,13 @@ public class NewSpaceBean implements Serializable {
     }
 
     public void redirectToList() {
+        String formattedDate = spaceBooking.getDate().format(DateTimeFormatter.BASIC_ISO_DATE);
+        String relativeUrl = String.format("resources.xhtml?date=%s&buildingId=%s&floorId=%s", formattedDate, building.getId(), spaceBooking.getFloor().getId());
+
         try {
-            String formattedDate = spaceBooking.getDate().format(DateTimeFormatter.BASIC_ISO_DATE);
-            String relativeUrl = String.format("resources.xhtml?date=%s&buildingId=%s&floorId=%s", formattedDate, building.getId(), spaceBooking.getFloor().getId());
             FacesContext.getCurrentInstance().getExternalContext().redirect(relativeUrl);
         } catch (IOException ex) {
-            log.error("Error redirecting to search.xhtml");
+            log.error("Error redirecting to {}", relativeUrl);
         }
     }
 

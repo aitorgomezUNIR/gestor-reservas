@@ -11,7 +11,7 @@ import lombok.Data;
  */
 @Data
 public class NewWorkstationBookingView {
-    private ResourceView resource;
+    private ResourceViewLight resource;
 
     private UserView organizer;
 
@@ -26,7 +26,7 @@ public class NewWorkstationBookingView {
     public NewWorkstationBookingView() {
     }
 
-    public NewWorkstationBookingView(ResourceView resource, LocalDate date, LocalTime startTime, LocalTime endTime, FloorView floor) {
+    public NewWorkstationBookingView(ResourceViewLight resource, LocalDate date, LocalTime startTime, LocalTime endTime, FloorView floor) {
         this.resource = resource;
         this.date = date;
         this.startTime = startTime;

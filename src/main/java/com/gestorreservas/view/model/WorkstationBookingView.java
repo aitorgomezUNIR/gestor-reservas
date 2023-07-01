@@ -1,36 +1,18 @@
 package com.gestorreservas.view.model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import lombok.Data;
-import lombok.NonNull;
 
 /**
  *
  * @author Aitor Gómez Afonso
  */
-@Data
-public class WorkstationBookingView {
-    @NonNull
-    private String id;
+public class WorkstationBookingView extends BookingView {
 
-    @NonNull
-    private ResourceViewLight resource;
+    public WorkstationBookingView() {
+    }
 
-    @NonNull
-    private LocalDate date;
 
-    @NonNull
-    private LocalTime startTime;
-
-    @NonNull
-    private LocalTime endTime;
-
-    @NonNull
-    private UserView organizer;
-
-    private LocalDateTime checkInDate;
-
-    private LocalDateTime checkOutDate;
+    public WorkstationBookingView(String id, ResourceViewLight resoruce, LocalDateTime start, LocalDateTime end, UserView organizer) {
+        super(id, resoruce, start, end, organizer);
+    }
 }

@@ -26,7 +26,7 @@
 
 
     <ui:define name="content">
-        <h:form id="formWorkstationBookingData">
+        <h:form id="formSpaceBookingData">
             <div class="ui-g">
                 <div class="ui-xl-6 ui-lg-12 ui-md-12 ui-sm-12">
                     <div class="ui-g-12">
@@ -36,53 +36,57 @@
                     <div class="ui-g-4">
                         <div class="booking-card card">
                             <div class="booking-card-header">
-                                <p:graphicImage value="/images/workstation_image.jpg"/>
+                                <p:graphicImage value="/images/space_image.jpg"/>
                             </div>
 
                             <div class="booking-card-button">
                                 <p:commandButton id="bookingOptionsButton" icon="pi pi-bars"/>
                                 <p:menu overlay="true" trigger="bookingOptionsButton" my="left top" at="left bottom"
                                         style="width: fit-content; background-color:white">
-                                    <p:menuitem value="Check in" icon="pi pi-check-circle" actionListener="#{workstationBookingBean.checkIn()}"
-                                                disabled="#{workstationBookingBean.workstationBooking.checkInDate != null}"
-                                                update="formWorkstationBookingData"/>
-                                    <p:menuitem value="Check out" icon="pi pi-times" actionListener="#{workstationBookingBean.checkOut()}"
-                                                disabled="#{workstationBookingBean.workstationBooking.checkInDate == null or workstationBookingBean.workstationBooking.checkOutDate != null}"
-                                                update="formWorkstationBookingData"/>
+                                    <p:menuitem value="Check in" icon="pi pi-check-circle" actionListener="#{spaceBookingBean.checkIn()}"
+                                                disabled="#{spaceBookingBean.spaceBooking.checkInDate != null}" update="formSpaceBookingData"/>
+                                    <p:menuitem value="Check out" icon="pi pi-times" actionListener="#{spaceBookingBean.checkOut()}"
+                                                disabled="#{spaceBookingBean.spaceBooking.checkInDate == null or spaceBookingBean.spaceBooking.checkOutDate != null}" update="formSpaceBookingData"/>
                                     <p:menuitem value="Editar" icon="pi pi-pencil" url="#"/>
-                                    <p:menuitem value="Anular reserva" icon="pi pi-trash" actionListener="#{workstationBookingBean.cancel()}"/>
+                                    <p:menuitem value="Anular reserva" icon="pi pi-trash" actionListener="#{spaceBookingBean.cancel()}"/>
                                 </p:menu>
                             </div>
                             <div class="booking-card-content">
                                 <p:graphicImage value="/images/user_icon.png"/>
                                 <div class="booking-card-organizer">
-                                    <h:outputText value="#{workstationBookingBean.workstationBooking.organizer.fullName}" style="font-weight:bold;"/>
+                                    <h:outputText value="#{spaceBookingBean.spaceBooking.organizer.fullName}" style="font-weight:bold;"/>
                                 </div>
-
+                                
                                 <div>
-                                    <h:outputText value="Puesto de trabajo" />
+                                    <h:outputText value="Sala de reuniones" />
                                 </div>
                                 <div>
-                                    <h3><h:outputText value="#{workstationBookingBean.workstationBooking.resource.name}" /></h3>
+                                    <h3><h:outputText value="#{spaceBookingBean.spaceBooking.resource.name}" /></h3>
+                                </div>
+                                <p:divider/>
+                                <div>
+                                    <h4><h:outputText value="#{spaceBookingBean.spaceBooking.subject}" /></h4>
+                                </div>
+                                <div>
+                                    <h:outputText value="#{spaceBookingBean.spaceBooking.description}" escape="false"/>
                                 </div>
 
 
                             </div>
                         </div>
                     </div>
-
                     <div class="ui-g-8" style="padding-left: 20px; padding-top:0px;">
                         <div class="ui-fluid">
                             <div class="ui-g-4 form-field">
                                 <p:outputLabel value="Fecha"/>
                                 <p:datePicker id="pickerDate" disabled="true"
-                                              value="#{workstationBookingBean.workstationBooking.date}"
+                                              value="#{spaceBookingBean.spaceBooking.date}"
                                               showTime="false"/>
                             </div>
                             <div class="ui-g-4 form-field">
                                 <p:outputLabel value="Hora de inicio"/>
                                 <p:datePicker id="pickerStartTime" disabled="true"
-                                              value="#{workstationBookingBean.workstationBooking.startTime}"
+                                              value="#{spaceBookingBean.spaceBooking.startTime}"
                                               pattern="HH:mm"
                                               hourFormat="24"
                                               locale="es"
@@ -92,22 +96,42 @@
                             <div class="ui-g-4 form-field">
                                 <p:outputLabel value="Hora de fin"/>
                                 <p:datePicker id="pickerEndTime" disabled="true"
-                                              value="#{workstationBookingBean.workstationBooking.endTime}"
+                                              value="#{spaceBookingBean.spaceBooking.endTime}"
                                               pattern="HH:mm"
                                               hourFormat="24"
                                               locale="es"
                                               stepMinute="15">
                                 </p:datePicker>
                             </div>
-
-
-
-                            <div class="ui-g-12 form-field">
-                                <p:outputLabel value="Ubicación"/>
-                                <p:inputText readonly="true"
-                                             value="#{workstationBookingBean.building.name}, #{workstationBookingBean.floor.name}, #{workstationBookingBean.workstationBooking.resource.name}"/>
-                            </div>
                         </div>
+
+
+                        <div class="ui-g-12 form-field ui-fluid" >
+                            <p:outputLabel value="Ubicación"/>
+                            <p:inputText readonly="true"
+                                         value="#{spaceBookingBean.building.name}, #{spaceBookingBean.floor.name}, #{spaceBookingBean.spaceBooking.resource.name}"/>
+                        </div>
+                        
+
+                        <div class="ui-g-12">
+                            <h3><h:outputText value="#{spaceBookingBean.spaceBooking.attendees.size()} invitados"/></h3>
+                            <p:dataTable value="#{spaceBookingBean.spaceBooking.attendees}"
+                                         id="dataTableAttendees"
+                                         var="attendee"
+                                         emptyMessage="No se han añadido invitados"
+                                         rowKey="#{attendee.user.id}">
+                                <p:column headerText="Opcional" style="width: 50px;">
+                                    <p:selectBooleanCheckbox value="#{attendee.optional}" disabled="true"/>
+                                </p:column>
+                                <p:column headerText="Nombre">
+                                    <h:outputText value="#{attendee.user.fullName}"/>
+                                </p:column>
+                                <p:column headerText="Email">
+                                    <h:outputText value="#{attendee.user.email}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+
                     </div>
 
                 </div>

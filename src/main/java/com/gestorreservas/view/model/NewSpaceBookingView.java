@@ -15,7 +15,7 @@ import lombok.Data;
 @Data
 public class NewSpaceBookingView {
 
-    private ResourceView resource;
+    private ResourceViewLight resource;
 
     private UserView organizer;
 
@@ -34,12 +34,12 @@ public class NewSpaceBookingView {
     private List<NewAttendeeView> attendees;
 
     @Size(max = 255)
-    private String title;
+    private String subject;
 
     @Size(max = 255)
     private String description;
 
-    public NewSpaceBookingView(ResourceView resource, LocalDate date, LocalTime startTime, LocalTime endTime, FloorView floor) {
+    public NewSpaceBookingView(ResourceViewLight resource, LocalDate date, LocalTime startTime, LocalTime endTime, FloorView floor) {
         this.resource = resource;
         this.date = date;
         this.startTime = startTime;

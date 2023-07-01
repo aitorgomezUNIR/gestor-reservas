@@ -60,6 +60,20 @@
                         <p:column headerText="Horario">
                             <h:outputText value="#{booking.formattedTime}"/>
                         </p:column>
+                        <p:column style="width: 50px;">
+                            <p:commandButton id="btnBookingOptions" icon="pi pi-ellipsis-v"/>
+                            <p:menu overlay="true" trigger="btnBookingOptions" my="left top" at="left bottom" style="width: fit-content; background-color:white">
+                                <p:menuitem icon="pi pi-check-circle" value="Check in"
+                                            actionListener="#{resourceBean.checkIn(booking)}"
+                                            disabled="#{booking.checkInDate != null}" update="dataTableResourceBookings"/>
+                                <p:menuitem icon="pi pi-times" value="Check out"
+                                            actionListener="#{resourceBean.checkOut(booking)}"
+                                            disabled="#{booking.checkInDate == null or booking.checkOutDate != null}" update="dataTableResourceBookings"/>
+                                <p:menuitem icon="pi pi-pencil" value="Editar reserva"/>
+                                <p:menuitem icon="pi pi-trash" value="Anular reserva"
+                                            actionListener="#{resourceBean.cancel(booking)}" update="dataTableResourceBookings"/>
+                            </p:menu>
+                        </p:column>
                     </p:dataTable>
                 </p:outputPanel>
                 

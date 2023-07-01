@@ -6,11 +6,10 @@ import com.gestorreservas.persistence.FloorEntity;
 import com.gestorreservas.persistence.FloorRepository;
 import com.gestorreservas.persistence.resource.ResourceEntity;
 import com.gestorreservas.persistence.resource.ResourceRepository;
-import com.gestorreservas.view.model.AvailabilityStatus;
 import com.gestorreservas.view.model.BuildingView;
 import com.gestorreservas.view.model.CategoryView;
 import com.gestorreservas.view.model.FloorView;
-import com.gestorreservas.view.model.ResourceView;
+import com.gestorreservas.view.model.ResourceViewLight;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -27,9 +26,9 @@ public class ResourceService {
     private final FloorRepository floorRepository;
     private final ResourceRepository resourceRepository;
 
-    public ResourceView getResource(String resourceId) {
+    public ResourceViewLight getResource(String resourceId) {
         ResourceEntity r = resourceRepository.findById(resourceId).orElseThrow(() -> new IllegalArgumentException("Unable to find resource with id " + resourceId));
-        return new ResourceView(r.getId(), r.getName(), r.getFloorId(), CategoryView.valueOf(r.getCategory().name()), AvailabilityStatus.FREE);
+        return new ResourceViewLight(r.getId(), r.getName(), r.getFloorId(), CategoryView.valueOf(r.getCategory().name()));
     }
 
     public BuildingView getBuilding(String buildingId) {

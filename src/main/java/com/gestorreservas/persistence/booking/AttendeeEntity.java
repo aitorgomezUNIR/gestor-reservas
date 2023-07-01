@@ -2,6 +2,8 @@ package com.gestorreservas.persistence.booking;
 
 import com.gestorreservas.persistence.BaseEntity;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -19,6 +21,7 @@ public class AttendeeEntity extends BaseEntity {
     @NotNull
     private String bookingId;
 
+    @Enumerated(EnumType.STRING)
     @NotNull
     private AttendeeTypes type;
 

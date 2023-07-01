@@ -7,6 +7,7 @@ import com.gestorreservas.view.model.FloorView;
 import com.gestorreservas.view.model.OccupationLegendView;
 import com.gestorreservas.view.model.ResourceView;
 import com.gestorreservas.session.SessionBean;
+import com.gestorreservas.view.util.BookingService;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.MessageFormat;
@@ -18,6 +19,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import lombok.Getter;
@@ -38,6 +40,7 @@ public class ResourceBean implements Serializable {
     private final SessionBean sessionBean;
 
     private final ResourceListService resourceService;
+    private final BookingService bookingService;
 
     @Getter
     @Setter
@@ -73,9 +76,12 @@ public class ResourceBean implements Serializable {
     @Getter
     private ResourceFilters filters;
 
-    public ResourceBean(SessionBean sessionBean, ResourceListService resourceService, @RequestParam String date, @RequestParam String buildingId, @RequestParam String floorId) {
+    public ResourceBean(SessionBean sessionBean, ResourceListService resourceService,
+            BookingService bookingService,
+            @RequestParam String date, @RequestParam String buildingId, @RequestParam String floorId) {
         this.sessionBean = sessionBean;
         this.resourceService = resourceService;
+        this.bookingService = bookingService;
         processParams(date, buildingId, floorId);
         init();
     }
@@ -98,7 +104,6 @@ public class ResourceBean implements Serializable {
             redirectBack();
         }
 
-
     }
 
     private void init() {
@@ -114,6 +119,7 @@ public class ResourceBean implements Serializable {
 
     public void applyFilters() {
         this.filteredResources = filters.applyFilters(floorResources);
+        resourceService.updateAvailabilityStatus(filteredResources, selectedFloor.getId(), constructDate(filters.getStartTime()), constructDate(filters.getEndTime()));
         this.occupationLegendView = resourceService.constructOccupationLegend(filteredResources);
     }
 
@@ -149,6 +155,24 @@ public class ResourceBean implements Serializable {
         }
     }
 
+    public void checkIn(BookingView bookingView) {
+        bookingService.checkIn(bookingView);
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Check in realizado correctamente", null));
+    }
+
+    public void checkOut(BookingView bookingView) {
+        bookingService.checkOut(bookingView);
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Check out realizado correctamente", null));
+    }
+
+    public void cancel(BookingView bookingView) {
+        bookingService.cancelBooking(bookingView);
+        this.selectedResource.getBookings().remove(bookingView);
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Reserva anulada correctamente", null));
+    }
 
     // LISTENERS
     public void onChangedBuilding() {
@@ -169,7 +193,7 @@ public class ResourceBean implements Serializable {
     }
 
     public void onRowSelect() {
-        List<BookingView> resourceBookings = this.resourceService.getResourceBookings(selectedResource.getId(), selectedDate);
+        List<BookingView> resourceBookings = this.resourceService.getResourceBookings(selectedResource, selectedDate);
         this.selectedResource.setBookings(resourceBookings);
     }
 

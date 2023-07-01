@@ -2,7 +2,7 @@ package com.gestorreservas;
 
 import com.gestorreservas.view.model.BuildingView;
 import com.gestorreservas.view.model.FloorView;
-import com.gestorreservas.view.model.WorkstationBookingView;
+import com.gestorreservas.view.model.SpaceBookingView;
 import com.gestorreservas.view.requestparam.RequestParam;
 import com.gestorreservas.view.util.BookingService;
 import com.gestorreservas.view.util.ResourceService;
@@ -23,14 +23,14 @@ import org.springframework.stereotype.Component;
 @Component
 @ViewScoped
 @Slf4j
-public class WorkstationBookingBean implements Serializable {
+public class SpaceBookingBean implements Serializable {
 
-    private final WorkstationBookingService workstationBookingService;
+    private final SpaceBookingService spaceBookingService;
     private final ResourceService resourceService;
     private final BookingService bookingService;
 
     @Getter
-    private WorkstationBookingView workstationBooking;
+    private SpaceBookingView spaceBooking;
 
     @Getter
     private BuildingView building;
@@ -38,12 +38,11 @@ public class WorkstationBookingBean implements Serializable {
     @Getter
     private FloorView floor;
 
-    public WorkstationBookingBean(WorkstationBookingService workstationBookingService, ResourceService resourceService, BookingService bookingService,
-            @RequestParam String workstationBookingId) {
-        this.workstationBookingService = workstationBookingService;
+    public SpaceBookingBean(SpaceBookingService spaceBookingService, ResourceService resourceService, BookingService bookingService, @RequestParam String spaceBookingId) {
+        this.spaceBookingService = spaceBookingService;
         this.resourceService = resourceService;
         this.bookingService = bookingService;
-        this.processParams(workstationBookingId);
+        this.processParams(spaceBookingId);
     }
 
     private void processParams(String bookingId) {
@@ -52,32 +51,30 @@ public class WorkstationBookingBean implements Serializable {
         }
 
         try {
-            this.workstationBooking = workstationBookingService.getWorkstationBooking(bookingId);
-            this.floor = resourceService.getFloor(this.workstationBooking.getResource().getFloorId());
+            this.spaceBooking = spaceBookingService.getSpaceBooking(bookingId);
+            this.floor = resourceService.getFloor(this.spaceBooking.getResource().getFloorId());
             this.building = resourceService.getBuilding(this.floor.getBuildingId());
-            if (true) {
-                int math = 1 + 1;
-            }
+
         } catch (IllegalArgumentException e) {
-            log.error("Error retrieving workstation booking, floor or building");
+            log.error("Error retrieving space booking, floor or building");
             redirectBack();
         }
     }
 
     public void checkIn() {
-        bookingService.checkIn(workstationBooking);
+        bookingService.checkIn(spaceBooking);
         FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "Check in realizado correctamente", null));
     }
 
     public void checkOut() {
-        bookingService.checkOut(workstationBooking);
+        bookingService.checkOut(spaceBooking);
         FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "Check out realizado correctamente", null));
     }
 
     public void cancel() {
-        bookingService.cancelBooking(workstationBooking);
+        bookingService.cancelBooking(spaceBooking);
         redirectBack();
     }
 

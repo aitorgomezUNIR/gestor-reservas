@@ -10,9 +10,8 @@ import com.gestorreservas.persistence.booking.SpaceBookingEntity;
 import com.gestorreservas.persistence.booking.SpaceBookingRepository;
 import com.gestorreservas.persistence.resource.SpaceEntity;
 import com.gestorreservas.persistence.resource.SpaceRepository;
-import com.gestorreservas.view.model.AvailabilityStatus;
 import com.gestorreservas.view.model.CategoryView;
-import com.gestorreservas.view.model.ResourceView;
+import com.gestorreservas.view.model.ResourceViewLight;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +38,7 @@ public class NewSpaceService {
         UserView organizer = newBooking.getOrganizer();
         SpaceBookingEntity b = new SpaceBookingEntity(organizer.getId(), newBooking.getResource().getId(),
                 newBooking.getFloor().getId(), newBooking.constructStartDate(), newBooking.constructEndDate());
-        b.setSubject(newBooking.getTitle());
+        b.setSubject(newBooking.getSubject());
         b.setDescription(newBooking.getDescription());
         b = spaceBookingRepository.save(b);
         List<AttendeeEntity> attendees = new ArrayList<>();
@@ -53,9 +52,9 @@ public class NewSpaceService {
         return b.getId();
     }
 
-    public ResourceView getWorkstation(String resourceId) {
+    public ResourceViewLight getSpace(String resourceId) {
         SpaceEntity r = spaceRepository.findById(resourceId).orElseThrow(() -> new IllegalArgumentException("Unable to find workstation with id " + resourceId));
-        return new ResourceView(r.getId(), r.getName(), r.getFloorId(), CategoryView.valueOf(r.getCategory().name()), AvailabilityStatus.FREE);
+        return new ResourceViewLight(r.getId(), r.getName(), r.getFloorId(), CategoryView.valueOf(r.getCategory().name()));
     }
 
 }

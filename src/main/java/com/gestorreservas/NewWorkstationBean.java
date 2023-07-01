@@ -4,10 +4,10 @@ import com.gestorreservas.view.model.BookingView;
 import com.gestorreservas.view.model.BuildingView;
 import com.gestorreservas.view.model.FloorView;
 import com.gestorreservas.view.model.NewWorkstationBookingView;
-import com.gestorreservas.view.model.ResourceView;
 import com.gestorreservas.view.model.UserView;
 import com.gestorreservas.view.requestparam.RequestParam;
 import com.gestorreservas.session.SessionBean;
+import com.gestorreservas.view.model.ResourceViewLight;
 import com.gestorreservas.view.util.BookingService;
 import com.gestorreservas.view.util.ResourceService;
 import com.gestorreservas.view.util.UserService;
@@ -74,7 +74,7 @@ public class NewWorkstationBean implements Serializable {
             LocalDateTime startDate = LocalDateTime.ofInstant(Instant.ofEpochMilli(startMs), ZoneId.of("UTC"));
             LocalDateTime endDate = LocalDateTime.ofInstant(Instant.ofEpochMilli(endMs), ZoneId.of("UTC"));
 
-            ResourceView resourceView = newWorkstationService.getWorkstation(resourceId);
+            ResourceViewLight resourceView = newWorkstationService.getWorkstation(resourceId);
             FloorView floorView = resourceService.getFloor(resourceView.getFloorId());
             this.building = resourceService.getBuilding(floorView.getBuildingId());
             this.workstationBooking = new NewWorkstationBookingView(resourceView, startDate.toLocalDate(), startDate.toLocalTime(), endDate.toLocalTime(), floorView);
@@ -102,7 +102,7 @@ public class NewWorkstationBean implements Serializable {
             return;
         }
 
-        this.conflictiveBookings = bookingService.getResourceBookings(workstationBooking.getResource().getId(), workstationBooking.constructStartDate(), workstationBooking.constructEndDate());
+        this.conflictiveBookings = bookingService.getResourceBookings(workstationBooking.getResource(), workstationBooking.constructStartDate(), workstationBooking.constructEndDate());
 
         if (!conflictiveBookings.isEmpty()) {
             PrimeFaces.current().executeScript("PF('widget_dialogConflictiveBookings').show()");
@@ -117,7 +117,7 @@ public class NewWorkstationBean implements Serializable {
         }
 
         String bookingId = this.newWorkstationService.createWorkstationBooking(workstationBooking);
-        String url = String.format("workstation_booking.xhtml?bookingId=%s", bookingId);
+        String url = String.format("workstation_booking.xhtml?workstationBookingId=%s", bookingId);
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect(url);
         } catch (IOException ex) {

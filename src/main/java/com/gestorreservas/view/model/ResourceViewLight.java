@@ -18,4 +18,7 @@ public class ResourceViewLight {
 
     @NonNull
     private String floorId;
+
+    @NonNull
+    private CategoryView category;
 }

@@ -6,9 +6,8 @@ import com.gestorreservas.persistence.booking.BookingRepository;
 import com.gestorreservas.persistence.booking.WorkstationBookingEntity;
 import com.gestorreservas.persistence.resource.WorkstationEntity;
 import com.gestorreservas.persistence.resource.WorkstationRepository;
-import com.gestorreservas.view.model.AvailabilityStatus;
 import com.gestorreservas.view.model.CategoryView;
-import com.gestorreservas.view.model.ResourceView;
+import com.gestorreservas.view.model.ResourceViewLight;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -34,8 +33,8 @@ public class NewWorkstationService {
         return b.getId();
     }
 
-    public ResourceView getWorkstation(String resourceId) {
+    public ResourceViewLight getWorkstation(String resourceId) {
         WorkstationEntity r = workstationRepository.findById(resourceId).orElseThrow(() -> new IllegalArgumentException("Unable to find workstation with id " + resourceId));
-        return new ResourceView(r.getId(), r.getName(), r.getFloorId(), CategoryView.valueOf(r.getCategory().name()), AvailabilityStatus.FREE);
+        return new ResourceViewLight(r.getId(), r.getName(), r.getFloorId(), CategoryView.valueOf(r.getCategory().name()));
     }
 }

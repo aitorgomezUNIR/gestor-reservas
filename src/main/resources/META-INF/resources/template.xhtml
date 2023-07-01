@@ -37,6 +37,11 @@
                     <ui:insert name="content"/>
                 </div>
             </div>
+            
+            <p:growl id="mainGrowl" widgetVar="widget_mainGrowl" globalOnly="true">
+                <p:autoUpdate />
+            </p:growl>
+            
             <h:outputStylesheet name="/global.css" library="css"/>
             <h:outputStylesheet name="/overrides.css" library="css"/>
         </h:body>
