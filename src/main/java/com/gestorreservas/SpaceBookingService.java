@@ -53,7 +53,7 @@ public class SpaceBookingService {
         spaceBooking.setCheckInDate(entity.getCheckInDate());
         spaceBooking.setCheckOutDate(entity.getCheckOutDate());
 
-        List<AttendeeEntity> attendeEntities = attendeeRepository.findAllByBookingIdAndTypeNot(bookingId, AttendeeTypes.ORGANIZER);
+        List<AttendeeEntity> attendeEntities = attendeeRepository.findAllByBookingId(bookingId);
         List<AttendeeView> attendees = new ArrayList<>();
 
         for (AttendeeEntity attendee : attendeEntities) {

@@ -87,7 +87,11 @@ public class NewSpaceBean implements Serializable {
     }
 
     public List<UserView> findUsers(String query) {
-        return Objects.isNull(spaceBooking.getOrganizer()) ? userService.findUsers(query, sessionBean.getOrganizationId()) : userService.findUsersAttendees(query, sessionBean.getOrganizationId(), spaceBooking.getOrganizer().getId());
+        List<String> usersToExclude = spaceBooking.getAttendeesUserIds();
+        if (!Objects.isNull(spaceBooking.getOrganizer())) {
+            usersToExclude.add(spaceBooking.getOrganizer().getId());
+        }
+        return userService.findUsersAttendees(query, sessionBean.getOrganizationId(), usersToExclude);
     }
 
     public void validateNewBooking() {

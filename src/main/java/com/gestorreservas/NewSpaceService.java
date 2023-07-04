@@ -50,7 +50,6 @@ public class NewSpaceService {
             attendees.add(new AttendeeEntity(a.getUser().getId(), b.getId(), type));
         }
 
-        attendees.add(new AttendeeEntity(organizer.getId(), b.getId(), AttendeeTypes.ORGANIZER));
         attendeeRepository.saveAll(attendees);
         return b.getId();
     }

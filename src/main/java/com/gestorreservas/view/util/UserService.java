@@ -41,7 +41,7 @@ public class UserService {
         return userRepository.findAll(booleanExpression, pageable).map(this::constructUserView).getContent();
     }
 
-    public List<UserView> findUsersAttendees(String keyword, String organizationId, String organizerId) {
+    public List<UserView> findUsersAttendees(String keyword, String organizationId, List<String> usersToExclude) {
         if (StringUtils.isBlank(keyword)) {
             return Collections.emptyList();
         }
@@ -51,7 +51,7 @@ public class UserService {
         QUserEntity user = QUserEntity.userEntity;
         keyword = keyword.trim().toLowerCase();
 
-        BooleanExpression booleanExpression = user.organizationId.eq(organizationId).and(user.id.notEqualsIgnoreCase(organizerId))
+        BooleanExpression booleanExpression = user.organizationId.eq(organizationId).and(user.id.notIn(usersToExclude))
                 .and(user.name.append(" ").concat(user.surname)
                         .containsIgnoreCase(keyword).or(user.email.contains(keyword)));
         return userRepository.findAll(booleanExpression, pageable).map(this::constructUserView).getContent();

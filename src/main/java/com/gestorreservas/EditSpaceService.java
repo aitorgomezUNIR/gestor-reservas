@@ -40,10 +40,11 @@ public class EditSpaceService {
         entity.setSubject(bookingView.getSubject());
         entity.setDescription(bookingView.getDescription());
 
-        attendeeRepository.deleteAllByBookingIdAndTypeNot(bookingView.getId(), AttendeeTypes.ORGANIZER);
+        attendeeRepository.deleteAllByBookingId(bookingView.getId());
 
         List<AttendeeEntity> attendeeEntities = bookingView.getAttendees()
                 .stream()
+                .filter(a -> !a.getUser().getId().equals(bookingView.getOrganizer().getId())) // para no añadir al organizador como invitado
                 .map(a -> new AttendeeEntity(a.getUser().getId(), bookingView.getId(), AttendeeTypes.valueOf(a.getType().name())))
                 .collect(Collectors.toList());
 

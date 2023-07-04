@@ -148,11 +148,15 @@ public class EditSpaceBean implements Serializable {
     }
 
     public List<UserView> findUsers(String query) {
-        return userService.findUsersAttendees(query, sessionBean.getOrganizationId(), spaceBooking.getOrganizer().getId());
+        List<String> usersToExclude = spaceBooking.getAttendeesUserIds();
+        usersToExclude.add(spaceBooking.getOrganizer().getId());
+
+        return userService.findUsersAttendees(query, sessionBean.getOrganizationId(), usersToExclude);
     }
 
     public void onItemSelect() {
-        this.addNewAttendee(user);
+        this.addNewAttendee(new UserView(user.getId(), user.getName(), user.getSurname(), user.getEmail(), user.getOrganizationId()));
+        this.user = null;
     }
 
     private void addNewAttendee(UserView user) {
