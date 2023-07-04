@@ -34,6 +34,7 @@ import org.springframework.stereotype.Component;
 @ViewScoped
 @Slf4j
 public class EditWorkstationBean implements Serializable {
+
     private final WorkstationBookingService workstationBookingService;
     private final EditWorkstationService editWorkstationService;
     private final ResourceService resourceService;
@@ -73,7 +74,6 @@ public class EditWorkstationBean implements Serializable {
         this.processParams(bookingId);
     }
 
-
     private void processParams(String bookingId) {
         if (StringUtils.isBlank(bookingId)) {
             redirectBack();
@@ -96,6 +96,12 @@ public class EditWorkstationBean implements Serializable {
         if (Objects.isNull(workstationBooking.getOrganizer())) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Debes añadir un usuario a la reserva.", null));
+            return;
+        }
+
+        if (endTime.isBefore(startTime)) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "La hora de fin no puede ser anterior a la hora de inicio.", null));
             return;
         }
 

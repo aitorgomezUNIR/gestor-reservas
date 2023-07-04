@@ -1,6 +1,5 @@
 package com.gestorreservas;
 
-import com.gestorreservas.view.model.BookingView;
 import com.gestorreservas.view.model.BuildingView;
 import com.gestorreservas.view.model.FloorView;
 import com.gestorreservas.view.model.WorkstationBookingView;
@@ -100,12 +99,12 @@ public class WorkstationBookingBean implements Serializable {
         }
     }
 
-    public void onEditBooking(BookingView booking) {
-        String url = String.format("edit_workstation.xhtml?bookingId=%s", booking.getId());
+    public void onEditBooking() {
+        String url = String.format("edit_workstation.xhtml?bookingId=%s", workstationBooking.getId());
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect(url);
         } catch (IOException e) {
-            log.error("Error redirecting to new booking view");
+            log.error("Error redirecting to {}", url);
         }
     }
 

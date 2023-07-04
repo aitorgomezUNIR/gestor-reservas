@@ -49,7 +49,7 @@
                                     <p:menuitem value="Check out" icon="pi pi-times" actionListener="#{workstationBookingBean.checkOut()}"
                                                 disabled="#{workstationBookingBean.workstationBooking.checkInDate == null or workstationBookingBean.workstationBooking.checkOutDate != null}"
                                                 update="formWorkstationBookingData"/>
-                                    <p:menuitem value="Editar" icon="pi pi-pencil" url="#"/>
+                                    <p:menuitem value="Editar" icon="pi pi-pencil" actionListener="#{workstationBookingBean.onEditBooking()}"/>
                                     <p:menuitem value="Anular reserva" icon="pi pi-trash" actionListener="#{workstationBookingBean.cancel()}"/>
                                 </p:menu>
                             </div>
@@ -110,7 +110,7 @@
                             
                             <div style="display: flex; padding-top: 30px; justify-content: flex-end" class="ui-g-12">
                             <div>
-                                <p:commandButton value="Volver" actionListener="#{workstationBookingBean.redirectToList()}"/>
+                                <p:commandButton value="Volver" actionListener="#{workstationBookingBean.redirectToList()}" class="secondary-button"/>
                             </div>
                         </div>
                         </div>

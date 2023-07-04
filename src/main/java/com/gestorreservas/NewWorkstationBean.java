@@ -96,6 +96,12 @@ public class NewWorkstationBean implements Serializable {
             return;
         }
 
+        if (workstationBooking.getEndTime().isBefore(workstationBooking.getStartTime())) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "La hora de fin no puede ser anterior a la hora de inicio.", null));
+            return;
+        }
+
         if (workstationBooking.constructStartDate().isBefore(LocalDateTime.now())) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "La fecha y hora de inicio es anterior a la actual.", null));

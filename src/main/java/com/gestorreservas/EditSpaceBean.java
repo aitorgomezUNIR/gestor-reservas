@@ -112,6 +112,12 @@ public class EditSpaceBean implements Serializable {
             return;
         }
 
+        if (endTime.isBefore(startTime)) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "La hora de fin no puede ser anterior a la hora de inicio.", null));
+            return;
+        }
+
         this.conflictiveBookings = bookingService.getResourceBookings(spaceBooking.getResource(), constructStartDate(), constructEndDate())
                 .stream().filter(b -> !b.getId().equals(this.spaceBooking.getId())).collect(Collectors.toList());
 
