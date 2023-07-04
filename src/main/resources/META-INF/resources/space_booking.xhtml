@@ -47,7 +47,7 @@
                                                 disabled="#{spaceBookingBean.spaceBooking.checkInDate != null}" update="formSpaceBookingData"/>
                                     <p:menuitem value="Check out" icon="pi pi-times" actionListener="#{spaceBookingBean.checkOut()}"
                                                 disabled="#{spaceBookingBean.spaceBooking.checkInDate == null or spaceBookingBean.spaceBooking.checkOutDate != null}" update="formSpaceBookingData"/>
-                                    <p:menuitem value="Editar" icon="pi pi-pencil" url="#"/>
+                                    <p:menuitem value="Editar" icon="pi pi-pencil" actionListener="#{spaceBookingBean.onEditBooking()}"/>
                                     <p:menuitem value="Anular reserva" icon="pi pi-trash" actionListener="#{spaceBookingBean.cancel()}"/>
                                 </p:menu>
                             </div>
