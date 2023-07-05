@@ -4,6 +4,7 @@ import com.gestorreservas.view.model.BookingView;
 import com.gestorreservas.view.model.UserView;
 import com.gestorreservas.persistence.UserEntity;
 import com.gestorreservas.persistence.UserRepository;
+import com.gestorreservas.persistence.booking.AttendeeRepository;
 import com.gestorreservas.persistence.booking.BookingEntity;
 import com.gestorreservas.persistence.booking.BookingRepository;
 import com.gestorreservas.persistence.booking.WorkstationBookingEntity;
@@ -12,8 +13,8 @@ import com.gestorreservas.view.model.SpaceBookingView;
 import com.gestorreservas.view.model.WorkstationBookingView;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class BookingService {
     private final BookingRepository bookingRepository;
     private final UserRepository userRepository;
+    private final AttendeeRepository attendeeRepository;
 
     public List<BookingView> getResourceBookings(ResourceViewLight resourceView, LocalDateTime start, LocalDateTime end) {
         String resourceId = resourceView.getId();
@@ -61,12 +63,20 @@ public class BookingService {
 
     @Transactional
     public void cancelBookings(List<BookingView> bookings) {
-        bookingRepository.deleteAllByIdIn(bookings.stream().map(BookingView::getId).collect(Collectors.toList()));
+        List<String> bookingIds = new ArrayList<>();
+        for (BookingView booking : bookings) {
+            bookingIds.add(booking.getId());
+            if (booking instanceof SpaceBookingView) {
+                attendeeRepository.deleteAllByBookingId(booking.getId());
+            }
+        }
+
+        bookingRepository.deleteAllByIdIn(bookingIds);
     }
 
     @Transactional
     public void cancelBooking(BookingView booking) {
-        bookingRepository.deleteById(booking.getId());
+        cancelBookings(Arrays.asList(booking));
     }
 
     @Transactional

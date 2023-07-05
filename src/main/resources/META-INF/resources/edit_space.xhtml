@@ -23,7 +23,7 @@
         </li>
     </ui:define>
 
-    <ui:define name="title">Reserva de puesto</ui:define>
+    <ui:define name="title">Reserva de espacio</ui:define>
 
     <ui:define name="content">
         <h:form id="formNewWorkstationBooking">
@@ -43,6 +43,25 @@
                     <div class="ui-g-12" style="vertical-align: middle;">
                         <span class="pi pi-user" style="margin-right: 5px;"/>
                         <h:outputText value="Organizada por: #{editSpaceBean.spaceBooking.organizer.fullName}"/>
+                    </div>
+                    
+                    <div class="ui-g-12 form-field">
+                        <p:outputLabel value="Titulo"/>
+                        <p:inputText value="#{editSpaceBean.spaceBooking.subject}"/>
+                    </div>
+
+                    <div class="ui-g-12 form-field">
+                        <p:outputLabel value="Descripción"/>
+                        <p:textEditor id="editorDescription" widgetVar="widget_EditorDescription" value="#{editSpaceBean.spaceBooking.description}" height="300">
+                            <f:facet name="toolbar">
+                                <span class="ql-formats">
+                                    <button class="ql-bold"></button>
+                                    <button class="ql-italic"></button>
+                                    <button class="ql-underline"></button>
+                                    <button class="ql-strike"></button>
+                                </span>
+                            </f:facet>
+                        </p:textEditor>
                     </div>
 
                     <div class="ui-g-12 form-field">
