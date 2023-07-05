@@ -1,0 +1,1 @@
+Este un proyecto realizado única y exclusivamente por Aitor Gómez Afonso para la realización del trabajo de fin de grado del Grado de Ingeniería Informática de UNIR.
