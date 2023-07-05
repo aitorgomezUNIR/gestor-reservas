@@ -36,7 +36,8 @@ public class NewSpaceService {
     @Transactional
     public String createSpaceBooking(NewSpaceBookingView newBooking) {
         UserView organizer = newBooking.getOrganizer();
-        SpaceBookingEntity b = new SpaceBookingEntity(organizer.getId(), newBooking.getResource().getId(),
+        UserView creator = newBooking.getCreator();
+        SpaceBookingEntity b = new SpaceBookingEntity(creator.getId(), organizer.getId(), newBooking.getResource().getId(),
                 newBooking.getFloor().getId(), newBooking.constructStartDate(), newBooking.constructEndDate());
         b.setSubject(newBooking.getSubject());
         b.setDescription(newBooking.getDescription());

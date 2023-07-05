@@ -13,6 +13,8 @@ import lombok.Data;
 public class NewWorkstationBookingView {
     private ResourceViewLight resource;
 
+    private UserView creator;
+
     private UserView organizer;
 
     private LocalDate date;
@@ -26,12 +28,13 @@ public class NewWorkstationBookingView {
     public NewWorkstationBookingView() {
     }
 
-    public NewWorkstationBookingView(ResourceViewLight resource, LocalDate date, LocalTime startTime, LocalTime endTime, FloorView floor) {
+    public NewWorkstationBookingView(UserView creator, ResourceViewLight resource, LocalDate date, LocalTime startTime, LocalTime endTime, FloorView floor) {
         this.resource = resource;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
         this.floor = floor;
+        this.creator = creator;
     }
 
     public LocalDateTime constructStartDate() {

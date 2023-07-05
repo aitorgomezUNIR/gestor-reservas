@@ -24,8 +24,8 @@ public class SpaceBookingView extends BookingView {
     }
 
 
-    public SpaceBookingView(String id, ResourceViewLight resoruce, LocalDateTime start, LocalDateTime end, UserView organizer) {
-        super(id, resoruce, start, end, organizer);
+    public SpaceBookingView(String id, ResourceViewLight resource, LocalDateTime start, LocalDateTime end, UserView creator, UserView organizer) {
+        super(id, resource, start, end, creator, organizer);
     }
 
     public List<String> getAttendeesUserIds() {

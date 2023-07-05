@@ -25,6 +25,8 @@ public abstract class BookingView {
     @Setter
     private LocalDateTime end;
 
+    private UserView creator;
+
     private UserView organizer;
 
     @Setter
@@ -37,11 +39,12 @@ public abstract class BookingView {
     }
 
 
-    public BookingView(String id, ResourceViewLight resource, LocalDateTime start, LocalDateTime end, UserView organizer) {
+    public BookingView(String id, ResourceViewLight resource, LocalDateTime start, LocalDateTime end, UserView creator, UserView organizer) {
         this.id = id;
         this.resource = resource;
         this.start = start;
         this.end = end;
+        this.creator = creator;
         this.organizer = organizer;
     }
 

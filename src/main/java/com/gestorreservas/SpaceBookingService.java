@@ -45,9 +45,13 @@ public class SpaceBookingService {
         UserEntity userEntity = userRepository.findById(entity.getOrganizerId())
                 .orElseThrow(() -> new IllegalArgumentException("Unable to retrieve user with id " + entity.getOrganizerId()));
 
-        UserView organizer = new UserView(userEntity.getId(), userEntity.getName(), userEntity.getSurname(), userEntity.getEmail(), userEntity.getOrganizationId());
+        UserEntity creatorEntity = userRepository.findById(entity.getCreatorId())
+                .orElseThrow(() -> new IllegalArgumentException("Unable to retrieve user with id " + entity.getOrganizerId()));
 
-        SpaceBookingView spaceBooking = new SpaceBookingView(bookingId, resource, entity.getStartDate(), entity.getEndDate(), organizer);
+        UserView organizer = new UserView(userEntity.getId(), userEntity.getName(), userEntity.getSurname(), userEntity.getEmail(), userEntity.getOrganizationId());
+        UserView creator = new UserView(creatorEntity.getId(), creatorEntity.getName(), creatorEntity.getSurname(), creatorEntity.getEmail(), creatorEntity.getOrganizationId());
+
+        SpaceBookingView spaceBooking = new SpaceBookingView(bookingId, resource, entity.getStartDate(), entity.getEndDate(), creator, organizer);
         spaceBooking.setSubject(entity.getSubject());
         spaceBooking.setDescription(entity.getDescription());
         spaceBooking.setCheckInDate(entity.getCheckInDate());

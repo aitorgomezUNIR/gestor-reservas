@@ -1,5 +1,6 @@
 package com.gestorreservas;
 
+import com.gestorreservas.session.MyUserPrincipal;
 import com.gestorreservas.view.model.BookingView;
 import com.gestorreservas.view.model.BuildingView;
 import com.gestorreservas.view.model.FloorView;
@@ -77,7 +78,10 @@ public class NewWorkstationBean implements Serializable {
             ResourceViewLight resourceView = newWorkstationService.getWorkstation(resourceId);
             FloorView floorView = resourceService.getFloor(resourceView.getFloorId());
             this.building = resourceService.getBuilding(floorView.getBuildingId());
-            this.workstationBooking = new NewWorkstationBookingView(resourceView, startDate.toLocalDate(), startDate.toLocalTime(), endDate.toLocalTime(), floorView);
+            MyUserPrincipal loggedUser = sessionBean.getActiveUser();
+            UserView creator = new UserView(loggedUser.getId(), loggedUser.getUsername(), loggedUser.getUserSurname(), loggedUser.getFullName(), loggedUser.getOrganization().getId());
+
+            this.workstationBooking = new NewWorkstationBookingView(creator, resourceView, startDate.toLocalDate(), startDate.toLocalTime(), endDate.toLocalTime(), floorView);
         } catch (IllegalArgumentException e) {
             log.error("Error retrieving resource, building or floor or parsing dates");
             redirectToMainView();

@@ -15,8 +15,8 @@ public class WorkstationBookingEntity extends BookingEntity {
     public WorkstationBookingEntity() {
     }
 
-    public WorkstationBookingEntity(String organizerId, String resourceId, String floorId, LocalDateTime startDate, LocalDateTime endDate) {
-        super(organizerId, resourceId, floorId, startDate, endDate);
+    public WorkstationBookingEntity(String creatorId, String organizerId, String resourceId, String floorId, LocalDateTime startDate, LocalDateTime endDate) {
+        super(creatorId, organizerId, resourceId, floorId, startDate, endDate);
     }
 
 }

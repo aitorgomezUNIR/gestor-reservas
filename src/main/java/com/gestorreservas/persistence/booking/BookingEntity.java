@@ -19,6 +19,9 @@ import javax.validation.constraints.NotNull;
 public abstract class BookingEntity extends BaseEntity {
 
     @NotNull
+    private String creatorId;
+
+    @NotNull
     private String organizerId;
 
     @NotNull
@@ -43,7 +46,8 @@ public abstract class BookingEntity extends BaseEntity {
     protected BookingEntity() {
     }
 
-    protected BookingEntity(String organizerId, String resourceId, String floorId, LocalDateTime startDate, LocalDateTime endDate) {
+    protected BookingEntity(String creatorId, String organizerId, String resourceId, String floorId, LocalDateTime startDate, LocalDateTime endDate) {
+        this.creatorId = creatorId;
         this.organizerId = organizerId;
         this.resourceId = resourceId;
         this.floorId = floorId;
@@ -56,6 +60,10 @@ public abstract class BookingEntity extends BaseEntity {
         long startMs = startDate.toInstant(ZoneOffset.UTC).toEpochMilli();
         long endMs = endDate.toInstant(ZoneOffset.UTC).toEpochMilli();
         return endMs - startMs;
+    }
+
+    public String getCreatorId() {
+        return creatorId;
     }
 
     public String getOrganizerId() {

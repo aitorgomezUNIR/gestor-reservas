@@ -38,12 +38,17 @@ public class BookingService {
         for (BookingEntity booking : entities) {
             UserEntity userEntity = userRepository.findById(booking.getOrganizerId())
                     .orElseThrow(() -> new IllegalArgumentException(String.format("User with id %s not found", booking.getOrganizerId())));
-            UserView userView = new UserView(userEntity.getId(), userEntity.getName(), userEntity.getSurname(), userEntity.getEmail(), userEntity.getOrganizationId());
+
+            UserEntity creatorEntity = userRepository.findById(booking.getCreatorId())
+                    .orElseThrow(() -> new IllegalArgumentException(String.format("User with id %s not found", booking.getOrganizerId())));
+
+            UserView organizer = new UserView(userEntity.getId(), userEntity.getName(), userEntity.getSurname(), userEntity.getEmail(), userEntity.getOrganizationId());
+            UserView creator = new UserView(creatorEntity.getId(), creatorEntity.getName(), creatorEntity.getSurname(), creatorEntity.getEmail(), creatorEntity.getOrganizationId());
             BookingView bookingView;
             if (booking instanceof WorkstationBookingEntity) {
-                bookingView = new WorkstationBookingView(booking.getId(), resourceView, booking.getStartDate(), booking.getEndDate(), userView);
+                bookingView = new WorkstationBookingView(booking.getId(), resourceView, booking.getStartDate(), booking.getEndDate(), creator, organizer);
             } else {
-                bookingView = new SpaceBookingView(booking.getId(), resourceView, booking.getStartDate(), booking.getEndDate(), userView);
+                bookingView = new SpaceBookingView(booking.getId(), resourceView, booking.getStartDate(), booking.getEndDate(), creator, organizer);
             }
 
             bookingView.setCheckInDate(booking.getCheckInDate());

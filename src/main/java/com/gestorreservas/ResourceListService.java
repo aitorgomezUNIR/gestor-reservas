@@ -102,13 +102,19 @@ public class ResourceListService {
         for (BookingEntity booking : bookingEntities) {
             UserEntity userEntity = userRepository.findById(booking.getOrganizerId())
                     .orElseThrow(() -> new IllegalArgumentException(String.format("User with id %s not found", booking.getOrganizerId())));
-            UserView userView = new UserView(userEntity.getId(), userEntity.getName(), userEntity.getSurname(), userEntity.getEmail(), userEntity.getOrganizationId());
+
+            UserEntity creatorEntity = userRepository.findById(booking.getCreatorId())
+                    .orElseThrow(() -> new IllegalArgumentException(String.format("User with id %s not found", booking.getOrganizerId())));
+            UserView organizer = new UserView(userEntity.getId(), userEntity.getName(), userEntity.getSurname(), userEntity.getEmail(), userEntity.getOrganizationId());
+
+            UserView creator = new UserView(creatorEntity.getId(), creatorEntity.getName(), creatorEntity.getSurname(), creatorEntity.getEmail(), creatorEntity.getOrganizationId());
+
             ResourceViewLight resource = new ResourceViewLight(resourceId, resourceView.getName(), resourceView.getFloorId(), resourceView.getCategory());
             BookingView bookingView;
             if (booking instanceof WorkstationBookingEntity) {
-                bookingView = new WorkstationBookingView(booking.getId(), resource, booking.getStartDate(), booking.getEndDate(), userView);
+                bookingView = new WorkstationBookingView(booking.getId(), resource, booking.getStartDate(), booking.getEndDate(), creator, organizer);
             } else {
-                bookingView = new SpaceBookingView(booking.getId(), resource, booking.getStartDate(), booking.getEndDate(), userView);
+                bookingView = new SpaceBookingView(booking.getId(), resource, booking.getStartDate(), booking.getEndDate(), creator, organizer);
             }
             bookingView.setCheckInDate(booking.getCheckInDate());
             bookingView.setCheckOutDate(booking.getCheckOutDate());

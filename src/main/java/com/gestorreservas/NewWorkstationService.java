@@ -27,7 +27,7 @@ public class NewWorkstationService {
 
     @Transactional
     public String createWorkstationBooking(NewWorkstationBookingView booking) {
-        BookingEntity b = new WorkstationBookingEntity(booking.getOrganizer().getId(), booking.getResource().getId(), booking.getFloor().getId(),
+        BookingEntity b = new WorkstationBookingEntity(booking.getCreator().getId(), booking.getOrganizer().getId(), booking.getResource().getId(), booking.getFloor().getId(),
                 booking.constructStartDate(), booking.constructEndDate());
         b = bookingRepository.save(b);
         return b.getId();

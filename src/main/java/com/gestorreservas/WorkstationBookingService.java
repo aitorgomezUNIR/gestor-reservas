@@ -40,9 +40,14 @@ public class WorkstationBookingService {
         UserEntity userEntity = userRepository.findById(entity.getOrganizerId())
                 .orElseThrow(() -> new IllegalArgumentException("Unable to retrieve user with id " + entity.getOrganizerId()));
 
-        UserView organizer = new UserView(userEntity.getId(), userEntity.getName(), userEntity.getSurname(), userEntity.getEmail(), userEntity.getOrganizationId());
+        UserEntity creatorEntity = userRepository.findById(entity.getCreatorId())
+                .orElseThrow(() -> new IllegalArgumentException("Unable to retrieve user with id " + entity.getOrganizerId()));
 
-        WorkstationBookingView workstationBookingView = new WorkstationBookingView(bookingId, resourceView, entity.getStartDate(), entity.getEndDate(), organizer);
+
+        UserView organizer = new UserView(userEntity.getId(), userEntity.getName(), userEntity.getSurname(), userEntity.getEmail(), userEntity.getOrganizationId());
+        UserView creator = new UserView(creatorEntity.getId(), creatorEntity.getName(), creatorEntity.getSurname(), creatorEntity.getEmail(), creatorEntity.getOrganizationId());
+
+        WorkstationBookingView workstationBookingView = new WorkstationBookingView(bookingId, resourceView, entity.getStartDate(), entity.getEndDate(), creator, organizer);
         workstationBookingView.setCheckInDate(entity.getCheckInDate());
         workstationBookingView.setCheckOutDate(entity.getCheckOutDate());
         return workstationBookingView;

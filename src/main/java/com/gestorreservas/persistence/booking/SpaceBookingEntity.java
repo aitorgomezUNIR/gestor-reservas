@@ -22,8 +22,8 @@ public class SpaceBookingEntity extends BookingEntity {
     public SpaceBookingEntity() {
     }
 
-    public SpaceBookingEntity(String organizerId, String resourceId, String floorId, LocalDateTime startDate, LocalDateTime endDate) {
-        super(organizerId, resourceId, floorId, startDate, endDate);
+    public SpaceBookingEntity(String creatorId, String organizerId, String resourceId, String floorId, LocalDateTime startDate, LocalDateTime endDate) {
+        super(creatorId, organizerId, resourceId, floorId, startDate, endDate);
     }
 
     public String getSubject() {

@@ -18,6 +18,8 @@ public class NewSpaceBookingView {
 
     private ResourceViewLight resource;
 
+    private UserView creator;
+
     private UserView organizer;
 
     private LocalDate date;
@@ -40,7 +42,8 @@ public class NewSpaceBookingView {
     @Size(max = 255)
     private String description;
 
-    public NewSpaceBookingView(ResourceViewLight resource, LocalDate date, LocalTime startTime, LocalTime endTime, FloorView floor) {
+    public NewSpaceBookingView(UserView creator, ResourceViewLight resource, LocalDate date, LocalTime startTime, LocalTime endTime, FloorView floor) {
+        this.creator = creator;
         this.resource = resource;
         this.date = date;
         this.startTime = startTime;
