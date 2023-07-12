@@ -185,4 +185,8 @@ public class EditSpaceBean implements Serializable {
             log.error("Error redirecting to resources.xhtml");
         }
     }
+
+    public LocalDate getMinDate() {
+        return LocalDate.now();
+    }
 }

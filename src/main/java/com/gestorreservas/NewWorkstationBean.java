@@ -15,6 +15,7 @@ import com.gestorreservas.view.util.UserService;
 import java.io.IOException;
 import java.io.Serializable;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -152,6 +153,10 @@ public class NewWorkstationBean implements Serializable {
         } catch (IOException ex) {
             log.error("Error redirecting to search.xhtml");
         }
+    }
+
+    public LocalDate getMinDate() {
+        return LocalDate.now();
     }
 
 }

@@ -15,6 +15,7 @@ import com.gestorreservas.view.util.ResourceService;
 import java.io.IOException;
 import java.io.Serializable;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -161,5 +162,9 @@ public class NewSpaceBean implements Serializable {
     public void onItemSelect() {
         this.spaceBooking.addNewAttendee(new UserView(selectedUser.getId(), selectedUser.getName(), selectedUser.getSurname(), selectedUser.getEmail(), selectedUser.getOrganizationId()));
         this.selectedUser = null;
+    }
+
+    public LocalDate getMinDate() {
+        return LocalDate.now();
     }
 }

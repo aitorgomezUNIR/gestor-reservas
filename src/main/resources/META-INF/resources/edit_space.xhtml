@@ -68,6 +68,7 @@
                         <p:outputLabel value="Fecha"/>
                         <p:datePicker id="datePickerNewWorkstation" readonlyInput="true"
                                       value="#{editSpaceBean.date}"
+                                      mindate="#{editSpaceBean.minDate}"
                                       showTime="false"/>
 
                     </div>
@@ -158,6 +159,7 @@
 
 
             </div>
+            <h:outputStylesheet name="/new_space.css" library="css"/>
         </h:form>
 
         <h:form id="formConflictiveBookingsDialog">

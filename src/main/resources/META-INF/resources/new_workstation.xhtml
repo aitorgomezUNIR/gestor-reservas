@@ -6,7 +6,7 @@
                 template="/template.xhtml"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:pe="http://primefaces.org/ui/extensions">
-    
+
     <ui:define name="title">Reservas</ui:define>
 
     <ui:define name="viewname">
@@ -50,7 +50,7 @@
                                         placeholder="Buscar usuario"
                                         var="user" itemLabel="#{user.fullName}" itemValue="#{user}"
                                         converter="#{userConverter}" forceSelection="true">
-                            
+
                             <p:column>
                                 <h:outputText value="#{user.fullName}"/>
                             </p:column>
@@ -66,6 +66,7 @@
                         <p:outputLabel value="Fecha"/>
                         <p:datePicker id="datePickerNewWorkstation" readonlyInput="true"
                                       value="#{newWorkstationBean.workstationBooking.date}"
+                                      mindate="#{newWorkstationBean.minDate}"
                                       showTime="false"/>
 
                     </div>

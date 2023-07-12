@@ -158,4 +158,8 @@ public class EditWorkstationBean implements Serializable {
         }
     }
 
+    public LocalDate getMinDate() {
+        return LocalDate.now();
+    }
+
 }
