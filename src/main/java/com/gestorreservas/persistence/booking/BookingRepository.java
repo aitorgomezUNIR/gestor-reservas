@@ -15,7 +15,7 @@ public interface BookingRepository extends JpaRepository<BookingEntity, String> 
     @Query("FROM BookingEntity b WHERE b.floorId = :floorId AND (b.startDate BETWEEN :rangeStart AND :rangeEnd OR b.endDate between :rangeStart AND :rangeEnd OR (b.startDate <= :rangeStart AND b.endDate >= :rangeEnd))")
     List<BookingEntity> getFloorBookingsForRange(@Param("floorId") String floorId, @Param("rangeStart") LocalDateTime rangeStart, @Param("rangeEnd") LocalDateTime rangeEnd);
 
-    @Query("FROM BookingEntity b WHERE b.resourceId = :resourceId AND (b.startDate BETWEEN :rangeStart AND :rangeEnd OR b.endDate between :rangeEnd AND :rangeEnd OR (b.startDate <= :rangeStart AND b.endDate >= :rangeEnd))")
+    @Query("FROM BookingEntity b WHERE b.resourceId = :resourceId AND (b.startDate BETWEEN :rangeStart AND :rangeEnd OR b.endDate between :rangeStart AND :rangeEnd OR (b.startDate <= :rangeStart AND b.endDate >= :rangeEnd))")
     List<BookingEntity> getResourceBookingsForRange(@Param("resourceId") String resourceId, @Param("rangeStart") LocalDateTime rangeStart, @Param("rangeEnd") LocalDateTime rangeEnd);
 
     void deleteAllByIdIn(List<String> ids);
