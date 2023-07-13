@@ -61,7 +61,7 @@
                                       pattern="dd-MM-yyyy"
                                       mindate="#{resourceBean.minDate}"
                                       showTime="false">
-                            <p:ajax event="change" update="panelDateTimeMessage"/>
+                            <p:ajax event="change" update="panelDateTimeMessage panelDataTableResources" listener="#{resourceBean.onChangedDate()}"/>
                         </p:datePicker>
 
                     </div>
